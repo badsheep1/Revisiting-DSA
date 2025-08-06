@@ -1,7 +1,7 @@
 #include "List.h"
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <stdbool.h>
 // Defining Data Structures
 
 struct NodeObj{
@@ -11,7 +11,7 @@ struct NodeObj{
 };
 struct ListObj{
   int size;
-  static int index;
+  int index;
   Node cursor;
   Node front;
   Node back;
@@ -102,10 +102,10 @@ bool equals(List A, List B){
   }
 
   if(length(A) != length(B)){
-    return FALSE;
+    return ERROR;
   }
 
-  return TRUE;
+  return SUCCESS;
 
 }
 
@@ -156,7 +156,7 @@ void moveBack(List L){
     exit(EXIT_FAILURE);
   }
   
-  L->index = L->size - 1; // Sets the index to (n-1) end of the list.
+  L->index = L->size - 1; // Sets the index to (n-1) back of the list.
   L->cursor = L->back; 
 }
 
@@ -184,10 +184,10 @@ void movePrev(List L){
   }
 
   L->cursor = L->cursor->prev;
-  L->index
+  L->index--;
 }
  
-void prepend(List L, int x){
+void prepback(List L, int x){
 
   if(L == NULL){
     fprintf(stderr, "Error: List parameter is NULL.");
@@ -219,7 +219,7 @@ void prepend(List L, int x){
 
   }
 
-void append(List L, int x){
+void appback(List L, int x){
 
   if(L == NULL){
     fprintf(stderr, "Error: List parameter is NULL.");
@@ -240,9 +240,9 @@ void append(List L, int x){
   }
   else{
     newNode->next = NULL;
-    newNode->prev = L->end;
-    L->end->next = newNode;
-    L->end = newNode;
+    newNode->prev = L->back;
+    L->back->next = newNode;
+    L->back = newNode;
   }
   
   }
@@ -284,7 +284,7 @@ void deleteFront(List L){
   if(index(L) != UNDEFINED){ // If the cursor is undefined, do nothing, otherwise:
 
     if(index(L) == 0){ // Check if the cursor is pointed to the front of the list.
-      L->curosor = NULL; // Set the cursor to NULl and undefine it.
+      L->cursor = NULL; // Set the cursor to NULl and undefine it.
       L->index = UNDEFINED;
     }
     else{
@@ -313,7 +313,7 @@ void deleteBack(List L){
   free(tempCursor);
 
   if( index(L) != UNDEFINED && index(L) == (length(L) - 1)){
-    L->curosor = NULL; // Set the cursor to NULl and undefine it.
+    L->cursor = NULL; // Set the cursor to NULl and undefine it.
     L->index = UNDEFINED;
   }
 
