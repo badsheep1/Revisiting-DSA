@@ -275,14 +275,76 @@ void deleteFront(List L){
     exit(EXIT_FAILURE);
   }
   
-  Node tempCursor = L->front;
+  Node tempCursor = L->front; // Creates a temporary pointer to point at the front node.
 
   L->front = L->front->next;
   L->size--;
   free(tempCursor);
  
-  if(index(L) == 0){
+  if(index(L) != UNDEFINED){ // If the cursor is undefined, do nothing, otherwise:
+
+    if(index(L) == 0){ // Check if the cursor is pointed to the front of the list.
+      L->curosor = NULL; // Set the cursor to NULl and undefine it.
+      L->index = UNDEFINED;
+    }
+    else{
+      L->index--;
+    }
 
   }
+
 }
 
+void deleteBack(List L){
+  
+  if(L == NULL){
+    fprintf(stderr, "Error: List parameter is NULL.");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(L) == 0){
+    fprintf(stderr, "Error: List does not have a front to delete.");
+    exit(EXIT_FAILURE);
+  }
+  
+  Node tempCursor = L->back; // Creates a temporary pointer to point at the front node.
+  L->back = L->back->prev;
+  L->size--;
+  free(tempCursor);
+
+  if( index(L) != UNDEFINED && index(L) == (length(L) - 1)){
+    L->curosor = NULL; // Set the cursor to NULl and undefine it.
+    L->index = UNDEFINED;
+  }
+
+}
+
+void delete(List L){
+
+  if(L == NULL){
+    fprintf(stderr, "Error: List parameter is NULL.");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(L) == 0){
+    fprintf(stderr, "Error: List is empty.");
+    exit(EXIT_FAILURE);
+  }
+
+  if(index(L) == UNDEFINED){
+    fprintf(stderr, "Error: The cursor is undefined.");
+    exit(EXIT_FAILURE);
+  }
+  
+  if(index(L) == 0){
+    deleteFront(L);
+  }
+  else if(index(L) == length(L) - 1){
+    deleteBack(L);
+  }
+  else{
+    ;
+  }
+
+
+}
