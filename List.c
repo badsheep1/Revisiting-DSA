@@ -1,6 +1,6 @@
 #include "List.h"
 #include <stdlib.h>
-
+#include <stdio.h>
 
 // Defining Data Structures
 
@@ -28,7 +28,7 @@ List newList(void){
   
   infant->size = 0;
   infant->index = UNDEFINED;
-  infant->cursor = UNDEFINED;
+  infant->cursor = NULL;
   infant->cursor = infant->front = infant->back = NULL;
   return infant;
 }
@@ -117,8 +117,8 @@ void clear(List L){
     exit(EXIT_FAILURE);
   }
 
-  if(length(L) > 0){
-
+  while(length(L)){
+    deleteFront(L);
   }
 
 }
@@ -351,5 +351,13 @@ void delete(List L){
     L->size--;
   }
 
+}
+
+
+void printList(FILE* out, List L){
+  
+
+
 
 }
+
