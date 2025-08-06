@@ -343,7 +343,12 @@ void delete(List L){
     deleteBack(L);
   }
   else{
-    ;
+    L->cursor->prev->next = L->cursor->next;
+    L->cursor->next->prev = L->cursor->prev;
+    free(L->cursor);
+    L->cursor = NULL;
+    L->index = UNDEFINED;
+    L->size--;
   }
 
 
