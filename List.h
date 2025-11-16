@@ -6,7 +6,6 @@
 #define UNDEFINED -1
 
 // Data Structure Declarations
-typedef struct NodeObj* Node;
 typedef struct ListObj* List;
 
 // Constructors - Deconstructors
@@ -31,6 +30,7 @@ bool equals(List A, List B);
 // Manipulation procedures
 
 void clear(List L);
+
 void set(List L, int x);
 
 void moveFront(List L);
@@ -41,6 +41,7 @@ void movePrev(List L);
 
 
 void moveNext(List L);
+
 void prepend(List L, int x);
 
 void append(List L, int x);
@@ -50,7 +51,9 @@ void insertBefore(List L, int x);
 void insertAfter(List L, int x);
 
 void deleteFront(List L);
+
 void deleteBack(List L);
+
 void delete(List L);
 
 // Other operations

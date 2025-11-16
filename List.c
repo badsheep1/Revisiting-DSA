@@ -2,20 +2,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+
 // Defining Data Structures
 
-struct NodeObj{
+typedef struct NodeObj{
   int data;
   Node prev;
   Node next;
-};
-struct ListObj{
+} NodeObj;
+
+typedef struct ListObj{
   int size;
   int index;
   Node cursor;
   Node front;
   Node back;
-};
+} ListObj;
+
+// Typedef pointer to node.
+typedef NodeObj* Node;
 
 // Constructors and Deconstructors:
 
