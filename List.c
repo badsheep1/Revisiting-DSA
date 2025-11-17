@@ -263,7 +263,7 @@ void movePrev(List L){
 
 //Pre-Conditions: List Exists
 //Post-Conditions: New Node is created and inserted at the front. Size increments by one. If cursor is defined, index should be incremented.
-void prepback(List L, int x){
+void prepend(List L, int x){
   if(L == NULL){
     fprintf(stderr, "Error: List parameter is NULL in prepback().");
     exit(EXIT_FAILURE);
@@ -288,7 +288,7 @@ void prepback(List L, int x){
 
 //Pre-Conditions: List Exists.
 //Post-Conditions: New Node is created and inserted at the end. Size increments by one. Index remains constant.
-void appback(List L, int x){
+void append(List L, int x){
 
   if(L == NULL){
     fprintf(stderr, "Error: List parameter is NULL.");
@@ -437,11 +437,35 @@ void delete(List L){
 
 }
 
+//Other Operations
 
 void printList(FILE* out, List L){
-  
+;  
+}
 
+List copyList(List L){
+  if(L == NULL){
+    fprintf(stderr, "List parameter is not valid for copyList().");
+    exit(EXIT_FAILURE);
+  }
 
+  List cloneList = newList();
+
+  int indexMark = index(L);
+  moveFront(L);
+
+  while(index(L) < size(L)--){
+    append(cloneList, get(L));
+    moveNext(L);
+  }
+  cloneList->cursor = NULL;
+  cloneList->index = UNDEFINED;
+
+  moveFront(L);
+  while(index(L) < indexMark){
+    moveNext(L);
+  }
 
 }
+
 
