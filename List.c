@@ -16,6 +16,10 @@ typedef NodeObj* Node;
 
 Node newNode(int data){ 
   Node infant = malloc(sizeof(NodeObj));
+  if(infant == NULL){
+    fprintf(stderr, "Error: Memory allocation failed for newNode().");
+    exit(EXIT_FAILURE);
+  }
   infant->data = data;
   infant->prev = infant->next = NULL;
   return infant;
@@ -60,8 +64,14 @@ List newList(void){
 }
 
 void freeList(List *pL){
-  ;
+  if(pL* == NULL){
+    fprintf(stderr, "Error: Pointer is undefined in freeList().");
+    exit(EXIT_FAILURE);
+  }
+
+
 }
+
 
 // Access Functions
 // There are no Post-Conditions for Access Functions.
@@ -252,39 +262,32 @@ void movePrev(List L){
 }
 
 //Pre-Conditions: List Exists
-//Post-Conditions: New Node is created and inserted at the front. Size increments by one. If cursor is defined, it should increment.
+//Post-Conditions: New Node is created and inserted at the front. Size increments by one. If cursor is defined, index should be incremented.
 void prepback(List L, int x){
-
   if(L == NULL){
-    fprintf(stderr, "Error: List parameter is NULL.");
+    fprintf(stderr, "Error: List parameter is NULL in prepback().");
     exit(EXIT_FAILURE);
   }
 
-  Node newNode = malloc(sizeof(struct NodeObj));
-  if(newNode == NULL){
-    fprintf(stderr, "Error: Memory Allocation error for new Node.");
-    exit(EXIT_FAILURE);
-  }
-
-  newNode->data = x;
+  Node preNode = newNode(x);
 
   if(L->size == 0){
-    L->front = L->back = newNode;
-    newNode->prev = newNode->next = NULL;
+    L->front = L->back = preNode;
   }
   else{
-    newNode->prev = NULL;
-    newNode->next = L->front;
-    L->front->prev = newNode;
-    L->front = newNode;
+    preNode->next = L->front;
+    L->front->prev = preNode;
+    L->front = preNode;
   }
   
   if(L->index != UNDEFINED){
     L->index++;
   }
 
-  }
+}
 
+//Pre-Conditions: List Exists.
+//Post-Conditions: New Node is created and inserted at the end. Size increments by one. Index remains constant.
 void appback(List L, int x){
 
   if(L == NULL){
@@ -292,26 +295,18 @@ void appback(List L, int x){
     exit(EXIT_FAILURE);
   }
 
-  Node newNode = malloc(sizeof(struct NodeObj));
-  if(newNode == NULL){
-    fprintf(stderr, "Error: Memory Allocation error for new Node.");
-    exit(EXIT_FAILURE);
-  }
-
-  newNode->data = x;
-
+  Node appNode = newNode(x);
+  
   if(L->size == 0){
-    L->front = L->back = newNode;
-    newNode->prev = newNode->next = NULL;
+    L->front = L->back = appNode;
   }
   else{
-    newNode->next = NULL;
     newNode->prev = L->back;
     L->back->next = newNode;
     L->back = newNode;
   }
   
-  }
+}
 
 void insertBefore(List L, int x){
   if(L == NULL){
