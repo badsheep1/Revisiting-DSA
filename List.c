@@ -5,14 +5,30 @@
 
 // Defining Data Structures
 
+//Node Object
 typedef struct NodeObj{
   int data;
   Node prev;
   Node next;
 } NodeObj;
 
-// Typedef pointer to node.
 typedef NodeObj* Node;
+
+Node newNode(int data){ 
+  Node infant = malloc(sizeof(NodeObj));
+  infant->data = data;
+  infant->prev = infant->next = NULL;
+  return infant;
+}
+
+void freeNode(Node* pN){
+  if(pN != NULL && pN* != NULL){
+    free(pN*);
+    pN* = NULL;
+  }
+}
+
+//List Object
 
 typedef struct ListObj{
   int size;
@@ -234,7 +250,9 @@ void movePrev(List L){
   }
   
 }
- 
+
+//Pre-Conditions: List Exists
+//Post-Conditions: New Node is created and inserted at the front. Size increments by one. If cursor is defined, it should increment.
 void prepback(List L, int x){
 
   if(L == NULL){
