@@ -466,6 +466,11 @@ void printList(FILE* out, List L){
     moveNext(L);
   }
 
+  moveFront(L);
+  while(index(L) != placeHolder){
+    moveNext(L);
+  }
+
 }
 
 List copyList(List L){
