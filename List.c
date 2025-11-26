@@ -240,6 +240,10 @@ void moveNext(List L){
       L->cursor = L->cursor->next;
       L->index++;
     }
+    else{
+      L->cursor = NULL;
+      L->index = UNDEFINED;
+    }
   }
 
 }
@@ -256,6 +260,10 @@ void movePrev(List L){
     if(L->index != 0){
       L->cursor = L->cursor->prev;
       L->index--;
+    }
+    else{
+      L->cursor = NULL;
+      L->index = UNDEFINED;
     }
   }
   
@@ -440,7 +448,24 @@ void delete(List L){
 //Other Operations
 
 void printList(FILE* out, List L){
-;  
+  if(L == NULL){
+    fprintf(stderr, "Error: The list parameter is not valid for printList().");
+    return;
+  }
+
+  if(out == NULL){
+    fprintf(stderr, "Error: The file parameter is not valid for printList().");
+    return;
+  }
+
+  int placeHolder = index(L);
+  moveFront(L);
+
+  while(index(L) != UNDEFINED){
+    fprintf(out, "%d ", get(L));
+    moveNext(L);
+  }
+
 }
 
 List copyList(List L){
