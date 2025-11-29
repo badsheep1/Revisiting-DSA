@@ -475,7 +475,7 @@ void printList(FILE* out, List L){
 
 List copyList(List L){
   if(L == NULL){
-    printf("List parameter is not valid for copyList().");
+    printf("Error: List parameter is not valid for copyList().");
     return NULL;;
   }
 
