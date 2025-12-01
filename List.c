@@ -26,9 +26,9 @@ Node newNode(int data){
 }
 
 void freeNode(Node* pN){
-  if(pN != NULL && pN* != NULL){
-    free(pN*);
-    pN* = NULL;
+  if(pN != NULL && *pN != NULL){
+    free(*pN);
+    *pN = NULL;
   }
 }
 
@@ -64,7 +64,7 @@ List newList(void){
 }
 
 void freeList(List *pL){
-  if(pL* == NULL){
+  if(*pL == NULL){
     printf("Error: Pointer is undefined in freeList().");
     return NULL;
   }
