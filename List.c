@@ -8,8 +8,8 @@
 //Node Object
 typedef struct NodeObj{
   int data;
-  Node prev;
-  Node next;
+  struct NodeObj* prev;
+  struct NodeObj* next;
 } NodeObj;
 
 typedef NodeObj* Node;
