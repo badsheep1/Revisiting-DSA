@@ -64,11 +64,11 @@ List newList(void){
 }
 
 void freeList(List *pL){
-  if(*pL == NULL){
-    printf("Error: Pointer is undefined in freeList().");
-    return NULL;
-  }
 
+  if(pL != NULL && *pL != NULL){
+    free(*pL);
+    *pL = NULL;
+  }
 
 }
 
@@ -82,7 +82,7 @@ int length(List L){
   
   if(L == NULL){
     printf("Error: List parameter is NULL.");
-    return NULL;
+    return ERROR;
   }
 
   return L->size;
@@ -94,7 +94,7 @@ int index(List L){
 
   if(L == NULL){
     printf("Error: List parameter is NULL.");
-    return NULL;
+    return ERROR;
   }
 
   return L->index;
@@ -106,7 +106,7 @@ int front(List L){
 
   if(L == NULL){
     printf("Error: List parameter is NULL.");
-    return NULL;
+    return ERROR;
   }
   
   return L->front->data;
@@ -118,7 +118,7 @@ int back(List L){
 
   if(L == NULL){
     printf("Error: List parameter is NULL.");
-    return NULL;
+    return ERROR;
   }
 
   return L->back->data;
@@ -130,12 +130,12 @@ int get(List L){
   
   if(L == NULL){
     printf("Error: List parameter is NULL.");
-    return NULL;
+    return ERROR;
   }
 
   if(L->cursor == NULL){
     printf("Error: List cursor is undefined.");
-    return NULL;
+    return ERROR;
   }
 
   return L->cursor->data;
@@ -148,7 +148,7 @@ bool equals(List A, List B){
   
   if(A == NULL || B == NULL){
     printf("Error: List parameter is NULL.");
-    return NULL;
+    return ERROR;
   }
 
   if(length(A) != length(B)){
@@ -181,12 +181,12 @@ void set(List L, int x){
   
   if(L == NULL){
     printf("Error: List parameter is NULL.");
-    return NULL;
+    return;
   }
   
   if(L->cursor == NULL){
     printf("Error: List Cursor is undefined.");
-    return NULL;
+    return;
   }
 
   L->cursor->data = x;
@@ -390,12 +390,12 @@ void deleteBack(List L){
   
   if(L == NULL){
     printf("Error: List parameter is NULL for deleteBack().");
-    return NULL;
+    return; 
   }
 
   if(length(L) == 0){
     printf("Error: Empty List for deleteBack().");
-    return NULL;
+    return; 
   }
   
   Node tempCursor = L->back; // Creates a temporary pointer to point at the front node.
