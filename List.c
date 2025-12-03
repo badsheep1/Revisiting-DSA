@@ -17,12 +17,12 @@ typedef NodeObj* Node;
 Node newNode(int data){ 
   Node infant = malloc(sizeof(NodeObj));
   if(infant == NULL){
-    fprintf("Error: Memory allocation failed for newNode().");
+    fprintf("List Error: Memory allocation failed for newNode().\n");
     exit(EXIT_FAILURE);
   }
   infant->data = data;
   infant->prev = infant->next = NULL;
-  exit(EXIT_FAILURE) infant;
+  return infant;
 }
 
 void freeNode(Node* pN){
@@ -52,7 +52,7 @@ typedef struct ListObj{
 List newList(void){
   List infant = malloc(sizeof(struct ListObj));
   if(infant == NULL){
-    fprintf("Error: Memory Allocation failed in newList().");
+    fprintf("List Error: Memory Allocation failed in newList().\n");
     exit(EXIT_FAILURE);
   }
   
@@ -81,8 +81,8 @@ void freeList(List *pL){
 int length(List L){ 
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
-    exit(EXIT_FAILURE) ERROR;
+    fprintf("List Error: List parameter is NULL for length().\n");
+    exit(EXIT_FAILURE);
   }
 
   return L->size;
@@ -93,8 +93,8 @@ int length(List L){
 int index(List L){
 
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
-    exit(EXIT_FAILURE) ERROR;
+    fprintf("List Error: List parameter is NULL for index().\n");
+    exit(EXIT_FAILURE);
   }
 
   return L->index;
@@ -105,8 +105,8 @@ int index(List L){
 int front(List L){
 
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
-    exit(EXIT_FAILURE) ERROR;
+    fprintf("List Error: List parameter is NULL for front().\n");
+    exit(EXIT_FAILURE); 
   }
   
   return L->front->data;
@@ -117,11 +117,11 @@ int front(List L){
 int back(List L){
 
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
-    exit(EXIT_FAILURE) ERROR;
+    fprintf("List Error: List parameter is NULL for back().\n");
+    exit(EXIT_FAILURE); 
   }
 
-  exit(EXIT_FAILURE) L->back->data;
+  return L->back->data;
 }
 
 //  get(List L)
@@ -129,13 +129,13 @@ int back(List L){
 int get(List L){
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
-    exit(EXIT_FAILURE) ERROR;
+    fprintf("List Error: List parameter is NULL for get().\n");
+    exit(EXIT_FAILURE);
   }
 
   if(L->cursor == NULL){
-    fprintf("Error: List cursor is undefined.");
-    exit(EXIT_FAILURE) ERROR;
+    fprintf("List Error: List cursor is undefined for get().\n");
+    exit(EXIT_FAILURE);
   }
 
   return L->cursor->data;
@@ -147,25 +147,25 @@ int get(List L){
 bool equals(List A, List B){
   
   if(A == NULL || B == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Eeror: List parameter is NULL for equals().\n");
     exit(EXIT_FAILURE);
   }
 
   if(length(A) != length(B)){
-    return ERROR; 
+    return false; 
   }
 
-  return SUCCESS;
+  return true;
 
 }
 
-//Manipulation Procedures
+//manipulation procedures
 //Pre-Conditions: List Exists.
 //Post-Conditions: Removes all nodes from the list.
 void clear(List L){
     
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Error: List parameter is NULL for clear().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -180,12 +180,12 @@ void clear(List L){
 void set(List L, int x){
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Error: List parameter is NULL for set().\n");
     exit(EXIT_FAILURE);
   }
   
   if(L->cursor == NULL){
-    fprintf("Error: List Cursor is undefined.");
+    fprintf("List Error: List Cursor is undefined for set().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -198,7 +198,7 @@ void set(List L, int x){
 void moveFront(List L){
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Error: List parameter is NULL for moveFront().\n");
     exit(EXIT_FAILURE);
   }
  
@@ -215,7 +215,7 @@ void moveFront(List L){
 void moveBack(List L){
 
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Error: List parameter is NULL for moveBack().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -231,7 +231,7 @@ void moveBack(List L){
 void moveNext(List L){
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Error: List parameter is NULL for moveNext().\n");
     exit(EXIT_FAILURE);
   }
   
@@ -253,7 +253,7 @@ void moveNext(List L){
 void movePrev(List L){
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Error: List parameter is NULL for movePrev().\n");
     exit(EXIT_FAILURE);
   }
   if(L->cursor != NULL){
@@ -273,7 +273,7 @@ void movePrev(List L){
 //Post-Conditions: New Node is created and inserted at the front. Size increments by one. If cursor is defined, index should be incremented.
 void prepend(List L, int x){
   if(L == NULL){
-    fprintf("Error: List parameter is NULL in prepback().");
+    fprintf("List Error: List parameter is NULL in prepend().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -299,7 +299,7 @@ void prepend(List L, int x){
 void append(List L, int x){
 
   if(L == NULL){
-    fprintf("Error: List parameter is NULL.");
+    fprintf("List Error: List parameter is NULL for append().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -318,12 +318,12 @@ void append(List L, int x){
 
 void insertBefore(List L, int x){
   if(L == NULL){
-    fprintf("Error: List parameter is NULL for insertBefore().");
+    fprintf("List Error: List parameter is NULL for insertBefore().\n");
     exit(EXIT_FAILURE);
   }
 
   if(length(L) == 0){
-    fprintf("Error: Cursor is undefined for insertBefore().");
+    fprintf("List Error: Cursor is undefined for insertBefore().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -338,12 +338,12 @@ void insertBefore(List L, int x){
 
 void insertAfter(List L, int x){
   if(L == NULL){
-    fprintf("Error: List parameter is NULL for insertAfter().");
+    fprintf("List Error: List parameter is NULL for insertAfter().\n");
     exit(EXIT_FAILURE);
   }
 
   if(length(L) == 0){
-    fprintf("Error: Cursor is undefined for insertAfter().");
+    fprintf("List Error: Cursor is undefined for insertAfter().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -357,12 +357,12 @@ void insertAfter(List L, int x){
 void deleteFront(List L){
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL for deleteFront().");
+    fprintf("List Error: List parameter is NULL for deleteFront().\n");
     exit(EXIT_FAILURE);
   }
 
   if(length(L) == 0){
-    fprintf("Error: List is empty for deleteFront().");
+    fprintf("List Error: List is empty for deleteFront().\n");
     exit(EXIT_FAILURE);
   }
   
@@ -389,12 +389,12 @@ void deleteFront(List L){
 void deleteBack(List L){
   
   if(L == NULL){
-    fprintf("Error: List parameter is NULL for deleteBack().");
+    fprintf("List Error: List parameter is NULL for deleteBack().\n");
     exit(EXIT_FAILURE); 
   }
 
   if(length(L) == 0){
-    fprintf("Error: Empty List for deleteBack().");
+    fprintf("List Error: Empty List for deleteBack().\n");
     exit(EXIT_FAILURE); 
   }
   
@@ -413,17 +413,17 @@ void deleteBack(List L){
 void delete(List L){
 
   if(L == NULL){
-    fprintf("Error: List parameter is NULL for delete().");
+    fprintf("List Error: List parameter is NULL for delete().\n");
     exit(EXIT_FAILURE);
   }
 
   if(length(L) == 0){
-    fprintf("Error: Empty List for delete().");
+    fprintf("List Error: Empty List for delete().\n");
     exit(EXIT_FAILURE);
   }
 
   if(index(L) == UNDEFINED){
-    fprintf("Error: The cursor is undefined for delete().");
+    fprintf("List Error: The cursor is undefined for delete().\n");
     exit(EXIT_FAILURE);
   }
   
@@ -449,12 +449,12 @@ void delete(List L){
 
 void printList(FILE* out, List L){
   if(L == NULL){
-    fprintf("Error: The list parameter is not valid for printList().");
+    fprintf("List Error: The list parameter is not valid for printList().\n");
     exit(EXIT_FAILURE);
   }
 
   if(out == NULL){
-    fprintf("Error: The file parameter is not valid for printList().");
+    fprintf("List Error: The file parameter is not valid for printList().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -475,11 +475,11 @@ void printList(FILE* out, List L){
 
 List copyList(List L){
   if(L == NULL){
-    fprintf("Error: List parameter is not valid for copyList().");
+    fprintf("List Error: List parameter is not valid for copyList().\n");
     exit(EXIT_FAILURE);
   }
 
-  List cloneList = newList();
+  List cloneList = newList();\n
 
   int indexMark = index(L);
   moveFront(L);
