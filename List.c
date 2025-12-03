@@ -236,7 +236,7 @@ void moveNext(List L){
   }
   
   if(L->cursor != NULL){
-    if(L->index != length(L)--){
+    if(L->index != length(L) - 1){
       L->cursor = L->cursor->next;
       L->index++;
     }
@@ -309,9 +309,9 @@ void append(List L, int x){
     L->front = L->back = appNode;
   }
   else{
-    newNode->prev = L->back;
-    L->back->next = newNode;
-    L->back = newNode;
+    appNode->prev = L->back;
+    L->back->next = appNode;
+    L->back = appNode;
   }
   
 }
@@ -462,7 +462,7 @@ void printList(FILE* out, List L){
   moveFront(L);
 
   while(index(L) != UNDEFINED){
-    ffprintf(out, "%d ", get(L));
+    fprintf(out, "%d ", get(L));
     moveNext(L);
   }
 
@@ -479,12 +479,12 @@ List copyList(List L){
     exit(EXIT_FAILURE);
   }
 
-  List cloneList = newList();\n
+  List cloneList = newList();
 
   int indexMark = index(L);
   moveFront(L);
 
-  while(index(L) < size(L)--){
+  while(index(L) < length(L) - 1){
     append(cloneList, get(L));
     moveNext(L);
   }
@@ -496,6 +496,7 @@ List copyList(List L){
     moveNext(L);
   }
 
+  return cloneList;
 }
 
 
