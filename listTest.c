@@ -11,22 +11,13 @@ int main(){
        
   // Test case for the initialization conditions:
   
-  assert(testList != NULL);
+  assert(testList != NULL && "newList() failed to create a List instance. \n");
 
-  if(length(testList) == 0){
-    printf("New List is correctly empty.\n");
-  }
-  else{
-    printf("New List is not empty.\n");
-  }
+  assert(length(testList) == 0 && "newList() did not initialize list size to 0. \n");
 
-  if(index(testList) == UNDEFINED){
-    printf("New List's cursor is correctly undefined.\n");
-  }
-  else{
-    printf("New List's cursor is incorrectly defined.\n");
-  }
-
+  assert(index(testList) == UNDEFINED && "newList() failed to set cursor to UNDEFINED. \n");
   
+  printf("All newList() tests passed.\n");
+
   return 0;
 }
