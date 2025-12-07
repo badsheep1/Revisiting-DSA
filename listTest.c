@@ -19,5 +19,39 @@ int main(){
   
   printf("All newList() tests passed.\n");
 
+  freeList(&testList);
+
+  assert(testList == NULL);
+
+  printf("All freeList() tests passed. \n");
+
+  List accessList = newList();
+  
+  prepend(accessList, 6);
+
+  assert(front(accessList) == 6);
+ 
+  prepend(accessList, 3);
+  prepend(accessList, 66);
+  prepend(accessList, 67);
+  prepend(accessList, 69);
+  prepend(accessList, 32);
+
+
+  assert(back(accessList) == 6);
+
+  moveFront(accessList);
+  assert(index(accessList) == 0);
+  
+  moveNext(accessList);
+
+  assert(index(accessList) == 1 && get(accessList) == 69);
+
+  moveNext(accessList);
+
+  assert(index(accessList) == 2 && get(accessList) == 67);
+
+  printf("All access function tests passed. \n");
+
   return 0;
 }

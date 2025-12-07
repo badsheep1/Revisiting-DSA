@@ -292,6 +292,7 @@ void prepend(List L, int x){
     L->index++;
   }
 
+  L->size++;
 }
 
 //Pre-Conditions: List Exists.
@@ -313,7 +314,8 @@ void append(List L, int x){
     L->back->next = appNode;
     L->back = appNode;
   }
-  
+ 
+  L->size++;
 }
 
 void insertBefore(List L, int x){
