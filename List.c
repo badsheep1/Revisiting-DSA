@@ -42,6 +42,18 @@ typedef struct ListObj{
   Node back;
 } ListObj;
 
+
+//Helper Functions
+
+void setCursor(List L, int index){
+
+  moveFront(L);
+  while(L->index != index){
+    moveNext(L);
+  }
+
+}
+
 // Constructors and Deconstructors:
 
 
@@ -147,13 +159,31 @@ int get(List L){
 bool equals(List A, List B){
   
   if(A == NULL || B == NULL){
-    fprintf(stderr, "List Eeror: List parameter is NULL for equals().\n");
+    fprintf(stderr, "List Error: List parameter is NULL for equals().\n");
     exit(EXIT_FAILURE);
   }
 
   if(length(A) != length(B)){
     return false; 
   }
+
+  int indexA, indexB;
+  indexA = index(A);
+  indexB = index(B);
+  
+  moveFront(A);
+  moveFront(B);
+
+  while(index(A) != UNDEFINED){
+    if(get(A) != get(B)){
+      return false;
+    }
+    moveNext(A);
+    moveNext(B);
+  }
+
+  setCursor(A, indexA);
+  setCursor(B, indexB);
 
   return true;
 

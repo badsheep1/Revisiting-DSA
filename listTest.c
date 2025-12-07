@@ -11,11 +11,11 @@ int main(){
        
   // Test case for the initialization conditions:
   
-  assert(testList != NULL && "newList() failed to create a List instance. \n");
+  assert(testList != NULL); 
 
-  assert(length(testList) == 0 && "newList() did not initialize list size to 0. \n");
+  assert(length(testList) == 0);
 
-  assert(index(testList) == UNDEFINED && "newList() failed to set cursor to UNDEFINED. \n");
+  assert(index(testList) == UNDEFINED);
   
   printf("All newList() tests passed.\n");
 
@@ -62,6 +62,16 @@ int main(){
   movePrev(accessList);
 
   assert(index(accessList) == 3 && get(accessList) == 66);
+
+  List accessList2 = newList();
+
+  append(accessList2, 32);
+  append(accessList2, 69);
+  append(accessList2, 67);
+  append(accessList2, 66);
+  append(accessList2, 3);
+  append(accessList2, 6);
+  assert(equals(accessList, accessList2));
 
   printf("All access function tests passed. \n");
 
