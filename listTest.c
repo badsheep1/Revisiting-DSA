@@ -51,6 +51,18 @@ int main(){
 
   assert(index(accessList) == 2 && get(accessList) == 67);
 
+  moveBack(accessList);
+
+  assert(index(accessList) == 5 && get(accessList) == 6);
+
+  movePrev(accessList);
+
+  assert(index(accessList) == 4 && get(accessList) == 3);
+
+  movePrev(accessList);
+
+  assert(index(accessList) == 3 && get(accessList) == 66);
+
   printf("All access function tests passed. \n");
 
   return 0;
