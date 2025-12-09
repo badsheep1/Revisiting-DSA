@@ -25,55 +25,135 @@ int main(){
 
   printf("All freeList() tests passed. \n");
 
-  List accessList = newList();
+  List accesslist = newList();
   
-  prepend(accessList, 6);
+  prepend(accesslist, 6);
 
-  assert(front(accessList) == 6);
+  assert(front(accesslist) == 6);
  
-  prepend(accessList, 3);
-  prepend(accessList, 66);
-  prepend(accessList, 67);
-  prepend(accessList, 69);
-  prepend(accessList, 32);
+  prepend(accesslist, 3);
+  prepend(accesslist, 66);
+  prepend(accesslist, 67);
+  prepend(accesslist, 69);
+  prepend(accesslist, 32);
 
 
-  assert(back(accessList) == 6);
+  assert(back(accesslist) == 6);
 
-  moveFront(accessList);
-  assert(index(accessList) == 0);
+  moveFront(accesslist);
+  assert(index(accesslist) == 0);
   
-  moveNext(accessList);
+  moveNext(accesslist);
 
-  assert(index(accessList) == 1 && get(accessList) == 69);
+  assert(index(accesslist) == 1 && get(accesslist) == 69);
 
-  moveNext(accessList);
+  moveNext(accesslist);
 
-  assert(index(accessList) == 2 && get(accessList) == 67);
+  assert(index(accesslist) == 2 && get(accesslist) == 67);
 
-  moveBack(accessList);
+  moveBack(accesslist);
 
-  assert(index(accessList) == 5 && get(accessList) == 6);
+  assert(index(accesslist) == 5 && get(accesslist) == 6);
 
-  movePrev(accessList);
+  movePrev(accesslist);
 
-  assert(index(accessList) == 4 && get(accessList) == 3);
+  assert(index(accesslist) == 4 && get(accesslist) == 3);
 
-  movePrev(accessList);
+  movePrev(accesslist);
 
-  assert(index(accessList) == 3 && get(accessList) == 66);
+  assert(index(accesslist) == 3 && get(accesslist) == 66);
 
-  List accessList2 = newList();
+  List accesslist2 = newList();
 
-  append(accessList2, 32);
-  append(accessList2, 69);
-  append(accessList2, 67);
-  append(accessList2, 66);
-  append(accessList2, 3);
-  append(accessList2, 6);
-  assert(equals(accessList, accessList2));
+  append(accesslist2, 32);
+  append(accesslist2, 69);
+  append(accesslist2, 67);
+  append(accesslist2, 66);
+  append(accesslist2, 3);
+  append(accesslist2, 6);
 
-  printf("All access function tests passed. \n");
+  int index1, index2;
+  index1 = index(accesslist);
+  index2 = index(accesslist2);
 
+  assert(equals(accesslist, accesslist2));
+
+  assert(index1 == index(accesslist) && index2 == index(accesslist2));
+
+  printf("all access function tests passed. \n");
+
+  clear(accesslist);
+  clear(accesslist2);
+
+  assert(length(accesslist) == 0 && index(accesslist) == UNDEFINED);
+
+  assert(length(accesslist2) == 0 && index(accesslist2) == UNDEFINED);
+  
+  freeList(&accesslist);
+  freeList(&accesslist2);
+
+  assert(accesslist == NULL && accesslist2 == NULL);
+
+  List manipulationlist = newList();
+
+  for(int i = 0; i < 10; i++){
+    append(manipulationlist, i);
+  }
+
+  assert(length(manipulationlist) == 10);
+
+  moveFront(manipulationlist);
+
+  for(int i = 0; i < 10; i++){
+    assert(get(manipulationlist) == i); 
+    assert(index(manipulationlist) == i);
+    moveNext(manipulationlist);
+  }
+
+  moveBack(manipulationlist);
+  
+  for(int i = 9; i == 0; i--){
+    assert(get(manipulationlist) == i);
+    assert(index(manipulationlist) == i);
+    movePrev(manipulationlist);
+  }
+
+  moveFront(manipulationlist);
+  moveNext(manipulationlist);
+  moveNext(manipulationlist);
+
+  set(manipulationlist, 100);
+  moveNext(manipulationlist); 
+  moveNext(manipulationlist);
+  set(manipulationlist, 99);
+
+moveFront(manipulationlist);
+
+  for(int i = 0; i < 10; i++){
+    if(i == 2){
+      assert(get(manipulationlist) == 100);
+    }
+    else if(i == 4){
+      assert(get(manipulationlist) == 99);
+    }
+    else{
+      assert(get(manipulationlist) == i);
+    }
+    moveNext(manipulationlist);
+  }
+
+  moveBack(manipulationlist);
+
+  insertBefore(manipulationlist, 0);
+
+  assert(length(manipulationlist) == 11);
+
+  movePrev(manipulationlist);
+
+  assert(get(manipulationlist) == 0);
+
+  movePrev(manipulationlist);
+
+  assert(get(manipulationlist) == 8);
   return 0;
 }

@@ -363,7 +363,8 @@ void insertBefore(List L, int x){
   nodeLink->prev = L->cursor->prev;
   nodeLink->next = L->cursor;
   L->cursor->prev = nodeLink;
-  
+ 
+  L->size++;
   L->index++;
   
 }
@@ -384,6 +385,7 @@ void insertAfter(List L, int x){
   nodeLink->next = L->cursor->next;
   L->cursor->next = nodeLink;
    
+  L->size++;
 }
 
 void deleteFront(List L){
