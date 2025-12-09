@@ -146,6 +146,8 @@ moveFront(manipulationlist);
 
   insertBefore(manipulationlist, 0);
 
+  assert(index(manipulationlist) == 10);
+
   assert(length(manipulationlist) == 11);
 
   movePrev(manipulationlist);
@@ -155,5 +157,20 @@ moveFront(manipulationlist);
   movePrev(manipulationlist);
 
   assert(get(manipulationlist) == 8);
+
+  moveFront(manipulationlist);
+  
+  insertAfter(manipulationlist, 55);
+
+  assert(index(manipulationlist) == 0);
+
+  moveNext(manipulationlist);
+  assert(get(manipulationlist) == 55);
+
+  moveNext(manipulationlist);
+
+  assert(get(manipulationlist) == 1);
+
+
   return 0;
 }
