@@ -404,10 +404,12 @@ void deleteFront(List L){
   
   Node tempCursor = L->front; // Creates a temporary pointer to point at the front node.
 
-
-  L->front = L->front->next;
-  L->front = NULL;
-  
+  if(L->size > 1){
+    L->front = L->front->next;
+  }
+  else{
+    L->front = NULL;
+  } 
   
   L->size--;
   freeNode(&tempCursor);
