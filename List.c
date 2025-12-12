@@ -362,6 +362,7 @@ void insertBefore(List L, int x){
   Node nodeLink = newNode(x);
   nodeLink->prev = L->cursor->prev;
   nodeLink->next = L->cursor;
+  L->cursor->prev->next = nodeLink;
   L->cursor->prev = nodeLink;
  
   L->size++;
@@ -383,6 +384,7 @@ void insertAfter(List L, int x){
   Node nodeLink = newNode(x);
   nodeLink->prev = L->cursor;
   nodeLink->next = L->cursor->next;
+  L->cursor->next->prev = nodeLink;
   L->cursor->next = nodeLink;
    
   L->size++;
@@ -402,10 +404,14 @@ void deleteFront(List L){
   
   Node tempCursor = L->front; // Creates a temporary pointer to point at the front node.
 
+
   L->front = L->front->next;
+  L->front = NULL;
+  
+  
   L->size--;
   freeNode(&tempCursor);
- 
+
   if(index(L) != UNDEFINED){ // If the cursor is undefined, do nothing, otherwise:
 
     if(index(L) == 0){ // Check if the cursor is pointed to the front of the list.

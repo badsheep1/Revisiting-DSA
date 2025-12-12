@@ -171,6 +171,56 @@ moveFront(manipulationlist);
 
   assert(get(manipulationlist) == 1);
 
+  List anotherList = newList();
 
+  append(anotherList, 1);
+  append(anotherList, 79);
+  
+  moveFront(anotherList);
+  insertAfter(anotherList, 412);
+ 
+  clear(manipulationlist);
+
+  assert(index(manipulationlist) == UNDEFINED && length(manipulationlist) == 0);
+
+  for(int i = 1; i <= 10; i++){
+    append(manipulationlist, i);
+  }
+
+  moveFront(manipulationlist);
+
+  assert(get(manipulationlist) == 1);
+  moveNext(manipulationlist);
+  assert(get(manipulationlist) == 2);
+  moveNext(manipulationlist);
+  assert(get(manipulationlist) == 3);
+
+  delete(manipulationlist);
+
+  assert(index(manipulationlist) == UNDEFINED && length(manipulationlist) == 9);
+
+  moveFront(manipulationlist);
+
+  moveNext(manipulationlist);
+  moveNext(manipulationlist);
+
+  assert(get(manipulationlist) == 4);
+
+  assert(index(manipulationlist) == 2);
+
+  // deleteFront(manipulationlist);
+  //
+  // assert(index(manipulationlist) == 1);
+  //
+  // moveFront(manipulationlist);
+  //
+  // assert(get(manipulationlist) == 2);
+  //
+  
+
+
+  printf("All manipulation function tests have passed.\n");
+
+  
   return 0;
 }
