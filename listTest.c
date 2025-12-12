@@ -225,7 +225,25 @@ moveFront(manipulationlist);
 
   assert(length(manipulationlist) == 7);
   
+  clear(manipulationlist);
 
+  append(manipulationlist, 1);
+
+  deleteBack(manipulationlist);
+
+  assert(length(manipulationlist) == 0);
+
+  append(manipulationlist, 5);
+
+  append(manipulationlist, 10);
+
+  assert(back(manipulationlist) == 10);
+
+  deleteBack(manipulationlist);
+
+  assert(length(manipulationlist) == 1);
+
+  assert(back(manipulationlist) == 5 && front(manipulationlist) == 5);
 
   printf("All manipulation function tests have passed.\n");
 
