@@ -207,15 +207,23 @@ moveFront(manipulationlist);
   assert(get(manipulationlist) == 4);
 
   assert(index(manipulationlist) == 2);
+  deleteFront(manipulationlist);
 
-  // deleteFront(manipulationlist);
-  //
-  // assert(index(manipulationlist) == 1);
-  //
-  // moveFront(manipulationlist);
-  //
-  // assert(get(manipulationlist) == 2);
-  //
+  assert(index(manipulationlist) == 1);
+
+  moveFront(manipulationlist);
+
+  assert(get(manipulationlist) == 2);
+
+  assert(length(manipulationlist) == 8);
+
+  moveFront(manipulationlist);
+
+  deleteFront(manipulationlist);
+
+  assert(index(manipulationlist) == UNDEFINED);
+
+  assert(length(manipulationlist) == 7);
   
 
 
