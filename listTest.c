@@ -245,6 +245,63 @@ moveFront(manipulationlist);
 
   assert(back(manipulationlist) == 5 && front(manipulationlist) == 5);
 
+
+  printf("Testing Delete(). \n");
+
+  clear(manipulationlist);
+
+  for(int i = 0; i < 10; i++){
+    append(manipulationlist, i);
+  }
+
+  moveFront(manipulationlist);
+ 
+  moveNext(manipulationlist);
+  moveNext(manipulationlist);
+
+  delete(manipulationlist);
+
+  assert(index(manipulationlist) == UNDEFINED);
+
+  assert(length(manipulationlist) == 9);
+
+  moveFront(manipulationlist);
+  moveNext(manipulationlist);
+
+  assert(get(manipulationlist) == 1);
+
+  moveNext(manipulationlist);
+
+  assert(get(manipulationlist) == 3);
+
+  assert(index(manipulationlist) == 2);
+
+  moveFront(manipulationlist);
+
+  delete(manipulationlist);
+
+  assert(index(manipulationlist) == UNDEFINED);
+
+  moveFront(manipulationlist);
+
+  assert(get(manipulationlist) == 1);
+
+  assert(length(manipulationlist) == 8);
+
+  moveBack(manipulationlist);
+
+  delete(manipulationlist);
+
+  moveBack(manipulationlist);
+
+  assert(get(manipulationlist) == 8);
+
+  assert(index(manipulationlist) == 6);
+
+  assert(length(manipulationlist) == 7);
+  
+  
+
   printf("All manipulation function tests have passed.\n");
 
   
