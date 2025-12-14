@@ -9,26 +9,7 @@
 typedef struct NodeObj{
   int data;
   struct NodeObj* prev;
-  struct NodeObj* next;
-} NodeObj;
-
-typedef NodeObj* Node;
-
-Node newNode(int data){ 
-  Node infant = malloc(sizeof(NodeObj));
-  if(infant == NULL){
-    fprintf(stderr, "List Error: Memory allocation failed for newNode().\n");
-    exit(EXIT_FAILURE);
-  }
-  infant->data = data;
-  infant->prev = infant->next = NULL;
-  return infant;
-}
-
-void freeNode(Node* pN){
-  if(pN != NULL && *pN != NULL){
-    free(*pN);
-    *pN = NULL;
+  struct NodeObj* next; } NodeObj; typedef NodeObj* Node; Node newNode(int data){ Node infant = malloc(sizeof(NodeObj)); if(infant == NULL){ fprintf(stderr, "List Error: Memory allocation failed for newNode().\n"); exit(EXIT_FAILURE); } infant->data = data; infant->prev = infant->next = NULL; return infant; } void freeNode(Node* pN){ if(pN != NULL && *pN != NULL){ free(*pN); *pN = NULL;
   }
 }
 
@@ -526,7 +507,7 @@ List copyList(List L){
   int indexMark = index(L);
   moveFront(L);
 
-  while(index(L) < length(L) - 1){
+  while(index(L) != UNDEFINED){
     append(cloneList, get(L));
     moveNext(L);
   }

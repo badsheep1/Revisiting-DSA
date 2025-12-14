@@ -299,8 +299,44 @@ moveFront(manipulationlist);
   assert(index(manipulationlist) == 6);
 
   assert(length(manipulationlist) == 7);
+ 
+  clear(manipulationlist);
+
+  freeList(&manipulationlist);
+
+  printf("Testing Other Functions. \n");
+
+  List modelList = newList();
+
+  for(int i = 0; i < 10; i++){
+    append(modelList, i * i);
+  }
+
+  moveBack(modelList);
+
+  movePrev(modelList);
+
+  movePrev(modelList);
+
+  movePrev(modelList);
+
+  List cloneList = copyList(modelList);
   
-  
+  assert(length(modelList) == length(cloneList));
+
+  moveFront(modelList);
+  moveFront(cloneList);
+
+  while(index(modelList) != UNDEFINED){
+    assert(get(modelList) == get(cloneList));
+
+    moveNext(modelList);
+    moveNext(cloneList);
+  }
+
+  FILE *writeout = fopen("writeout.txt", "w");
+
+  printList(writeout, modelList);
 
   printf("All manipulation function tests have passed.\n");
 
