@@ -334,9 +334,19 @@ moveFront(manipulationlist);
     moveNext(cloneList);
   }
 
-  FILE *writeout = fopen("writeout.txt", "w");
+  FILE* writeout = fopen("writeout.txt", "w");
 
   printList(writeout, modelList);
+
+  fclose(writeout);
+
+  clear(modelList);
+  clear(cloneList);
+
+  freeList(modelList);
+  freeList(cloneList);
+
+
 
   printf("All manipulation function tests have passed.\n");
 
