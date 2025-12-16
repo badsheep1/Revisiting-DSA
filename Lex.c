@@ -16,9 +16,22 @@ int main(int argc, char *argv[]){
   FILE* outputFile = fopen(argv[2], "w");
 
   int n = 0;
-  char * stringBuffer = malloc(MAX_LENGTH * sizeof(char));
+  char* stringBuffer = malloc(MAX_LENGTH * sizeof(char));
+  char** stringArray = malloc(sizeof(char*));
 
   while(fgets(stringBuffer, MAX_LENGTH, inputFile) != NULL){
+    if(n != 0) {
+      char** tempArray = realloc(stringArray, n + 1);
+
+      if(tempArray == NULL){
+        fprintf(stderr, "Error: memory reallocation failed. \n");
+        exit(EXIT_FAILURE);
+      }
+
+      stringArray = tempArray;
+    }
+
+    strcpy(stringArray[n], stringBuffer);
     
   }
 
