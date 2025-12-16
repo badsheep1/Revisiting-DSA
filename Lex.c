@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "List.h"
 
 #define MAX_LENGTH 1000
@@ -32,10 +33,16 @@ int main(int argc, char *argv[]){
     }
 
     strcpy(stringArray[n], stringBuffer);
-    
+    n++; 
   }
 
+  for(int i = 0; i < n; i++){
+    fputs(stringArray[i], outputFile);
+    fputc('\n', outputFile);
+  }
 
+  fclose(inputFile);
+  fclose(outputFile);
 
 
   return 0;
