@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
 
   while(fgets(stringBuffer, MAX_LENGTH, inputFile) != NULL){
     if(n != 0) {
-      char** tempArray = realloc(stringArray, n + 1);
+      char** tempArray = realloc(stringArray, (n + 1) * sizeof(char*));
 
       if(tempArray == NULL){
         fprintf(stderr, "Error: memory reallocation failed. \n");
