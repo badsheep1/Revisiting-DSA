@@ -37,6 +37,36 @@ int main(int argc, char *argv[]){
     n++; 
   }
 
+  List hand = newList();
+
+  for(int i = 0; i < n; i++){
+    
+    if(length(hand) == 0){
+      append(hand, i);
+    } 
+    else{
+      moveFront(hand);
+
+    }
+
+    if(strcmp(stringArray[i],get(hand)) > 0){
+      if(listIndex(hand) == length(hand) - 1){
+        insertAfter(hand, i);
+      }
+      else{
+        moveNext(hand);
+      }
+    }
+    else{
+      insertBefore(hand, i);
+    }
+
+  }
+
+
+
+
+
   for(int i = 0; i < n; i++){
     fputs(stringArray[i], outputFile);
     fputc('\n', outputFile);
