@@ -17,7 +17,7 @@ void freeList(List* pL);
 
 int length(List L);
 
-int index(List L);
+int listIndex(List L);
 
 int front(List L);
 

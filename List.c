@@ -81,12 +81,12 @@ int length(List L){
   return L->size;
 }
 
-// index(List L)
+// listIndex(List L)
 // Pre-Condition: List Exists
-int index(List L){
+int listIndex(List L){
 
   if(L == NULL){
-    fprintf(stderr, "List Error: List parameter is NULL for index().\n");
+    fprintf(stderr, "List Error: List parameter is NULL for listIndex().\n");
     exit(EXIT_FAILURE);
   }
 
@@ -149,13 +149,13 @@ bool equals(List A, List B){
   }
 
   int indexA, indexB;
-  indexA = index(A);
-  indexB = index(B);
+  indexA = listIndex(A);
+  indexB = listIndex(B);
   
   moveFront(A);
   moveFront(B);
 
-  while(index(A) != UNDEFINED){
+  while(listIndex(A) != UNDEFINED){
     if(get(A) != get(B)){
       return false;
     }
@@ -395,9 +395,9 @@ void deleteFront(List L){
   L->size--;
   freeNode(&tempCursor);
 
-  if(index(L) != UNDEFINED){ // If the cursor is undefined, do nothing, otherwise:
+  if(listIndex(L) != UNDEFINED){ // If the cursor is undefined, do nothing, otherwise:
 
-    if(index(L) == 0){ // Check if the cursor is pointed to the front of the list.
+    if(listIndex(L) == 0){ // Check if the cursor is pointed to the front of the list.
       L->cursor = NULL; // Set the cursor to NULl and undefine it.
       L->index = UNDEFINED;
     }
@@ -426,7 +426,7 @@ void deleteBack(List L){
   L->size--;
   freeNode(&tempCursor);
 
-  if( index(L) != UNDEFINED && index(L) == (length(L) - 1)){
+  if( listIndex(L) != UNDEFINED && listIndex(L) == (length(L) - 1)){
     L->cursor = NULL; // Set the cursor to NULl and undefine it.
     L->index = UNDEFINED;
   }
@@ -445,15 +445,15 @@ void delete(List L){
     exit(EXIT_FAILURE);
   }
 
-  if(index(L) == UNDEFINED){
+  if(listIndex(L) == UNDEFINED){
     fprintf(stderr, "List Error: The cursor is undefined for delete().\n");
     exit(EXIT_FAILURE);
   }
   
-  if(index(L) == 0){
+  if(listIndex(L) == 0){
     deleteFront(L);
   }
-  else if(index(L) == length(L) - 1){
+  else if(listIndex(L) == length(L) - 1){
     deleteBack(L);
   }
   else{
@@ -481,16 +481,16 @@ void printList(FILE* out, List L){
     exit(EXIT_FAILURE);
   }
 
-  int placeHolder = index(L);
+  int placeHolder = listIndex(L);
   moveFront(L);
 
-  while(index(L) != UNDEFINED){
+  while(listIndex(L) != UNDEFINED){
     fprintf(out, "%d ", get(L));
     moveNext(L);
   }
 
   moveFront(L);
-  while(index(L) != placeHolder){
+  while(listIndex(L) != placeHolder){
     moveNext(L);
   }
 
@@ -504,10 +504,10 @@ List copyList(List L){
 
   List cloneList = newList();
 
-  int indexMark = index(L);
+  int indexMark = listIndex(L);
   moveFront(L);
 
-  while(index(L) != UNDEFINED){
+  while(listIndex(L) != UNDEFINED){
     append(cloneList, get(L));
     moveNext(L);
   }
@@ -515,7 +515,7 @@ List copyList(List L){
   cloneList->index = UNDEFINED;
 
   moveFront(L);
-  while(index(L) < indexMark){
+  while(listIndex(L) < indexMark){
     moveNext(L);
   }
 
