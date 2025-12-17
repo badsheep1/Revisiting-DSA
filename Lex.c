@@ -32,6 +32,7 @@ int main(int argc, char *argv[]){
       stringArray = tempArray;
     }
 
+    stringArray[n] = malloc(strlen(stringBuffer) + 1);
     strcpy(stringArray[n], stringBuffer);
     n++; 
   }
