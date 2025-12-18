@@ -64,14 +64,12 @@ int main(int argc, char *argv[]){
 
   }
 
-  printList(outputFile, hand);
+  moveFront(hand);
 
-
-
-  // for(int i = 0; i < n; i++){
-  //   fputs(stringArray[i], outputFile);
-  //   fputc('\n', outputFile);
-  // }
+  while(listIndex(hand) != UNDEFINED){
+    fputs(stringArray[get(hand)], outputFile);
+    moveNext(hand);
+  }
 
   fclose(inputFile);
   fclose(outputFile);
