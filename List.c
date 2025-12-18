@@ -340,14 +340,20 @@ void insertBefore(List L, int x){
     exit(EXIT_FAILURE);
   }
 
-  Node nodeLink = newNode(x);
-  nodeLink->prev = L->cursor->prev;
-  nodeLink->next = L->cursor;
-  L->cursor->prev->next = nodeLink;
-  L->cursor->prev = nodeLink;
+  if(L->index == 0){
+    prepend(L, x);
+  }
+  else{
+    Node nodeLink = newNode(x);
+    nodeLink->prev = L->cursor->prev;
+    nodeLink->next = L->cursor;
+    L->cursor->prev->next = nodeLink;
+    L->cursor->prev = nodeLink;
  
-  L->size++;
-  L->index++;
+    L->size++;
+    L->index++;
+  }
+
   
 }
 
@@ -362,13 +368,19 @@ void insertAfter(List L, int x){
     exit(EXIT_FAILURE);
   }
 
-  Node nodeLink = newNode(x);
-  nodeLink->prev = L->cursor;
-  nodeLink->next = L->cursor->next;
-  L->cursor->next->prev = nodeLink;
-  L->cursor->next = nodeLink;
+  
+  if(L->index == L->size - 1){
+    append(L, x);
+  }
+  else{
+    Node nodeLink = newNode(x);
+    nodeLink->prev = L->cursor;
+    nodeLink->next = L->cursor->next;
+    L->cursor->next->prev = nodeLink;
+    L->cursor->next = nodeLink;
    
-  L->size++;
+    L->size++;
+  }
 }
 
 void deleteFront(List L){
