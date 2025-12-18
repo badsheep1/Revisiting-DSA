@@ -43,13 +43,14 @@ int main(int argc, char *argv[]){
     
     if(length(hand) == 0){
       append(hand, i);
+      continue;
     } 
     else{
       moveFront(hand);
 
     }
 
-    if(strcmp(stringArray[i],get(hand)) > 0){
+    if(strcmp(stringArray[i],stringArray[get(hand)]) > 0){
       if(listIndex(hand) == length(hand) - 1){
         insertAfter(hand, i);
       }
@@ -63,14 +64,14 @@ int main(int argc, char *argv[]){
 
   }
 
+  printList(outputFile, hand);
 
 
 
-
-  for(int i = 0; i < n; i++){
-    fputs(stringArray[i], outputFile);
-    fputc('\n', outputFile);
-  }
+  // for(int i = 0; i < n; i++){
+  //   fputs(stringArray[i], outputFile);
+  //   fputc('\n', outputFile);
+  // }
 
   fclose(inputFile);
   fclose(outputFile);
