@@ -48,21 +48,22 @@ int main(int argc, char *argv[]){
     } 
     else{
       moveFront(hand);
-
     }
 
-    if(strcmp(stringArray[i],stringArray[get(hand)]) > 0){
-      if(listIndex(hand) == length(hand) - 1){
-        insertAfter(hand, i);
+    while(length(hand) < (i + 1)){
+      if(strcmp(stringArray[i], stringArray[get(hand)]) > 0){
+        if(listIndex(hand) == length(hand) - 1){
+          insertAfter(hand, i);
+        }
+        else{
+          moveNext(hand);
+        }
       }
       else{
-        moveNext(hand);
+        insertBefore(hand, i);
       }
     }
-    else{
-      insertBefore(hand, i);
-    }
-
+    
   }
 
   moveFront(hand);
