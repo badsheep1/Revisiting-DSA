@@ -18,23 +18,24 @@ int main(int argc, char *argv[]){
 
   int n = 0;
   char* stringBuffer = malloc(MAX_LENGTH * sizeof(char));
-  char** stringArray = malloc(sizeof(char*));
+  char** stringArray;
 
   while(fgets(stringBuffer, MAX_LENGTH, inputFile) != NULL){
-    if(n != 0) {
-      char** tempArray = realloc(stringArray, (n + 1) * sizeof(char*));
 
-      if(tempArray == NULL){
-        fprintf(stderr, "Error: memory reallocation failed. \n");
-        exit(EXIT_FAILURE);
-      }
+    n++; //Incrementing the n counter.
+    
+    char** tempArray = realloc(stringArray, n * sizeof(char*));
 
-      stringArray = tempArray;
+    if(tempArray == NULL){
+      fprintf(stderr, "Error: memory reallocation failed. \n");
+      exit(EXIT_FAILURE);
     }
 
-    stringArray[n] = malloc(strlen(stringBuffer) + 1);
-    strcpy(stringArray[n], stringBuffer);
-    n++; 
+    stringArray = tempArray;
+
+
+    stringArray[n - 1] = malloc(strlen(stringBuffer) + 1);
+    strcpy(stringArray[n - 1], stringBuffer);
   }
 
   List hand = newList();
