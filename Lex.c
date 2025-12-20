@@ -18,7 +18,7 @@ int main(int argc, char *argv[]){
 
   int n = 0;
   char* stringBuffer = malloc(MAX_LENGTH * sizeof(char));
-  char** stringArray;
+  char** stringArray = NULL;
 
   while(fgets(stringBuffer, MAX_LENGTH, inputFile) != NULL){
 
