@@ -1,0 +1,14 @@
+!
+42nd
+7th
+Alpha
+Apple
+Zebra
+_
+__
+alpha
+apple
+banana
+hello world
+hello-world
+zebra

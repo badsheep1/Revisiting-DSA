@@ -76,6 +76,14 @@ int main(int argc, char *argv[]){
   fclose(inputFile);
   fclose(outputFile);
 
+  free(stringBuffer);
+  freeList(&hand);
+
+  for(int i = 0; i < n; i++){
+    free(stringArray[i]);
+  }
+
+  free(stringArray);
 
   return 0;
 }
