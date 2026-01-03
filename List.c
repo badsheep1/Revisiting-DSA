@@ -59,6 +59,7 @@ List newList(void){
 void freeList(List *pL){
 
   if(pL != NULL && *pL != NULL){
+    clear(*pL);
     free(*pL);
     *pL = NULL;
   }
