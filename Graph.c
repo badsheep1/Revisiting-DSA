@@ -1,12 +1,15 @@
+#include "Graph.h"
 
-//Macro
-#define INF -1
-#define NIL 0
-
-// Data Structures
-typedef struct GraphObj* Graph;
+// Data Structure 
+typedef struct GraphObj{
+  List* neighbors;
+  int* colors;
+  int* parents;
+  int* distance;
+}GraphObj;
 
 // Constructors-Destructors
+
 Graph newGraph(int n);
 void freeGraph(Graph* pG);
 
