@@ -3,22 +3,33 @@
 
 // Data Structure 
 typedef struct GraphObj{
-  List neighbors;
+  List* neighbors;
   int* colors;
   int* parents;
   int* distance;
+  int order;
+  int size;
+  int recent;
 }GraphObj;
 
 // Constructors-Destructors
 
 Graph newGraph(int n){
+
+  // Initializing graphObj datatype.
   Graph graphObject = malloc(sizeof(struct GraphObj));
 
+  // Initializing the fields of the object.
   graphObject->colors = malloc((n + 1) * sizeof(int));
   graphObject->parents = malloc((n + 1) * sizeof(int));
   graphObject->distance = malloc((n + 1) * sizeof(int));
 
-  
+  graphObject->neighbors = malloc((n + 1) * sizeof(List));
+  for(int i = 1; i < (n + 1); i++){
+    graphObject->neighbors[i] = newList();
+  }
+
+  graphObject->order = n; 
 
   return graphConstruction;
 }
