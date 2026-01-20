@@ -31,18 +31,33 @@ Graph newGraph(int n){
   graphObject->distance = INF;
   graphObject->neighbors[0] = NULL;
   // Initializing all neighbors array elements with ListObj
-  for(int i = 1; i < (n + 1); i++){
+  for(int i = 1; i < (n + 2); i++){
     graphObject->neighbors[i] = newList();
   }
 
   graphObject->order = n; // Setting the order, the number of vertices equal to n.
 
+  // size and recent ought to be determined later with manipulation functions are initialized as NIl.
   graphObject->size = NIL;
   graphObject->recent = NIL;
 
   return graphConstruction;
 }
-void freeGraph(Graph* pG);
+void freeGraph(Graph* pG){
+  Graph handle = *pG;
+
+  // Freeing the memory allocated to these arrays.
+  free(handle->colors);
+  free(handle->parents);
+  free(handle->distance);
+
+  // Freeing the List elements in the List Array.
+  for(int i = 1; i < (n + 2); i++){
+    freeList(handle->neighbors[i]);
+  }
+  // Freeing the GraphObj itself.
+  free(handle); 
+}
 
 //Access Functions
 int getOrder(Graph G);
