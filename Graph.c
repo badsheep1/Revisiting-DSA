@@ -25,11 +25,20 @@ Graph newGraph(int n){
   graphObject->distance = malloc((n + 1) * sizeof(int));
 
   graphObject->neighbors = malloc((n + 1) * sizeof(List));
+
+  //Initializing the 0th index for fields, despite not using them, to prevent unusual behavior if accidentally accessing them.
+  graphObject->colors = graphObject->parents = NIL;
+  graphObject->distance = INF;
+  graphObject->neighbors[0] = NULL;
+  // Initializing all neighbors array elements with ListObj
   for(int i = 1; i < (n + 1); i++){
     graphObject->neighbors[i] = newList();
   }
 
-  graphObject->order = n; 
+  graphObject->order = n; // Setting the order, the number of vertices equal to n.
+
+  graphObject->size = NIL;
+  graphObject->recent = NIL;
 
   return graphConstruction;
 }
