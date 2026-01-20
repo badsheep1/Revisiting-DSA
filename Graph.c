@@ -1,6 +1,6 @@
 #include "Graph.h"
-#include "List.h"
-
+#include <stdlib.h>
+#include <stdio.h>
 // Data Structure 
 typedef struct GraphObj{
   List* neighbors;
@@ -27,8 +27,8 @@ Graph newGraph(int n){
   graphObject->neighbors = malloc((n + 1) * sizeof(List));
 
   //Initializing the 0th index for fields, despite not using them, to prevent unusual behavior if accidentally accessing them.
-  graphObject->colors = graphObject->parents = NIL;
-  graphObject->distance = INF;
+  graphObject->colors[0] = graphObject->parents[0] = NIL;
+  graphObject->distance[0] = INF;
   graphObject->neighbors[0] = NULL;
   // Initializing all neighbors array elements with ListObj
   for(int i = 1; i < (n + 2); i++){
@@ -41,7 +41,7 @@ Graph newGraph(int n){
   graphObject->size = NIL;
   graphObject->recent = NIL;
 
-  return graphConstruction;
+  return graphObject;
 }
 void freeGraph(Graph* pG){
   Graph handle = *pG;
@@ -52,8 +52,8 @@ void freeGraph(Graph* pG){
   free(handle->distance);
 
   // Freeing the List elements in the List Array.
-  for(int i = 1; i < (n + 2); i++){
-    freeList(handle->neighbors[i]);
+  for(int i = 1; i < (getSize(handle) + 2); i++){
+    freeList(&handle->neighbors[i]);
   }
   // Freeing the GraphObj itself.
   free(handle); 
