@@ -1,8 +1,9 @@
 #include "Graph.h"
+#include "List.h"
 
 // Data Structure 
 typedef struct GraphObj{
-  List* neighbors;
+  List neighbors;
   int* colors;
   int* parents;
   int* distance;
@@ -10,7 +11,17 @@ typedef struct GraphObj{
 
 // Constructors-Destructors
 
-Graph newGraph(int n);
+Graph newGraph(int n){
+  Graph graphObject = malloc(sizeof(struct GraphObj));
+
+  graphObject->colors = malloc((n + 1) * sizeof(int));
+  graphObject->parents = malloc((n + 1) * sizeof(int));
+  graphObject->distance = malloc((n + 1) * sizeof(int));
+
+  
+
+  return graphConstruction;
+}
 void freeGraph(Graph* pG);
 
 //Access Functions
