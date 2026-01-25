@@ -31,7 +31,7 @@ Graph newGraph(int n){
   graphObject->distance[0] = INF;
   graphObject->neighbors[0] = NULL;
   // Initializing all neighbors array elements with ListObj
-  for(int i = 1; i < (n + 2); i++){
+  for(int i = 1; i < (n + 1); i++){
     graphObject->neighbors[i] = newList();
   }
 
@@ -52,7 +52,7 @@ void freeGraph(Graph* pG){
   free(handle->distance);
 
   // Freeing the List elements in the List Array.
-  for(int i = 1; i < (getSize(handle) + 2); i++){
+  for(int i = 1; i < (getSize(handle) + 1); i++){
     freeList(&handle->neighbors[i]);
   }
   // Freeing the GraphObj itself.
