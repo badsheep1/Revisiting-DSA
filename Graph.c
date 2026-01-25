@@ -31,7 +31,7 @@ Graph newGraph(int n){
   graphObject->distance[0] = INF;
   graphObject->neighbors[0] = NULL;
   // Initializing all neighbors array elements with ListObj
-  for(int i = 1; i < (n + 1); i++){
+  for(int i = 1; i <= n; i++){
     graphObject->neighbors[i] = newList();
   }
 
@@ -52,15 +52,20 @@ void freeGraph(Graph* pG){
   free(handle->distance);
 
   // Freeing the List elements in the List Array.
-  for(int i = 1; i < (getSize(handle) + 1); i++){
-    freeList(&handle->neighbors[i]);
+  for(int i = 1; i <= getOrder(handle); i++){
+    freeList(&(handle->neighbors[i]));
+    handle->neighbors[i] = NULL;
   }
-  // Freeing the GraphObj itself.
-  free(handle); 
-}
+  // Freeing the array of Lists pointer
+  free(handle->neighbors);
+  free(handle);
+  *pG = NULL;
+  }
 
 //Access Functions
-int getOrder(Graph G);
+int getOrder(Graph G){
+  return G->order;
+}
 int getSize(Graph G){
 
   return G->size;

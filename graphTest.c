@@ -2,7 +2,7 @@
 
 
 int main(void){
-  Graph graph1 = newGraph(5);
+  Graph graph1 = newGraph(1);
 
   freeGraph(&graph1);
 
