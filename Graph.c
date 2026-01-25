@@ -61,7 +61,10 @@ void freeGraph(Graph* pG){
 
 //Access Functions
 int getOrder(Graph G);
-int getSize(Graph G);
+int getSize(Graph G){
+
+  return G->size;
+}
 int getSource(Graph G);
 int getParent(Graph G, int u);
 int getDist(Graph G, int u);
