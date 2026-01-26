@@ -64,15 +64,43 @@ void freeGraph(Graph* pG){
 
 //Access Functions
 int getOrder(Graph G){
+  if(G == NULL){
+    fprintf(stderr, "Graph Error: getOrder is passed null GraphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
   return G->order;
 }
 int getSize(Graph G){
+  if(G == NULL){
+    fprintf(stderr, "Graph Error: getSize is passed null GraphObj.\n");
+    exit(EXIT_FAILURE);
+  }
 
   return G->size;
 }
 int getSource(Graph G);
-int getParent(Graph G, int u);
-int getDist(Graph G, int u);
+int getParent(Graph G, int u){
+if(G == NULL){
+    fprintf(stderr, "Graph Error: getParent is passed null GraphObj.\n");
+  }
+if(u <= 0 || u > getOrder(G)){
+    fprintf(stderr, "Graph Error: getParent is passed an index out of range.\n");
+    exit(EXIT_FAILURE);
+  }
+return G->parents[u];
+
+}
+int getDist(Graph G, int u){
+if(G == NULL){
+    fprintf(stderr, "Graph Error: getDist is passed null GraphObj.\n");
+  }
+if(u <= 0 || u > getOrder(G)){
+    fprintf(stderr, "Graph Error: getDist is passed an index out of range.\n");
+    exit(EXIT_FAILURE);
+  }
+  return G->distance[u];
+}
 void getPath(List L, Graph G, int u);
 
 //Manipulation Procedures
