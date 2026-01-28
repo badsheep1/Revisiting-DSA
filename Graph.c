@@ -105,7 +105,47 @@ void getPath(List L, Graph G, int u);
 
 //Manipulation Procedures
 void makeNull(Graph G);
-void addEdge(Graph G, int u, int v);
+void addEdge(Graph G, int u, int v){
+  if(G == NULL){
+    fprintf(stderr, "Graph Error: addEdge is passed a null GraphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if( u < 1 || u > getOrder(G)){
+    fprintf(stderr, "Graph Error: addEdge is passed an out of range u parameter.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if( v < 1 || v > getOrder(G)){
+    fprintf(stderr, "Graph Error: addEdge is passed an out of range v parameter.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  List uNeighbors = G->neighbors[u];
+  List vNeighbors = G->neighbors[v];
+
+  if(Length(uNeighbors) == 0){
+    append(uNeighbors, v);
+  }
+  else{
+    moveFront(uNeighbors);
+    while(get(uNeighbors) < v && index(uNeighbors) != (length(uNeighbors) - 1)){
+      moveNext(uNeighbors);
+    }
+    insertAfter(uNeighbors, v);
+  }
+  
+  if(Length(vNeighbors) == 0){
+    append(vNeighbors, u);
+  }
+  else{
+    moveFront(vNeighbors);
+    while(get(vNeighbors) < u && index(vNeighbors) != (length(vNeighbors) - 1)){
+      moveNext(vNeighbors);
+    }
+    insertAfter(vNeighbors, u);
+  }
+}
 void addArc(Graph G, int u, int v);
 void BFS(Graph G, int s);
 
