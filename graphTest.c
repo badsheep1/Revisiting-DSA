@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include <stdio.h>
 
 
 int main(void){
@@ -10,7 +11,13 @@ int main(void){
 
   addEdge(graph2, 1, 2);
 
-  int adjacentList = 
+  FILE* outFile;
+
+  outFile = fopen("printGraphTest.txt", "a");
+
+  printGraph(outFile, graph2);
+
+   
 
 
   return 0;

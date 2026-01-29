@@ -162,7 +162,7 @@ void BFS(Graph G, int s);
 //Other Operations
 void printGraph(FILE* out, Graph G){
 
-  if(L == NULL){
+  if(G == NULL){
     fprintf(stderr, "Graph Error: The Graph parameter is not valid for printGraph().\n");
     exit(EXIT_FAILURE);
   }
