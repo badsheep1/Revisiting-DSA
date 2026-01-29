@@ -17,7 +17,7 @@ typedef struct GraphObj{
   int* distance;
   int order;
   int size;
-  int recent;
+  int source;
 }GraphObj;
 
 // Constructors-Destructors
@@ -34,7 +34,7 @@ Graph newGraph(int n){
 
   graphObject->neighbors = malloc((n + 1) * sizeof(List));
 
-  //Initializing the 0th index for fields, despite not using them, to prevent unusual behavior if accidentally accessing them.
+  //Initializing the 0th listIndex for fields, despite not using them, to prevent unusual behavior if accidentally accessing them.
   graphObject->colors[0] = graphObject->parents[0] = NIL;
   graphObject->distance[0] = INF;
   graphObject->neighbors[0] = NULL;
@@ -45,9 +45,9 @@ Graph newGraph(int n){
 
   graphObject->order = n; // Setting the order, the number of vertices equal to n.
 
-  // size and recent ought to be determined later with manipulation functions are initialized as NIl.
+  // size and source ought to be determined later with manipulation functions are initialized as NIl.
   graphObject->size = NIL;
-  graphObject->recent = NIL;
+  graphObject->source = NIL;
 
   return graphObject;
 }
@@ -87,13 +87,23 @@ int getSize(Graph G){
 
   return G->size;
 }
-int getSource(Graph G);
+
+int getSource(Graph G){
+  if(G == NULL){
+    fprintf(stderr, "Graph Error: getSource is passed a null GraphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  return G->source;
+}
+
+
 int getParent(Graph G, int u){
 if(G == NULL){
     fprintf(stderr, "Graph Error: getParent is passed null GraphObj.\n");
   }
 if(u <= 0 || u > getOrder(G)){
-    fprintf(stderr, "Graph Error: getParent is passed an index out of range.\n");
+    fprintf(stderr, "Graph Error: getParent is passed an listIndex out of range.\n");
     exit(EXIT_FAILURE);
   }
 return G->parents[u];
@@ -104,7 +114,7 @@ if(G == NULL){
     fprintf(stderr, "Graph Error: getDist is passed null GraphObj.\n");
   }
 if(u <= 0 || u > getOrder(G)){
-    fprintf(stderr, "Graph Error: getDist is passed an index out of range.\n");
+    fprintf(stderr, "Graph Error: getDist is passed an listIndex out of range.\n");
     exit(EXIT_FAILURE);
   }
   return G->distance[u];
@@ -134,7 +144,6 @@ void addEdge(Graph G, int u, int v){
 
   adjInsert(uNeighbors, v);
   adjInsert(vNeighbors, u);
-
 }
 void addArc(Graph G, int u, int v);
 void BFS(Graph G, int s);
@@ -142,19 +151,17 @@ void BFS(Graph G, int s);
 //Other Operations
 void printGraph(FILE* out, Graph G);
 
-
-
 //Private Helper Function
 
 static void adjInsert(List L, int label){
   
-  if(Length(L) == 0){
-    append(L, v);
+  if(length(L) == 0){
+    append(L, label);
   }
   else{
     moveFront(L);
-    while(index(L) != UNDEFINED){
-      if(index(L) == length(L) - 1){
+    while(listIndex(L) != UNDEFINED){
+      if(listIndex(L) == length(L) - 1){
         if(get(L) > label){
           insertBefore(L, label);
         }
