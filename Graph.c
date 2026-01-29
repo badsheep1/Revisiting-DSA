@@ -200,8 +200,9 @@ static void adjInsert(List L, int label){
         }
         else{
           insertAfter(L, label);
+          break;
         }
-        moveNext();
+        moveNext(L);
       }
       
       if(get(L) < label){
@@ -209,6 +210,7 @@ static void adjInsert(List L, int label){
       }
       else{
         insertBefore(L, label);
+        break;
       }
     }
   }
