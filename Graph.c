@@ -1,6 +1,14 @@
 #include "Graph.h"
+#include "List.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+// Private Helper Function Prototype:
+
+// Helper function for inserting a vertex's label in an adjacent list, sorted chronologically.
+static void adjInsert(List L, int label);
+
+
 // Data Structure 
 typedef struct GraphObj{
   List* neighbors;
@@ -61,7 +69,7 @@ void freeGraph(Graph* pG){
   free(handle);
   *pG = NULL;
   }
-
+ 
 //Access Functions
 int getOrder(Graph G){
   if(G == NULL){
@@ -124,30 +132,43 @@ void addEdge(Graph G, int u, int v){
   List uNeighbors = G->neighbors[u];
   List vNeighbors = G->neighbors[v];
 
-  if(Length(uNeighbors) == 0){
-    append(uNeighbors, v);
-  }
-  else{
-    moveFront(uNeighbors);
-    while(get(uNeighbors) < v && index(uNeighbors) != (length(uNeighbors) - 1)){
-      moveNext(uNeighbors);
-    }
-    insertAfter(uNeighbors, v);
-  }
-  
-  if(Length(vNeighbors) == 0){
-    append(vNeighbors, u);
-  }
-  else{
-    moveFront(vNeighbors);
-    while(get(vNeighbors) < u && index(vNeighbors) != (length(vNeighbors) - 1)){
-      moveNext(vNeighbors);
-    }
-    insertAfter(vNeighbors, u);
-  }
+  adjInsert(uNeighbors, v);
+  adjInsert(vNeighbors, u);
+
 }
 void addArc(Graph G, int u, int v);
 void BFS(Graph G, int s);
 
 //Other Operations
 void printGraph(FILE* out, Graph G);
+
+
+
+//Private Helper Function
+
+static void adjInsert(List L, int label){
+  
+  if(Length(L) == 0){
+    append(L, v);
+  }
+  else{
+    moveFront(L);
+    while(index(L) != UNDEFINED){
+      if(index(L) == length(L) - 1){
+        if(get(L) > label){
+          insertBefore(L, label);
+        }
+        else{
+          insertAfter(L, label);
+        }
+      }
+      
+      if(get(L) < label){
+        moveNext(L);
+      }
+      else{
+        insertBefore(L, label);
+      }
+    }
+  }
+}
