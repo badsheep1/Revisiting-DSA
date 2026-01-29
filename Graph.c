@@ -160,7 +160,29 @@ void addArc(Graph G, int u, int v){
 void BFS(Graph G, int s);
 
 //Other Operations
-void printGraph(FILE* out, Graph G);
+void printGraph(FILE* out, Graph G){
+
+  if(L == NULL){
+    fprintf(stderr, "Graph Error: The Graph parameter is not valid for printGraph().\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(out == NULL){
+    fprintf(stderr, "Graph Error: The file parameter is not valid for printGraph().\n");
+    exit(EXIT_FAILURE);
+  }
+
+  List neighborCursor;
+
+  for(int i = 1; i <= getOrder(G); i++){
+    neighborCursor = G->neighbors[i];
+
+    printList(out, neighborCursor);
+    fprintf(out, "\n"); // Adds a new line after printing out the adjacent list.
+  }
+
+
+}
 
 //Private Helper Function
 

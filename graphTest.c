@@ -6,5 +6,12 @@ int main(void){
 
   freeGraph(&graph1);
 
+  Graph graph2 = newGraph(3);
+
+  addEdge(graph2, 1, 2);
+
+  int adjacentList = 
+
+
   return 0;
 }
