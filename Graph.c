@@ -145,7 +145,18 @@ void addEdge(Graph G, int u, int v){
   adjInsert(uNeighbors, v);
   adjInsert(vNeighbors, u);
 }
-void addArc(Graph G, int u, int v);
+void addArc(Graph G, int u, int v){
+  if(G == NULL){
+    fprintf(stderr, "Graph Error: addArc is passed a null GraphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  List uNeighbors = G->neighbors[u];
+  
+  adjInsert(uNeighbors, v);
+
+}
+
 void BFS(Graph G, int s);
 
 //Other Operations
