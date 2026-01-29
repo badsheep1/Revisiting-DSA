@@ -11,6 +11,9 @@ int main(void){
 
   addEdge(graph2, 1, 2);
 
+  addEdge(graph2, 1, 3);
+
+
   FILE* outFile;
 
   outFile = fopen("printGraphTest.txt", "a");

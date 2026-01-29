@@ -201,6 +201,7 @@ static void adjInsert(List L, int label){
         else{
           insertAfter(L, label);
         }
+        moveNext();
       }
       
       if(get(L) < label){
