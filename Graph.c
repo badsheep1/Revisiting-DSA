@@ -8,7 +8,6 @@
 // Helper function for inserting a vertex's label in an adjacent list, sorted chronologically.
 static void adjInsert(List L, int label);
 
-
 // Data Structure 
 typedef struct GraphObj{
   List* neighbors;
@@ -51,6 +50,7 @@ Graph newGraph(int n){
 
   return graphObject;
 }
+
 void freeGraph(Graph* pG){
   Graph handle = *pG;
 
@@ -68,8 +68,8 @@ void freeGraph(Graph* pG){
   free(handle->neighbors);
   free(handle);
   *pG = NULL;
-  }
- 
+}
+
 //Access Functions
 int getOrder(Graph G){
   if(G == NULL){
@@ -79,6 +79,7 @@ int getOrder(Graph G){
 
   return G->order;
 }
+
 int getSize(Graph G){
   if(G == NULL){
     fprintf(stderr, "Graph Error: getSize is passed null GraphObj.\n");
@@ -99,30 +100,47 @@ int getSource(Graph G){
 
 
 int getParent(Graph G, int u){
-if(G == NULL){
+  if(G == NULL){
     fprintf(stderr, "Graph Error: getParent is passed null GraphObj.\n");
   }
-if(u <= 0 || u > getOrder(G)){
+  if(u <= 0 || u > getOrder(G)){
     fprintf(stderr, "Graph Error: getParent is passed an listIndex out of range.\n");
     exit(EXIT_FAILURE);
   }
-return G->parents[u];
-
+  return G->parents[u];
 }
+
 int getDist(Graph G, int u){
-if(G == NULL){
+  if(G == NULL){
     fprintf(stderr, "Graph Error: getDist is passed null GraphObj.\n");
   }
-if(u <= 0 || u > getOrder(G)){
+  if(u <= 0 || u > getOrder(G)){
     fprintf(stderr, "Graph Error: getDist is passed an listIndex out of range.\n");
     exit(EXIT_FAILURE);
   }
   return G->distance[u];
 }
+
 void getPath(List L, Graph G, int u);
 
 //Manipulation Procedures
-void makeNull(Graph G);
+void makeNull(Graph G){
+  if(G == NULL){
+    fprintf(stderr, "Graph Error: makeNull is passed a null GraphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  for(int i = 1; i <= getOrder(G); i++){
+    clear(G->neighbors[i]);
+    G->colors[i] = NIL;
+    G->parents[i] = NIL;
+    G->distance[i] = INF;
+  }
+  
+  G->size = NIL;
+  G->source = NIL;
+}
+
 void addEdge(Graph G, int u, int v){
   if(G == NULL){
     fprintf(stderr, "Graph Error: addEdge is passed a null GraphObj.\n");
@@ -152,7 +170,7 @@ void addArc(Graph G, int u, int v){
   }
 
   List uNeighbors = G->neighbors[u];
-  
+
   adjInsert(uNeighbors, v);
 
 }
@@ -186,9 +204,8 @@ void printGraph(FILE* out, Graph G){
 }
 
 //Private Helper Function
-
 static void adjInsert(List L, int label){
-  
+
   if(length(L) == 0){
     append(L, label);
   }
@@ -205,7 +222,7 @@ static void adjInsert(List L, int label){
         }
         moveNext(L);
       }
-      
+
       if(get(L) < label){
         moveNext(L);
       }
