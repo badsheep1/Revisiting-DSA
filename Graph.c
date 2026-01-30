@@ -177,6 +177,7 @@ void printGraph(FILE* out, Graph G){
   for(int i = 1; i <= getOrder(G); i++){
     neighborCursor = G->neighbors[i];
 
+    fprintf(out, "%d: ", i);
     printList(out, neighborCursor);
     fprintf(out, "\n"); // Adds a new line after printing out the adjacent list.
   }
