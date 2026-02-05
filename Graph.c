@@ -184,28 +184,30 @@ void BFS(Graph G, int s){
 
   Append(Queue, getSource(G)); // Source Vertex is enqueued first.
 
-  int vertexLabel; // Variable for handling vertex by label
-  List adjHandle; // Handle for adjacent List
+  int queueCursor; // Variable for handling vertices from the FIFO queue.
+  List adjHandle; // Handle for adjacent list of the vertex being examined.
 
   while(length(Queue) != 0){ // BFS continues until the queue is depleted.
-    vertexLabel = getFront(Queue);
+    queueCursor = getFront(Queue); // Pops a vertex from the bottom of the queue.
 
-    adjHandle = G->neighbors[vertexLabel];
+    adjHandle = G->neighbors[queueCursor]; // Getting the Adjacent List.
 
-    moveFront(adjHandle);
+    moveFront(adjHandle); // Moves to the front of the Adjacent List.
 
-    while(index(adjHandle) != UNDEFINED){
+    while(index(adjHandle) != UNDEFINED){ // Progress through the entire adjacent list.
       
       int adjCursor = get(adjHandle);
 
-      if(G->colors[adjCursor] == WHITE){
-        append(Queue, adjCursor);
-        G->distance[adjCursor] = getDist(getSource(G)) + 1; 
-        G->colors[adjCursor] = GREY;
+      if(G->colors[adjCursor] == WHITE){ // Checks if the adjacent vertex is undiscovered.
+        append(Queue, adjCursor); // Adds the vertex on top of the queue.
+        G->distance[adjCursor] = getDist(queueCursor) + 1; // Sets the distance of vertex to be an increment above its parent vertex.
+        G->colors[adjCursor] = GREY; //Sets the vertex color to GREY.
       }
 
-      moveNext(adjHandle);
+      moveNext(adjHandle); // Moves onto the next adjacent vertex.
     }
+    G->colors[queueCursor] = BLACK; // Once all the adjacent vertices checked, the color is set to BLACK.
+    deleteFront(Queue); // Removes the vertex from the Queue.
   }
   
 
