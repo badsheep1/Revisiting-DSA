@@ -183,7 +183,30 @@ void BFS(Graph G, int s){
   List Queue = newList();
 
   Append(Queue, getSource(G)); // Source Vertex is enqueued first.
-  
+
+  int vertexLabel; // Variable for handling vertex by label
+  List adjHandle; // Handle for adjacent List
+
+  while(length(Queue) != 0){ // BFS continues until the queue is depleted.
+    vertexLabel = getFront(Queue);
+
+    adjHandle = G->neighbors[vertexLabel];
+
+    moveFront(adjHandle);
+
+    while(index(adjHandle) != UNDEFINED){
+      
+      int adjCursor = get(adjHandle);
+
+      if(G->colors[adjCursor] == WHITE){
+        append(Queue, adjCursor);
+        G->distance[adjCursor] = getDist(getSource(G)) + 1; 
+        G->colors[adjCursor] = GREY;
+      }
+
+      moveNext(adjHandle);
+    }
+  }
   
 
 
