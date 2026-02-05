@@ -175,7 +175,19 @@ void addArc(Graph G, int u, int v){
 
 }
 
-void BFS(Graph G, int s);
+void BFS(Graph G, int s){
+  
+  G->source = s; // Setting the Source Vertex
+
+  // Constructing the Queue:
+  List Queue = newList();
+
+  Append(Queue, getSource(G)); // Source Vertex is enqueued first.
+  
+  
+
+
+}
 
 //Other Operations
 void printGraph(FILE* out, Graph G){
