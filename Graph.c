@@ -139,7 +139,7 @@ void getPath(List L, Graph G, int u){
     append(L, u);
     int predecessor = G->parents[u];
     while(predecessor != getSource(G)){
-      prepend(L, predecessor);
+      prepend(L, predecessor); // Prepends to get the order starting from the source to the target vertex.
       predecessor = G->parents[predecessor];
     }
   }
@@ -237,6 +237,8 @@ void BFS(Graph G, int s){
     G->colors[queueCursor] = BLACK; // Once all the adjacent vertices checked, the color is set to BLACK.
     deleteFront(Queue); 
   }
+
+  freeList(&adjHandle);
   
 }
 
