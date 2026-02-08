@@ -121,7 +121,29 @@ int getDist(Graph G, int u){
   return G->distance[u];
 }
 
-void getPath(List L, Graph G, int u);
+void getPath(List L, Graph G, int u){
+  if(getSource(G) == NIL){
+    fprintf(stderr, "Graph Error: getPath has been called before BFS has been applied to this GraphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+  if(u < 1 || u > getOrder(G)){
+    fprintf(stderr, "Graph Error: getPath has been passed an out of range u parameter.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  // Appening NIL to List L, indicating no path between the source and the vertex u.
+  if(G->colors[u] == WHITE){ 
+    append(L, NIL);
+  }
+  else{
+    append(L, u);
+    int predecessor = G->parents[u];
+    while(predecessor != getSource(G)){
+      prepend(L, predecessor);
+      predecessor = G->parents[predecessor];
+    }
+  }
+}
 
 //Manipulation Procedures
 void makeNull(Graph G){
@@ -163,6 +185,7 @@ void addEdge(Graph G, int u, int v){
   adjInsert(uNeighbors, v);
   adjInsert(vNeighbors, u);
 }
+
 void addArc(Graph G, int u, int v){
   if(G == NULL){
     fprintf(stderr, "Graph Error: addArc is passed a null GraphObj.\n");
@@ -176,6 +199,11 @@ void addArc(Graph G, int u, int v){
 }
 
 void BFS(Graph G, int s){
+
+  if( s < 1 || s > getOrder(G)){
+    fprintf(stderr, "Graph Error: BFS is passed an out of range s parameter.\n");
+    exit(EXIT_FAILURE);
+  }
   
   G->source = s; // Setting the Source Vertex
 
@@ -188,30 +216,28 @@ void BFS(Graph G, int s){
   List adjHandle; // Handle for adjacent list of the vertex being examined.
 
   while(length(Queue) != 0){ // BFS continues until the queue is depleted.
-    queueCursor = getFront(Queue); // Pops a vertex from the bottom of the queue.
+    queueCursor = getFront(Queue); 
 
-    adjHandle = G->neighbors[queueCursor]; // Getting the Adjacent List.
+    adjHandle = G->neighbors[queueCursor]; 
 
-    moveFront(adjHandle); // Moves to the front of the Adjacent List.
+    moveFront(adjHandle); 
 
     while(index(adjHandle) != UNDEFINED){ // Progress through the entire adjacent list.
       
       int adjCursor = get(adjHandle);
 
       if(G->colors[adjCursor] == WHITE){ // Checks if the adjacent vertex is undiscovered.
-        append(Queue, adjCursor); // Adds the vertex on top of the queue.
+        append(Queue, adjCursor); 
         G->distance[adjCursor] = getDist(queueCursor) + 1; // Sets the distance of vertex to be an increment above its parent vertex.
-        G->colors[adjCursor] = GREY; //Sets the vertex color to GREY.
+        G->colors[adjCursor] = GREY; 
       }
 
-      moveNext(adjHandle); // Moves onto the next adjacent vertex.
+      moveNext(adjHandle); 
     }
     G->colors[queueCursor] = BLACK; // Once all the adjacent vertices checked, the color is set to BLACK.
-    deleteFront(Queue); // Removes the vertex from the Queue.
+    deleteFront(Queue); 
   }
   
-
-
 }
 
 //Other Operations
