@@ -3,6 +3,9 @@
 #define INF -1
 #define NIL 0
 
+#define WHITE 10
+#define GRAY 20
+#define BLACK 30
 // Data Structures
 typedef struct GraphObj* Graph;
 

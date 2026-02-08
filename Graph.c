@@ -210,26 +210,26 @@ void BFS(Graph G, int s){
   // Constructing the Queue:
   List Queue = newList();
 
-  Append(Queue, getSource(G)); // Source Vertex is enqueued first.
+  append(Queue, getSource(G)); // Source Vertex is enqueued first.
 
   int queueCursor; // Variable for handling vertices from the FIFO queue.
   List adjHandle; // Handle for adjacent list of the vertex being examined.
 
   while(length(Queue) != 0){ // BFS continues until the queue is depleted.
-    queueCursor = getFront(Queue); 
+    queueCursor = front(Queue); 
 
     adjHandle = G->neighbors[queueCursor]; 
 
     moveFront(adjHandle); 
 
-    while(index(adjHandle) != UNDEFINED){ // Progress through the entire adjacent list.
+    while(listIndex(adjHandle) != UNDEFINED){ // Progress through the entire adjacent list.
       
       int adjCursor = get(adjHandle);
 
       if(G->colors[adjCursor] == WHITE){ // Checks if the adjacent vertex is undiscovered.
         append(Queue, adjCursor); 
-        G->distance[adjCursor] = getDist(queueCursor) + 1; // Sets the distance of vertex to be an increment above its parent vertex.
-        G->colors[adjCursor] = GREY; 
+        G->distance[adjCursor] = getDist(G, queueCursor) + 1; // Sets the distance of vertex to be an increment above its parent vertex.
+        G->colors[adjCursor] = GRAY; 
       }
 
       moveNext(adjHandle); 
@@ -280,6 +280,7 @@ static void adjInsert(List L, int label){
       if(listIndex(L) == length(L) - 1){
         if(get(L) > label){
           insertBefore(L, label);
+          break;
         }
         else{
           insertAfter(L, label);
