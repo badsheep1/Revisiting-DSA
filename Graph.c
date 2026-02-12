@@ -241,6 +241,7 @@ void BFS(Graph G, int s){
         append(Queue, adjCursor); 
         G->distance[adjCursor] = getDist(G, queueCursor) + 1; // Sets the distance of vertex to be an increment above its parent vertex.
         G->colors[adjCursor] = GRAY; 
+        G->parents[adjCursor] = queueCursor;
       }
 
       moveNext(adjHandle); 
