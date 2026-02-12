@@ -221,7 +221,7 @@ void BFS(Graph G, int s){
 
   append(Queue, s); // Source Vertex is enqueued first.
   G->distance[s] = 0;
-  G->color[s] = GRAY;  
+  G->colors[s] = GRAY;  
 
   int queueCursor; // Variable for handling vertices from the FIFO queue.
   List adjHandle; // Handle for adjacent list of the vertex being examined.
