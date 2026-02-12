@@ -35,6 +35,8 @@ int main(void){
 
   addEdge(graph3, 5, 6);
 
+  assert(getOrder(graph3) == 6);
+
   outFile = fopen("printGraphTest.txt", "w");
 
   printGraph(outFile, graph3);
@@ -55,7 +57,18 @@ int main(void){
 
   assert(getDist(graph3, 6) == 2);
 
+  assert(getParent(graph3, 1) == NIL);
+
+  assert(getParent(graph3, 2) == 1);
+
+  assert(getParent(graph3, 3) == 1);
   
+  assert(getParent(graph3, 4) == 2);
+
+  assert(getParent(graph3, 5) == 2);
+
+  assert(getParent(graph3, 6) == 2);
+
 
   return 0;
 }
