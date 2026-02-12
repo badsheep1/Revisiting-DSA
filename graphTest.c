@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include <stdio.h>
+#include <assert.h>
 
 
 int main(void){
@@ -37,6 +38,24 @@ int main(void){
   outFile = fopen("printGraphTest.txt", "w");
 
   printGraph(outFile, graph3);
+
+  BFS(graph3, 1);
+
+  assert(getSource(graph3) == 1);
+
+  assert(getDist(graph3, 1) == 0);
+
+  assert(getDist(graph3, 2) == 1);
+
+  assert(getDist(graph3, 3) == 1);
+
+  assert(getDist(graph3, 4) == 2);
+
+  assert(getDist(graph3, 5) == 2);
+
+  assert(getDist(graph3, 6) == 2);
+
+  
 
   return 0;
 }

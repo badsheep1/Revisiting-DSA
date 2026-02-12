@@ -22,6 +22,11 @@ typedef struct GraphObj{
 // Constructors-Destructors
 
 Graph newGraph(int n){
+  // Precondition where n must be atleast 1.
+  if(n < 1){
+    fprintf(stderr, "Graph Error: newGraph is passed an invalid n parameter.\n ");
+    exit(EXIT_FAILURE);
+  }
 
   // Initializing graphObj datatype.
   Graph graphObject = malloc(sizeof(struct GraphObj));
@@ -38,10 +43,14 @@ Graph newGraph(int n){
   graphObject->distance[0] = INF;
   graphObject->neighbors[0] = NULL;
   // Initializing all neighbors array elements with ListObj
+ 
   for(int i = 1; i <= n; i++){
-    graphObject->neighbors[i] = newList();
+    graphObject->neighbors[i] = newList(); 
+    graphObject->colors[i] = WHITE;
+    graphObject->distance[i] = INF; 
+    graphObject->parents[i] = NIL;
   }
-
+  
   graphObject->order = n; // Setting the order, the number of vertices equal to n.
 
   // size and source ought to be determined later with manipulation functions are initialized as NIl.
@@ -210,7 +219,9 @@ void BFS(Graph G, int s){
   // Constructing the Queue:
   List Queue = newList();
 
-  append(Queue, getSource(G)); // Source Vertex is enqueued first.
+  append(Queue, s); // Source Vertex is enqueued first.
+  G->distance[s] = 0;
+  G->color[s] = GRAY;  
 
   int queueCursor; // Variable for handling vertices from the FIFO queue.
   List adjHandle; // Handle for adjacent list of the vertex being examined.
