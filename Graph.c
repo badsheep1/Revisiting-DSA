@@ -140,6 +140,10 @@ void getPath(List L, Graph G, int u){
     exit(EXIT_FAILURE);
   }
 
+  if(length(L) > 0){ // Resets Lists if being re-used.
+    clear(L);
+  }
+
   // Appening NIL to List L, indicating no path between the source and the vertex u.
   if(G->colors[u] == WHITE){ 
     append(L, NIL);
@@ -163,7 +167,7 @@ void makeNull(Graph G){
 
   for(int i = 1; i <= getOrder(G); i++){
     clear(G->neighbors[i]);
-    G->colors[i] = NIL;
+    G->colors[i] = WHITE;
     G->parents[i] = NIL;
     G->distance[i] = INF;
   }

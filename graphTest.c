@@ -82,5 +82,49 @@ int main(void){
   moveNext(path1);
 
   assert(get(path1) == 3);
+
+  getPath(path1, graph3, 6);
+
+  assert(length(path1) == 3);
+
+  moveFront(path1);
+
+  assert(get(path1) == 1);
+
+  moveNext(path1);
+  assert(get(path1) == 2);
+
+  moveNext(path1);
+  assert(get(path1) == 6);
+
+  getPath(path1, graph3, 5);
+
+  assert(length(path1) == 3);
+
+  moveFront(path1);
+
+  assert(get(path1) == 1);
+
+  moveNext(path1);
+  assert(get(path1) == 2);
+
+  moveNext(path1);
+  assert(get(path1) == 5);
+
+  getPath(path1, graph3, 4);
+
+  assert(length(path1) == 3);
+
+  moveFront(path1);
+
+  assert(get(path1) == 1);
+
+  moveNext(path1);
+  assert(get(path1) == 2);
+
+  moveNext(path1);
+  assert(get(path1) == 4);
+
+
   return 0;
 }
