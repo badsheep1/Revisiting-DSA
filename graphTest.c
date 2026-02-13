@@ -141,5 +141,30 @@ int main(void){
 
   assert(getDist(graph3, 6) == 1);
 
+  assert(getParent(graph3, 1) == 2);
+
+  assert(getParent(graph3, 2) == NIL);
+
+  assert(getParent(graph3, 3) == 1);
+
+  assert(getParent(graph3, 4) == 2);
+
+  assert(getParent(graph3, 5) == 2);
+
+  assert(getParent(graph3, 6) == 2);
+
+  getPath(path1, graph3, 3);
+
+  moveFront(path1);
+
+  assert(get(path1) == 2);
+
+  moveNext(path1);
+
+  assert(get(path1) == 1);
+
+  moveNext(path1);
+
+  assert(get(path1) == 3);
   return 0;
 }
