@@ -125,6 +125,21 @@ int main(void){
   moveNext(path1);
   assert(get(path1) == 4);
 
+  BFS(graph3, 2);
+
+  assert(getSource(graph3) == 2);
+
+  assert(getDist(graph3, 1) == 1);
+
+  assert(getDist(graph3, 2) == 0);
+
+  assert(getDist(graph3, 3) == 2);
+
+  assert(getDist(graph3, 4) == 1);
+  
+  assert(getDist(graph3, 5) == 1);
+
+  assert(getDist(graph3, 6) == 1);
 
   return 0;
 }

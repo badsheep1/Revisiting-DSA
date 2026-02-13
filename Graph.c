@@ -7,7 +7,7 @@
 
 // Helper function for inserting a vertex's label in an adjacent list, sorted chronologically.
 static void adjInsert(List L, int label);
-static void graphReinitialization(Graph G);
+static void graphInit(Graph G);
 
 // Data Structure 
 typedef struct GraphObj{
@@ -220,7 +220,7 @@ void BFS(Graph G, int s){
   }
 
   if(getSource(G) != NIL){
-    graphReintialization(G);
+    graphInit(G);
   }
   
   G->source = s; // Setting the Source Vertex
@@ -321,7 +321,7 @@ static void adjInsert(List L, int label){
   }
 }
 
-static void graphReinitialization(Graph G){
+static void graphInit(Graph G){
   
   for(int i = 1; i <= getOrder(G); i++){
     G->colors[i] = WHITE;
