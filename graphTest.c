@@ -73,5 +73,14 @@ int main(void){
 
   getPath(path1, graph3, 3);
 
+  assert(length(path1) == 2);
+
+  moveFront(path1);
+
+  assert(get(path1) == 1);
+
+  moveNext(path1);
+
+  assert(get(path1) == 3);
   return 0;
 }
