@@ -165,16 +165,11 @@ void makeNull(Graph G){
     fprintf(stderr, "Graph Error: makeNull is passed a null GraphObj.\n");
     exit(EXIT_FAILURE);
   }
-
+  graphInit(G);
   for(int i = 1; i <= getOrder(G); i++){
     clear(G->neighbors[i]);
-    G->colors[i] = WHITE;
-    G->parents[i] = NIL;
-    G->distance[i] = INF;
-  }
-  
+  } 
   G->size = NIL;
-  G->source = NIL;
 }
 
 void addEdge(Graph G, int u, int v){
@@ -198,6 +193,8 @@ void addEdge(Graph G, int u, int v){
 
   adjInsert(uNeighbors, v);
   adjInsert(vNeighbors, u);
+
+  G->size++;
 }
 
 void addArc(Graph G, int u, int v){
@@ -210,6 +207,7 @@ void addArc(Graph G, int u, int v){
 
   adjInsert(uNeighbors, v);
 
+  G->size++;
 }
 
 void BFS(Graph G, int s){

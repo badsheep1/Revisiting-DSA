@@ -37,6 +37,8 @@ int main(void){
 
   assert(getOrder(graph3) == 6);
 
+  assert(getSize(graph3) == 8);
+
   outFile = fopen("printGraphTest.txt", "w");
 
   printGraph(outFile, graph3);
@@ -166,5 +168,18 @@ int main(void){
   moveNext(path1);
 
   assert(get(path1) == 3);
+
+  makeNull(graph3);
+
+  assert(getOrder(graph3) == 6);
+
+  assert(getSize(graph3) == NIL);
+
+  assert(getSource(graph3) == NIL);
+
+  outFile = fopen("makeNullGraph.txt", "w");
+
+  printGraph(outFile, graph3);
+
   return 0;
 }
