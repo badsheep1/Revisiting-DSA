@@ -254,7 +254,7 @@ void BFS(Graph G, int s){
     deleteFront(Queue); 
   }
 
-  freeList(&adjHandle);
+  freeList(&Queue);
   
 }
 
