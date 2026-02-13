@@ -69,6 +69,9 @@ int main(void){
 
   assert(getParent(graph3, 6) == 2);
 
+  List path1 = newList();
+
+  getPath(path1, graph3, 3);
 
   return 0;
 }

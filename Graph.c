@@ -147,10 +147,10 @@ void getPath(List L, Graph G, int u){
   else{
     append(L, u);
     int predecessor = G->parents[u];
-    while(predecessor != getSource(G)){
+    do{
       prepend(L, predecessor); // Prepends to get the order starting from the source to the target vertex.
       predecessor = G->parents[predecessor];
-    }
+    }while(predecessor != getSource(G))
   }
 }
 
