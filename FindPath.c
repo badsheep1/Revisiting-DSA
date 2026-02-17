@@ -1,9 +1,9 @@
 #include "Graph.h" 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define HEADER_LEN 1
 #define TOKEN_LEN 2
-#define EOF -1
 
 int main(int argc, char *argv[]){
 
@@ -36,6 +36,9 @@ int main(int argc, char *argv[]){
       addEdge(pathGraph, vertex1, vertex2); 
     }
   }
+
+  FILE* printTest = fopen("testParse.txt", "w" );
+  printGraph(printTest, pathGraph);
   
 
   freeGraph(&pathGraph);
