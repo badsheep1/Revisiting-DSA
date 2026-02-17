@@ -181,5 +181,39 @@ int main(void){
 
   printGraph(outFile, graph3);
 
+  makeNull(graph3);
+
+  addEdge(graph3, 1, 2);
+
+  addEdge(graph3, 1, 3);
+
+  addEdge(graph3, 2, 3);
+
+  addEdge(graph3, 2, 4);
+
+  addEdge(graph3, 3, 5);
+
+  BFS(graph3, 1);
+
+  getPath(path1, graph3, 6);
+
+  moveFront(path1);
+
+  assert(get(path1) == NIL);
+
+  BFS(graph3, 6);
+
+  getPath(path1, graph3, 1);
+
+  moveFront(path1);
+
+  assert(get(path1) == NIL);
+
+  getPath(path1, graph3, 6);
+
+  moveFront(path1);
+
+  assert(get(path1) == 6);
+  
   return 0;
 }
