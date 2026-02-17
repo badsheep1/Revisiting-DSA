@@ -23,9 +23,9 @@ int main(int argc, char *argv[]){
   int graphOrder;
   sscanf(inputBuffer, "%d", &graphOrder); // Reads the first line of the input, saves the value as the Order of the graph.
  
-
-  int vertex1, vertex2;
-
+  Graph pathGraph = newGraph(graphOrder);
+ 
+  int vertex1, vertex2; 
   while(fgets(inputBuffer, HEADER_LEN, inputFile)){
     sscanf(inputBuffer, "%d, %d", &vertex1, &vertex2);
 
@@ -33,17 +33,12 @@ int main(int argc, char *argv[]){
       break; // Input File Terminates
     } 
     else{
-      
+      addEdge(pathGraph, vertex1, vertex2); 
     }
-
-
-
   }
   
 
-
-
-  
+  freeGraph(&pathGraph);
 
   return 0;
 }
