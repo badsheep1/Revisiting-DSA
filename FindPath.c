@@ -5,6 +5,11 @@
 #define HEADER_LEN 1
 #define TOKEN_LEN 2
 
+typedef enum{
+  GRAPH_EXPAND,
+  GRAPH_QUERY
+}State;
+
 int main(int argc, char *argv[]){
 
   if(argc != 3){
@@ -26,14 +31,23 @@ int main(int argc, char *argv[]){
   Graph pathGraph = newGraph(graphOrder);
  
   int vertex1, vertex2; 
+
+  State current = GRAPH_EXPAND;
+
+  List path = newList();
+
   while(fgets(inputBuffer, HEADER_LEN, inputFile)){
     sscanf(inputBuffer, "%d, %d", &vertex1, &vertex2);
 
     if(vertex1 && vertex2 == 0){
-      break; // Input File Terminates
+      current = GRAPH_QUERY;
     } 
-    else{
+    
+    if(current == GRAPH_EXPAND){
       addEdge(pathGraph, vertex1, vertex2); 
+    }
+    else{
+
     }
   }
 
