@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
   List path = newList();
 
   while(fgets(inputBuffer, HEADER_LEN, inputFile)){
-    sscanf(inputBuffer, "%d, %d", &vertexA, &vertexB);
+    sscanf(inputBuffer, "%d %d", &vertexA, &vertexB);
 
     switch(phase){
       case GRAPH_EXPAND:
@@ -65,7 +65,7 @@ int main(int argc, char *argv[]){
           else{
             fprintf(outputFile, "%d\nA shortest %d-%d path is: ",(length(path) - 1), vertexA, vertexB);
             printList(outputFile, path);
-            fprintf("\n");
+            fprintf(outputFile, "\n");
           }
         }
         break;
