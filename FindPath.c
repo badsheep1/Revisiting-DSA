@@ -47,7 +47,8 @@ int main(int argc, char *argv[]){
       addEdge(pathGraph, vertex1, vertex2); 
     }
     else{
-
+      BFS(pathGraph, vertex1);
+      getPath(path, pathGraph, vertex2);
     }
   }
 
