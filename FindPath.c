@@ -30,31 +30,47 @@ int main(int argc, char *argv[]){
  
   Graph pathGraph = newGraph(graphOrder);
  
-  int vertex1, vertex2; 
+  int vertexA, vertexB; 
 
-  State current = GRAPH_EXPAND;
+  State phase = GRAPH_EXPAND;
 
   List path = newList();
 
   while(fgets(inputBuffer, HEADER_LEN, inputFile)){
-    sscanf(inputBuffer, "%d, %d", &vertex1, &vertex2);
+    sscanf(inputBuffer, "%d, %d", &vertexA, &vertexB);
 
-    if(vertex1 && vertex2 == 0){
-      current = GRAPH_QUERY;
-    } 
-    
-    if(current == GRAPH_EXPAND){
-      addEdge(pathGraph, vertex1, vertex2); 
-    }
-    else{
-      BFS(pathGraph, vertex1);
-      getPath(path, pathGraph, vertex2);
-    }
-  }
+    switch(phase){
+      case GRAPH_EXPAND:
+        if(vertexA && vertexB == 0){
+          phase = GRAPH_QUERY;
+          printGraph(outputFile, pathGraph);
+        }
+        else{
+          addEdge(pathGraph, vertexA, vertexB);
+        }
+        break;
+      case GRAPH_QUERY: 
+        if(vertexA && vertexB == 0){
+          continue;
+        }
+        else{
+          BFS(pathGraph, vertexA);
+          getPath(path, pathGraph, vertexB);
+          fprintf(outputFile, "The distance from %d to %d is ", vertexA, vertexB);
 
-  FILE* printTest = fopen("testParse.txt", "w" );
-  printGraph(printTest, pathGraph);
-  
+          moveFront(path);
+          if(get(path) == INF){
+            fprintf(outputFile, "infinity\nNo %d-%d path exists\n", vertexA, vertexB);
+          }
+          else{
+            fprintf(outputFile, "%d\nA shortest %d-%d path is: ",(length(path) - 1), vertexA, vertexB);
+            printList(outputFile, path);
+            fprintf("\n");
+          }
+        }
+        break;
+    }
+  } 
 
   freeGraph(&pathGraph);
 
