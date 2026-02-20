@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
         }
         break;
       case GRAPH_QUERY: 
-        if(vertexA && vertexB == 0){
+        if((vertexA == 0) || (vertexB == 0)){
           continue;
         }
         else{
