@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
           fprintf(outputFile, "The distance from %d to %d is ", vertexA, vertexB);
 
           moveFront(path);
-          if(get(path) == INF){
+          if(get(path) == NIL){
             fprintf(outputFile, "infinity\nNo %d-%d path exists\n", vertexA, vertexB);
           }
           else{
