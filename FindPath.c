@@ -37,7 +37,6 @@ int main(int argc, char *argv[]){
 
   while(fgets(inputBuffer, BUFFER_SIZE, inputFile)){
     sscanf(inputBuffer, "%d %d", &vertexA, &vertexB);
-    printGraph(outputFile, pathGraph);
 
     switch(phase){
       case GRAPH_EXPAND:
