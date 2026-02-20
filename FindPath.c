@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define HEADER_LEN 1
-#define TOKEN_LEN 2
+#define BUFFER_SIZE 128
 
 typedef enum{
   GRAPH_EXPAND,
@@ -21,9 +20,9 @@ int main(int argc, char *argv[]){
   FILE* inputFile = fopen(argv[1], "r");
   FILE* outputFile = fopen(argv[2], "w");
 
-  char inputBuffer[HEADER_LEN];
+  char inputBuffer[BUFFER_SIZE];
 
-  fgets(inputBuffer, TOKEN_LEN, inputFile);
+  fgets(inputBuffer, BUFFER_SIZE, inputFile);
 
   int graphOrder;
   sscanf(inputBuffer, "%d", &graphOrder); // Reads the first line of the input, saves the value as the Order of the graph.
@@ -36,12 +35,13 @@ int main(int argc, char *argv[]){
 
   List path = newList();
 
-  while(fgets(inputBuffer, HEADER_LEN, inputFile)){
+  while(fgets(inputBuffer, BUFFER_SIZE, inputFile)){
     sscanf(inputBuffer, "%d %d", &vertexA, &vertexB);
+    printGraph(outputFile, pathGraph);
 
     switch(phase){
       case GRAPH_EXPAND:
-        if(vertexA && vertexB == 0){
+        if((vertexA == 0) || (vertexB == 0)){
           phase = GRAPH_QUERY;
           printGraph(outputFile, pathGraph);
         }
