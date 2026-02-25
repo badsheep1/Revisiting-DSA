@@ -194,12 +194,32 @@ void addEdge(Graph G, int u, int v){
 
   G->size++;
 }
+
 void DFS(Graph G, List S);
 
 //Other Operations
 Graph transpose(Graph G);
 Graph copyGraph(Graph G);
-void printGraph(FILE* out, Graph G);
+
+void printGraph(FILE* out, Graph G){
+
+  if(G == NULL){
+    fprintf(stderr, "\033[31mGraph Error: printGraph was passed a NULL GraphObj.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(out == NULL){
+    fprintf(stderr, "\033[31mGraph Error: printGraph was passed a NULL FILE.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+
+  for(int i = 1; i <= getOrder(G), i++){
+    fprintf(out, "%d: ", i);
+    printList(out, G->neighbor[i]);
+    fprintf(out, "\n");
+  }
+
+}
 
 
 //Private helper function definition:
@@ -233,4 +253,4 @@ static void insertAdj(Graph G, int u, int v){
 
 }
 
-}
+
