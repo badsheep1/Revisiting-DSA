@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 // Private Helper Function Prototype:
-typedef struct graphObj{
+typedef struct GraphObj{
   List *neighbor;
   int *parent;
   int *color;
@@ -12,9 +12,35 @@ typedef struct graphObj{
   int *finish;
   int order;
   int size;
-}
+}GraphObj;
 // Constructors-Destructors:
-Graph newGraph(int n);
+Graph newGraph(int n){
+  if(n < 1){
+    fprintf(stderr, "Graph Error: newGraph is passed an invalid n parameter.\n");
+    exit(EXIT_FAILURE):
+  }
+
+  Graph newBorn = malloc(sizeof(GraphObj));
+  newBorn->order = n;
+  newBorn->size = NIL;
+
+  //allocating memory for these arrays.
+  newBorn->neighbor = malloc((n + 1) * sizeof(List));
+  newBorn->parent = malloc((n + 1) * sizeof(int));
+  newBorn->color = malloc((n + 1) * sizeof(int));
+  newBorn->discover = malloc((n + 1) * sizeof(int));
+  newBorn->finish = malloc((n + 1) * sizeof(int));
+
+  //setting zero index to some invalid value, will not be accessing these indices.
+  newBorn->neighbor[0] = NULL;
+  newBorn->parent[0] = newBorn->discover[0] = newBorn->finish[0] = newBorn->color[0] = NIL; 
+  
+  
+
+
+
+
+}
 void freeGraph(Graph* pG);
 
 //Access Functions
