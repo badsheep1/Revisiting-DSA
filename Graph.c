@@ -14,6 +14,7 @@ typedef struct GraphObj{
   int size;
 }GraphObj;
 // Constructors-Destructors:
+
 Graph newGraph(int n){
   if(n < 1){
     fprintf(stderr, "Graph Error: newGraph is passed an invalid n parameter.\n");
@@ -35,11 +36,11 @@ Graph newGraph(int n){
   newBorn->neighbor[0] = NULL;
   newBorn->parent[0] = newBorn->discover[0] = newBorn->finish[0] = newBorn->color[0] = NIL; 
   
-  
-
-
-
-
+  for(int i = 1; i <= n; i++){
+    newBorn->neighbor[i] = newList();
+    newBorn->color[i] = WHITE;
+    newBorn->parent[0] = newBorn->discover[0] = newBorn->finish[0] = NIL; 
+  }
 }
 void freeGraph(Graph* pG);
 
