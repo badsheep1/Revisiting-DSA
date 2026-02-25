@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// Private Helper Function Prototype:
 typedef struct GraphObj{
   List *neighbor;
   int *parent;
@@ -13,6 +12,7 @@ typedef struct GraphObj{
   int order;
   int size;
 }GraphObj;
+
 // Constructors-Destructors:
 
 Graph newGraph(int n){
@@ -45,10 +45,40 @@ Graph newGraph(int n){
   return newBorn;
 }
 
-void freeGraph(Graph* pG);
+void freeGraph(Graph* pG){
+
+  Graph Handle = *pG;
+
+  if(Handle == NULL){
+    fprintf(stderr, "Graph Error: freeGraph was passed a NULL graphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+ 
+  free(Handle->parent);
+  free(Handle->color);
+  free(Handle->discover);
+  free(Handle->finish);
+
+  for(int i = 1; i <= getOrder(Handle); i++){
+    freeList(&Handle->neighbor[i]);
+  }
+
+  free(Handle->neighbor);
+
+  free(Handle);
+
+}
 
 //Access Functions
-int getOrder(Graph G);
+int getOrder(Graph G){
+  if(G == NULL){
+    fprintf(stderr, "Graph Error: getOrder was passed a Null graphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  return G->order;
+}
+
 int getSize(Graph G);
 int getParent(Graph G, int u);
 int getDiscover(Graph G, int u);
