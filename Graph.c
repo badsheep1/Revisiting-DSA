@@ -104,8 +104,40 @@ int getParent(Graph G, int u){
 
   return G->parent[u]; 
 }
-int getDiscover(Graph G, int u);
-int getFinish(Graph G, int u);
+
+int getDiscover(Graph G, int u){
+if(G == NULL){
+    fprintf(stderr, "Graph Error: getDiscover was passed a Null graphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if((u < 1) || (u > getOrder(G))){
+    fprintf(stderr, 
+            "\033[31mGraph Error: getDiscover was passed an out of range u value.\n"
+            "Parameter Passed: u = %d\n"
+            "Pre-requisite : 1 <= u <= %d\033[0m\n", u, getOrder(G));
+    exit(EXIT_FAILURE);
+  }
+
+  return G->discover[u];
+}
+int getFinish(Graph G, int u){
+if(G == NULL){
+    fprintf(stderr, "Graph Error: getFinish was passed a Null graphObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if((u < 1) || (u > getOrder(G))){
+    fprintf(stderr, 
+            "\033[31mGraph Error: getFinish was passed an out of range u value.\n"
+            "Parameter Passed: u = %d\n"
+            "Pre-requisite : 1 <= u <= %d\033[0m\n", u, getOrder(G));
+    exit(EXIT_FAILURE);
+  }
+
+  return G->finish[u];
+
+}
 
 //Manipulation Procedures
 void addArc(Graph G, int u, int v);
