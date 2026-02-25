@@ -41,6 +41,8 @@ Graph newGraph(int n){
     newBorn->color[i] = WHITE;
     newBorn->parent[0] = newBorn->discover[0] = newBorn->finish[0] = NIL; 
   }
+
+  return newBorn;
 }
 
 void freeGraph(Graph* pG);
