@@ -4,7 +4,15 @@
 #include <stdio.h>
 
 // Private Helper Function Prototype:
-
+typedef struct graphObj{
+  List *neighbor;
+  int *parent;
+  int *color;
+  int *discover;
+  int *finish;
+  int order;
+  int size;
+}
 // Constructors-Destructors:
 Graph newGraph(int n);
 void freeGraph(Graph* pG);
