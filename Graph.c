@@ -213,7 +213,7 @@ void printGraph(FILE* out, Graph G){
     exit(EXIT_FAILURE);
   }
 
-  for(int i = 1; i <= getOrder(G), i++){
+  for(int i = 1; i <= getOrder(G); i++){
     fprintf(out, "%d: ", i);
     printList(out, G->neighbor[i]);
     fprintf(out, "\n");
