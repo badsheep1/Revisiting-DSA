@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Private Helper Function Prototype
+static void insertAdj(Graph G, int u, int v);
+
+// Data Structure  
 typedef struct GraphObj{
   List *neighbor;
   int *parent;
@@ -14,7 +18,6 @@ typedef struct GraphObj{
 }GraphObj;
 
 // Constructors-Destructors:
-
 Graph newGraph(int n){
   if(n < 1){
     fprintf(stderr, "Graph Error: newGraph is passed an invalid n parameter.\n");
@@ -140,11 +143,94 @@ if(G == NULL){
 }
 
 //Manipulation Procedures
-void addArc(Graph G, int u, int v);
-void addEdge(Graph G, int u, int v);
+void addArc(Graph G, int u, int v){
+
+  if(G == NULL){
+    fprintf(stderr, "\033[31mGraph Error: addArc was passed a NULL GraphObj.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if((u < 1) || (u > getOrder(G))){
+    fprintf(stderr,
+            "\033[31mGraph Error: addArc was passed an out of range u parameter\n"
+            "Parameter Passed: u = %d\n"
+            "Pre-requisite: 1 <= u <= %d\033[0m\n", u, getOrder(G));
+  }
+
+  if((v < 1) || (v > getOrder(G))){
+    fprintf(stderr,
+            "\033[31mGraph Error: addArc was passed an out of range v parameter\n"
+            "Parameter Passed: v = %d\n"
+            "Pre-requisite: 1 <= v <= %d\033[0m\n", v, getOrder(G));
+  }
+
+  insertAdj(G, u, v);
+
+  G->size++;
+}
+
+void addEdge(Graph G, int u, int v){
+  if(G == NULL){
+    fprintf(stderr, "\033[31mGraph Error: addEdge was passed a NULL GraphObj.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if((u < 1) || (u > getOrder(G))){
+    fprintf(stderr,
+            "\033[31mGraph Error: addEdge was passed an out of range u parameter\n"
+            "Parameter Passed: u = %d\n"
+            "Pre-requisite: 1 <= u <= %d\033[0m\n", u, getOrder(G));
+  }
+
+  if((v < 1) || (v > getOrder(G))){
+    fprintf(stderr,
+            "\033[31mGraph Error: addEdge was passed an out of range v parameter\n"
+            "Parameter Passed: v = %d\n"
+            "Pre-requisite: 1 <= v <= %d\033[0m\n", v, getOrder(G));
+  }
+
+  insertAdj(G, u, v);
+  insertAdj(G, v, u);
+
+  G->size++;
+}
 void DFS(Graph G, List S);
 
 //Other Operations
 Graph transpose(Graph G);
 Graph copyGraph(Graph G);
 void printGraph(FILE* out, Graph G);
+
+
+//Private helper function definition:
+static void insertAdj(Graph G, int u, int v){
+  List Handle = G->neighbor[u];
+
+  if(length(Handle) == 0){
+    append(Handle, v);
+  }
+  else{
+    moveFront(Handle);
+    while(listIndex(Handle) != UNDEFINED){
+      if(v <= get(Handle)){
+        insertBefore(Handle, v);
+        break;
+      }
+      else{
+        if(listIndex(Handle) == length(Handle) - 1){
+          if(v >= get(Handle)){
+            insertAfter(Handle, v);
+          }
+          else{
+            insertBefore(Handle, v);
+          }
+          break;
+        }
+        moveNext(Handle);
+      }
+    }
+  }
+
+}
+
+}
