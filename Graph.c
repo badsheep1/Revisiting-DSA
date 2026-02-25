@@ -18,7 +18,7 @@ typedef struct GraphObj{
 Graph newGraph(int n){
   if(n < 1){
     fprintf(stderr, "Graph Error: newGraph is passed an invalid n parameter.\n");
-    exit(EXIT_FAILURE):
+    exit(EXIT_FAILURE);
   }
 
   Graph newBorn = malloc(sizeof(GraphObj));
@@ -42,6 +42,7 @@ Graph newGraph(int n){
     newBorn->parent[0] = newBorn->discover[0] = newBorn->finish[0] = NIL; 
   }
 }
+
 void freeGraph(Graph* pG);
 
 //Access Functions
