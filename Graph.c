@@ -5,6 +5,7 @@
 
 // Private Helper Function Prototype
 static void insertAdj(Graph G, int u, int v);
+static void Visit(Graph G, int vertex, int *time);
 
 // Data Structure  
 typedef struct GraphObj{
@@ -42,7 +43,8 @@ Graph newGraph(int n){
   for(int i = 1; i <= n; i++){
     newBorn->neighbor[i] = newList();
     newBorn->color[i] = WHITE;
-    newBorn->parent[0] = newBorn->discover[0] = newBorn->finish[0] = NIL; 
+    newBorn->parent[i] = NIL; 
+    newBorn->discover[i] = newBorn->finish[i] = UNDEF; 
   }
 
   return newBorn;
@@ -195,7 +197,40 @@ void addEdge(Graph G, int u, int v){
   G->size++;
 }
 
-void DFS(Graph G, List S);
+void DFS(Graph G, List S){
+
+  if(G == NULL){
+    fprintf(stderr, "\033[31mGraph Error: DFS was passed a NULL GraphObj.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(S == NULL){
+    fprintf(stderr, "\033[31mGraph Error: DFS was passed a NULL ListObj.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(S) != getOrder(G)){
+    fprintf(stderr, "\033[31mGraph Error: DFS pre-condition length(S) == n was not met."
+            "length(S) = %d while n = %d\033[0m\n", length(S), getOrder(G));
+    exit(EXIT_FAILURE);
+  }
+
+  int time = 0;
+
+  moveFront(S);
+  int targetVertex;
+  while(listIndex(S) != UNDEFINED){
+    targetVertex = get(S);
+    if(G->color[targetVertex] == WHITE){
+      Visit(G, targetVertex, &time);
+    }
+    else{
+      moveNext(G);
+    }
+  }
+
+
+}
 
 //Other Operations
 Graph transpose(Graph G);
@@ -221,8 +256,7 @@ void printGraph(FILE* out, Graph G){
 
 }
 
-
-//Private helper function definition:
+//Private helper function definition: 
 static void insertAdj(Graph G, int u, int v){
   List Handle = G->neighbor[u];
 
@@ -250,7 +284,25 @@ static void insertAdj(Graph G, int u, int v){
       }
     }
   }
-
 }
 
+static void Visit(Graph G, int vertex, int *time){
+  *time++; // Increments the timer each function call.
 
+  if(G->color[vertex] == WHITE){
+    G->color[vertex] = GREY;
+    G->discover = *time;
+
+    List adjHandle = G->neighbor[vertex];
+    moveFront(adjHandle);
+    while(listIndex(adjHandle) != UNDEFINED){
+      int nextNeighbor = get(adjHandle);
+      Visit(G, nextNeighbor, time);
+    }
+
+    G->color[vertex] = BLACK;
+    G->finish[vertex] = *time;
+
+  }
+
+}

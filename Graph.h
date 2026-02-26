@@ -1,7 +1,7 @@
 #include "List.h"
 //Macro
-#define INF -1
 #define NIL 0
+#define UNDEF -1
 
 #define WHITE 10
 #define GRAY 20
