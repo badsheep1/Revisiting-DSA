@@ -225,7 +225,7 @@ void DFS(Graph G, List S){
       Visit(G, targetVertex, &time);
     }
     else{
-      moveNext(G);
+      moveNext(S);
     }
   }
 
@@ -287,11 +287,11 @@ static void insertAdj(Graph G, int u, int v){
 }
 
 static void Visit(Graph G, int vertex, int *time){
-  *time++; // Increments the timer each function call.
+  (*time)++; // Increments the timer each function call.
 
   if(G->color[vertex] == WHITE){
-    G->color[vertex] = GREY;
-    G->discover = *time;
+    G->color[vertex] = GRAY;
+    G->discover[vertex] = *time;
 
     List adjHandle = G->neighbor[vertex];
     moveFront(adjHandle);

@@ -6,14 +6,34 @@
 
 int main(void){
 
-  Graph testGraph = newGraph(5);
+  Graph testGraph = newGraph(8);
 
-  addEdge(testGraph, 1, 2);
-  addEdge(testGraph, 2, 4);
-  addEdge(testGraph, 1, 3);
-  addEdge(testGraph, 5, 4);
+  addArc(testGraph, 1, 2); 
+  addArc(testGraph, 2, 5); 
+  addArc(testGraph, 2, 6);
+  addArc(testGraph, 5, 1);
+  addArc(testGraph, 5, 6);
+
+  addArc(testGraph, 6, 7);
+  addArc(testGraph, 7, 6);
+  addArc(testGraph, 7, 8);
+  addArc(testGraph, 8, 8);
+
+  addArc(testGraph, 2, 3);
+  addArc(testGraph, 3, 4);
+  addArc(testGraph, 4, 3);
+  addArc(testGraph, 3, 7);
+  addArc(testGraph, 4, 8);
 
   FILE* outputFile = fopen("printTest.txt", "w");
+
+
+  List el = newList();
+  for(int i = 1; i <= 8; i++){
+    append(el, i);
+  }
+
+  DFS(testGraph, el);
 
   printGraph(outputFile, testGraph);
 
