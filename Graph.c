@@ -223,10 +223,8 @@ void DFS(Graph G, List S){
     targetVertex = get(S);
     if(G->color[targetVertex] == WHITE){
       Visit(G, targetVertex, &time);
-    }
-    else{
-      moveNext(S);
-    }
+    } 
+    moveNext(S);
   }
 
 
@@ -299,6 +297,7 @@ static void Visit(Graph G, int vertex, int *time){
       int nextNeighbor = get(adjHandle);
       G->parent[nextNeighbor] = vertex;
       Visit(G, nextNeighbor, time);
+      moveNext(adjHandle);
     }
 
     G->color[vertex] = BLACK;
