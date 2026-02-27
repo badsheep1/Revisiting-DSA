@@ -8,6 +8,7 @@ int main(void){
 
   Graph testGraph = newGraph(8);
 
+  // Graph Test provided in the instructions.
   addArc(testGraph, 1, 2); 
   addArc(testGraph, 2, 5); 
   addArc(testGraph, 2, 6);

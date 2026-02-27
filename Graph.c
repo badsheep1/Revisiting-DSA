@@ -227,7 +227,30 @@ void DFS(Graph G, List S){
     moveNext(S);
   }
 
+  clear(S);
 
+  for(int i = 1; i <= getOrder(G); i++){
+    int fTime = getFinish(G, i);
+    if(length(S) == 0){
+      append(S, fTime);
+    }
+    else{
+      moveFront(S);
+      while(listIndex(S) != UNDEFINED){
+        if(fTime < get(S)){
+          if(listIndex(S) == length(S)){
+            append(S, fTime);
+          }
+          else{
+            moveNext(S);
+          }
+        }
+        else{
+          insertBefore(S, fTime);
+        }
+      }
+    }
+  }
 }
 
 //Other Operations
