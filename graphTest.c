@@ -25,7 +25,7 @@ int main(void){
   addArc(testGraph, 3, 7);
   addArc(testGraph, 4, 8);
 
-  FILE* outputFile = fopen("printTest.txt", "w");
+  //FILE* outputFile = fopen("printTest.txt", "w");
 
 
   List el = newList();
@@ -35,7 +35,11 @@ int main(void){
 
   DFS(testGraph, el);
 
-  printGraph(outputFile, testGraph);
+  //printGraph(outputFile, testGraph);
+  
+  for(int i = 1; i <= 8; i++){
+    printf("%d:\t%d\t%d\n", i, getDiscover(testGraph, i), getFinish(testGraph, i));
+  }
 
   freeGraph(&testGraph);
 

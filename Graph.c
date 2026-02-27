@@ -285,9 +285,8 @@ static void insertAdj(Graph G, int u, int v){
 }
 
 static void Visit(Graph G, int vertex, int *time){
-  (*time)++; // Increments the timer each function call.
-
   if(G->color[vertex] == WHITE){
+    (*time)++; // Increments the timer each function call.
     G->color[vertex] = GRAY;
     G->discover[vertex] = *time;
 
@@ -304,5 +303,4 @@ static void Visit(Graph G, int vertex, int *time){
     G->finish[vertex] = *time;
 
   }
-
 }
