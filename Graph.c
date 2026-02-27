@@ -298,7 +298,7 @@ static void Visit(Graph G, int vertex, int *time){
       Visit(G, nextNeighbor, time);
       moveNext(adjHandle);
     }
-
+    (*time)++; // Increments once again when converting GRAY vertices to BLACK.
     G->color[vertex] = BLACK;
     G->finish[vertex] = *time;
 
