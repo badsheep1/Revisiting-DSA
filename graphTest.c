@@ -36,11 +36,14 @@ int main(void){
 
   DFS(testGraph, el);
 
+  printf("Length: %d\n", length(el));
+  printList(stdout, el);
+
   //printGraph(outputFile, testGraph);
   
-  for(int i = 1; i <= 8; i++){
-    printf("%d:\t%d\t%d\n", i, getDiscover(testGraph, i), getFinish(testGraph, i));
-  }
+  // for(int i = 1; i <= 8; i++){
+  //   printf("%d:\t%d\t%d\n", i, getDiscover(testGraph, i), getFinish(testGraph, i));
+  // }
 
   freeGraph(&testGraph);
 

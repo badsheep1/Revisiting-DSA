@@ -238,8 +238,9 @@ void DFS(Graph G, List S){
       moveFront(S);
       while(listIndex(S) != UNDEFINED){
         if(fTime < get(S)){
-          if(listIndex(S) == length(S)){
+          if(listIndex(S) == length(S) - 1){
             append(S, fTime);
+            break;
           }
           else{
             moveNext(S);
@@ -247,6 +248,7 @@ void DFS(Graph G, List S){
         }
         else{
           insertBefore(S, fTime);
+          break;
         }
       }
     }
