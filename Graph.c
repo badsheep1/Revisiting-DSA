@@ -256,8 +256,48 @@ void DFS(Graph G, List S){
 }
 
 //Other Operations
-Graph transpose(Graph G);
-Graph copyGraph(Graph G);
+Graph transpose(Graph G){
+  if(G == NULL){
+    fprintf(stderr, "\033[31mGraph Error: transpose was passed a Null GraphObj.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+
+  Graph transposedGraph = newGraph(getOrder(G));
+
+  for(int i = 1; i <= getOrder(G); i++){
+    List adjHandle = G->neighbor[i];
+    moveFront(adjHandle);
+
+    while(listIndex(adjHandle) != UNDEFINED){
+      addArc(transposedGraph, get(adjHandle), i);
+      moveNext(adjHandle);
+    }
+  }
+
+  return transposedGraph;
+}
+
+Graph copyGraph(Graph G){
+  if(G == NULL){
+    fprintf(stderr, "\033[31mGraph Error: copyGraph was passed a Null GraphObj.\033[0m\n");
+    exit(EXIT_FAILURE);
+  }
+  
+  Graph clone = newGraph(getOrder(G));
+
+  for(int i = 1; i <= getOrder(G); i++){
+    List adjHandle = G->neighbor[i];
+    moveFront(adjHandle);
+
+    while(listIndex(adjHandle) != UNDEFINED){
+      addArc(clone, i, get(adjHandle));
+      moveNext(adjHandle);
+    }
+  }
+
+  return clone;
+}
+
 
 void printGraph(FILE* out, Graph G){
 
