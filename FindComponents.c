@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Graph.h"
 
+#define BUFFER_LEN 128
 
 int main(int argc, char* argv[]){
   // Arguement check
@@ -24,6 +25,14 @@ int main(int argc, char* argv[]){
     fprintf(stderr, "\033[31m FindComponents is passed a NULL output file.\033[0m\n");
     exit(EXIT_FAILURE);
   }
+ 
+  int readBuffer[BUFFER_LEN];
+
+  while(fgets(readBuffer, BUFFER_LEN, inputFile)){
+
+  }
+
+
 
 
 
