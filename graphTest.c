@@ -26,7 +26,8 @@ int main(void){
   addArc(testGraph, 3, 7);
   addArc(testGraph, 4, 8);
 
-  //FILE* outputFile = fopen("printTest.txt", "w");
+  FILE* outputFile = fopen("printTest.txt", "w");
+  FILE* outputFile2 = fopen("printTest2.txt", "w");
 
 
   List el = newList();
@@ -34,18 +35,40 @@ int main(void){
     append(el, i);
   }
 
+  List le = copyList(el);
+
   DFS(testGraph, el);
 
-  printf("Length: %d\n", length(el));
-  printList(stdout, el);
+  Graph clone = copyGraph(testGraph);
 
-  //printGraph(outputFile, testGraph);
-  
-  // for(int i = 1; i <= 8; i++){
-  //   printf("%d:\t%d\t%d\n", i, getDiscover(testGraph, i), getFinish(testGraph, i));
-  // }
+  assert(getOrder(testGraph) == getOrder(clone));
+
+  DFS(clone, le);
+
+  for(int i = 1; i <= getOrder(testGraph); i++){
+    assert(getParent(testGraph, i) == getParent(clone, i));
+    assert(getDiscover(testGraph, i) == getDiscover(clone, i));
+    assert(getFinish(testGraph, i) == getFinish(clone, i));
+  }
+
+  assert(getSize(testGraph) == getSize(clone));
+
+  Graph transGraph = transpose(testGraph);
+
+  printGraph(outputFile, testGraph);
+  printGraph(outputFile2, transGraph); 
+
+  assert(getOrder(testGraph) == getOrder(testGraph));
+  assert(getSize(testGraph) == getSize(transGraph));
 
   freeGraph(&testGraph);
+  freeGraph(&clone);
+  freeGraph(&transGraph);
+
+  freeList(&el);
+  freeList(&le);
+
+  
 
   return 0;
 }
