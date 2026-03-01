@@ -26,17 +26,23 @@ int main(int argc, char* argv[]){
     exit(EXIT_FAILURE);
   }
  
-  int readBuffer[BUFFER_LEN];
+  char readBuffer[BUFFER_LEN];
 
-  while(fgets(readBuffer, BUFFER_LEN, inputFile)){
+  int graphOrder;
 
-  }
+  fgets(readBuffer, BUFFER_LEN, inputFile);
+
+  sscanf(readBuffer, "%d", &graphOrder);
+
+  printf("%d", graphOrder);
+
+  // while(fgets(readBuffer, BUFFER_LEN, inputFile)){
+  //
+  // }
 
 
-
-
-
-
+  fclose(inputFile);
+  fclose(outputFile);
 
   return 0;
 }
