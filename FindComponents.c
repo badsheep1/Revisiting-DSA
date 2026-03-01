@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
     exit(EXIT_FAILURE);
   }
 
-  FILE* inputFile, outputFile;
+  FILE *inputFile, *outputFile;
   inputFile = fopen(argv[1], "r");
   outputFile = fopen(argv[2], "w");
 
