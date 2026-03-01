@@ -232,14 +232,14 @@ void DFS(Graph G, List S){
   for(int i = 1; i <= getOrder(G); i++){
     int fTime = getFinish(G, i);
     if(length(S) == 0){
-      append(S, fTime);
+      append(S, i);
     }
     else{
       moveFront(S);
       while(listIndex(S) != UNDEFINED){
         if(fTime < get(S)){
           if(listIndex(S) == length(S) - 1){
-            append(S, fTime);
+            append(S, i);
             break;
           }
           else{
@@ -247,7 +247,7 @@ void DFS(Graph G, List S){
           }
         }
         else{
-          insertBefore(S, fTime);
+          insertBefore(S, i);
           break;
         }
       }

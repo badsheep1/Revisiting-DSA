@@ -42,9 +42,23 @@ int main(int argc, char* argv[]){
     if((u != 0) && (v != 0)){
       addArc(DFS_Graph, u, v);
     }
+    else{
+      break;
+    }
 
+  } 
+
+  // Creates the list of the vertices we want to explore in order.
+  List DFS_List = newList();
+  for(int i = 1; i <= graphOrder; i++){
+    append(DFS_List, i);
   }
 
+  DFS(DFS_Graph, DFS_List);
+
+  printList(stdout, DFS_List);
+
+  fprintf(outputFile, "Adjacency Representation of G:\n");
   printGraph(outputFile, DFS_Graph);
 
   fclose(inputFile);
