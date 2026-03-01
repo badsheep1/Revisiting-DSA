@@ -26,20 +26,26 @@ int main(int argc, char* argv[]){
     exit(EXIT_FAILURE);
   }
  
-  char readBuffer[BUFFER_LEN];
-
-  int graphOrder;
+  char readBuffer[BUFFER_LEN]; // Buffer storing lines being read from the input file.
+ 
+  int graphOrder; // Reads the first line, saves the value as the order we pass when creating a graph object.
 
   fgets(readBuffer, BUFFER_LEN, inputFile);
-
   sscanf(readBuffer, "%d", &graphOrder);
 
-  printf("%d", graphOrder);
+  Graph DFS_Graph = newGraph(graphOrder);
 
-  // while(fgets(readBuffer, BUFFER_LEN, inputFile)){
-  //
-  // }
+  int u, v; 
+  while(fgets(readBuffer, BUFFER_LEN, inputFile)){
+    sscanf(readBuffer, "%d %d", &u, &v);
 
+    if((u != 0) && (v != 0)){
+      addArc(DFS_Graph, u, v);
+    }
+
+  }
+
+  printGraph(outputFile, DFS_Graph);
 
   fclose(inputFile);
   fclose(outputFile);
