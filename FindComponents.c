@@ -4,6 +4,10 @@
 
 #define BUFFER_LEN 128
 
+enum componentSM{
+  LIST_INIT, LIST_INTAKE, LIST_FINISH;
+}
+
 int main(int argc, char* argv[]){
   // Arguement check
   if(argc != 3){
@@ -55,8 +59,24 @@ int main(int argc, char* argv[]){
   }
 
   DFS(DFS_Graph, DFS_List);
+  Graph tGraph = transposed(DFS_Graph);
+  DFS(tGraph, DFS_Lists);
 
-  printList(stdout, DFS_List);
+  List SCC_List = newList();
+
+  componentSM state = LIST_INIT:
+
+  moveFront(DFS_Lists);
+  while(listIndex(DFS_Lists) != UNDEFINED){
+    int vertexCursor = get(DFS_Lists);
+    
+    if((getFinish(DFS_Lists, vertexVursor) - getDiscover(DFS_Lists, vertexCursor) == 1) && (length(SCC_List) != 0)){
+      append(SCC_LIST, NIL);
+    }
+
+    append(SCC_LIST, vertexCursor);
+    moveNext(DFS_LISTS):
+  }
 
   fprintf(outputFile, "Adjacency Representation of G:\n");
   printGraph(outputFile, DFS_Graph);
