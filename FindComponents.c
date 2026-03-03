@@ -4,10 +4,6 @@
 
 #define BUFFER_LEN 128
 
-enum componentSM{
-  LIST_INIT, LIST_INTAKE, LIST_FINISH;
-}
-
 int main(int argc, char* argv[]){
   // Arguement check
   if(argc != 3){
@@ -59,27 +55,27 @@ int main(int argc, char* argv[]){
   }
 
   DFS(DFS_Graph, DFS_List);
-  Graph tGraph = transposed(DFS_Graph);
-  DFS(tGraph, DFS_Lists);
+  Graph tGraph = transpose(DFS_Graph);
+  DFS(tGraph, DFS_List);
 
   List SCC_List = newList();
 
-  componentSM state = LIST_INIT:
-
-  moveFront(DFS_Lists);
-  while(listIndex(DFS_Lists) != UNDEFINED){
-    int vertexCursor = get(DFS_Lists);
+  moveFront(DFS_List);
+  while(listIndex(DFS_List) != UNDEFINED){
+    int vertexCursor = get(DFS_List);
     
-    if((getFinish(DFS_Lists, vertexVursor) - getDiscover(DFS_Lists, vertexCursor) == 1) && (length(SCC_List) != 0)){
-      append(SCC_LIST, NIL);
+    if((getFinish(tGraph, vertexCursor) - getDiscover(tGraph, vertexCursor) == 1) && (length(SCC_List) != 0)){
+      append(SCC_List, NIL);
     }
 
-    append(SCC_LIST, vertexCursor);
-    moveNext(DFS_LISTS):
+    append(SCC_List, vertexCursor);
+    moveNext(DFS_List);
   }
 
   fprintf(outputFile, "Adjacency Representation of G:\n");
   printGraph(outputFile, DFS_Graph);
+
+  printList(outputFile, DFS_List);
 
   fclose(inputFile);
   fclose(outputFile);
