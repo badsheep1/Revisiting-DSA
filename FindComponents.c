@@ -75,7 +75,11 @@ int main(int argc, char* argv[]){
   fprintf(outputFile, "Adjacency Representation of G:\n");
   printGraph(outputFile, DFS_Graph);
 
-  printList(outputFile, DFS_List);
+  printList(outputFile, SCC_List);
+
+  for(int i = 1; i <= getOrder(tGraph); i++){
+    printf("%d:\t%d\t%d\t%d\n", i, getDiscover(tGraph, i), getFinish(tGraph, i), getParent(tGraph, i));
+  }
 
   fclose(inputFile);
   fclose(outputFile);
