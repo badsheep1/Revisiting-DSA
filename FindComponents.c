@@ -58,28 +58,36 @@ int main(int argc, char* argv[]){
   Graph tGraph = transpose(DFS_Graph);
   DFS(tGraph, DFS_List);
 
-  List SCC_List = newList();
+  int nSCC = 0;
 
+  List *listArray = malloc(sizeof(List));
+  listArray[0] = NULL;
+
+  List arrayHandle = NULL;
   moveFront(DFS_List);
   while(listIndex(DFS_List) != UNDEFINED){
-    int vertexCursor = get(DFS_List);
-    
-    if((getFinish(tGraph, vertexCursor) - getDiscover(tGraph, vertexCursor) == 1) && (length(SCC_List) != 0)){
-      append(SCC_List, NIL);
+    int targetVertex = get(DFS_List);
+    if(getParent(tGraph, targetVertex) == NIL){
+      nSCC++;
+      listArray = realloc(listArray, (nSCC + 1) * sizeof(List));
+      listArray[nSCC] = newList();
+      arrayHandle = listArray[nSCC];
     }
-
-    append(SCC_List, vertexCursor);
+    append(arrayHandle, targetVertex); 
     moveNext(DFS_List);
   }
 
   fprintf(outputFile, "Adjacency Representation of G:\n");
   printGraph(outputFile, DFS_Graph);
+  fprintf(outputFile, "\nG contains %d strongly connected components:\n", nSCC);
 
-  printList(outputFile, SCC_List);
-
-  for(int i = 1; i <= getOrder(tGraph); i++){
-    printf("%d:\t%d\t%d\t%d\n", i, getDiscover(tGraph, i), getFinish(tGraph, i), getParent(tGraph, i));
+  for(int i = 1; i <= nSCC; i++){
+    fprintf(outputFile, "Component %d: ", i);
+    printList(outputFile,listArray[i]);
+    fprintf(outputFile, "\n");
   }
+
+
 
   fclose(inputFile);
   fclose(outputFile);

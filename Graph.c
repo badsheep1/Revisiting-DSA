@@ -359,9 +359,11 @@ static void Visit(Graph G, int vertex, int *time){
     moveFront(adjHandle);
     while(listIndex(adjHandle) != UNDEFINED){
       int nextNeighbor = get(adjHandle);
-      if(G->parent[nextNeighbor] == NIL){
+
+      if(G->color[nextNeighbor] == WHITE){
         G->parent[nextNeighbor] = vertex;
       }
+
       Visit(G, nextNeighbor, time);
       moveNext(adjHandle);
     }

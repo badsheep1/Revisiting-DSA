@@ -7,4 +7,9 @@ Adjacency Representation of G:
 6: 7 
 7: 6 8 
 8: 8 
-8 7 0 6 3 0 4 1 5 0 2 
+
+G contains 4 strongly connected components:
+Component 1: 8 
+Component 2: 7 6 
+Component 3: 3 4 
+Component 4: 1 5 2 
