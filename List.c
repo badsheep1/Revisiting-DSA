@@ -7,9 +7,27 @@
 
 //Node Object
 typedef struct NodeObj{
-  int data;
+  void* data;
   struct NodeObj* prev;
-  struct NodeObj* next; } NodeObj; typedef NodeObj* Node; Node newNode(int data){ Node infant = malloc(sizeof(NodeObj)); if(infant == NULL){ fprintf(stderr, "List Error: Memory allocation failed for newNode().\n"); exit(EXIT_FAILURE); } infant->data = data; infant->prev = infant->next = NULL; return infant; } void freeNode(Node* pN){ if(pN != NULL && *pN != NULL){ free(*pN); *pN = NULL;
+  struct NodeObj* next;
+} NodeObj;
+
+typedef NodeObj* Node;
+
+Node newNode(int data){
+  Node infant = malloc(sizeof(NodeObj));
+  if(infant == NULL){ 
+    fprintf(stderr, "List Error: Memory allocation failed for newNode().\n"); 
+    exit(EXIT_FAILURE);
+  } 
+
+  infant->data = data;
+  infant->prev = infant->next = NULL; return infant;
+} 
+
+void freeNode(Node* pN){ 
+  if(pN != NULL && *pN != NULL){
+    free(*pN); *pN = NULL;
   }
 }
 
@@ -119,7 +137,7 @@ int back(List L){
 
 //  get(List L)
 //  Pre-Condition: List Exists, List is not empty, List cursor is pointing at something
-int get(List L){
+void* get(List L){
   
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL for get().\n");
@@ -135,42 +153,8 @@ int get(List L){
 
 }
 
-//  equals(List A, List B)
-//  Pre-Conditions: List A and List B both exist.
-bool equals(List A, List B){
-  
-  if(A == NULL || B == NULL){
-    fprintf(stderr, "List Error: List parameter is NULL for equals().\n");
-    exit(EXIT_FAILURE);
-  }
-
-  if(length(A) != length(B)){
-    return false; 
-  }
-
-  int indexA, indexB;
-  indexA = listIndex(A);
-  indexB = listIndex(B);
-  
-  moveFront(A);
-  moveFront(B);
-
-  while(listIndex(A) != UNDEFINED){
-    if(get(A) != get(B)){
-      return false;
-    }
-    moveNext(A);
-    moveNext(B);
-  }
-
-  setCursor(A, indexA);
-  setCursor(B, indexB);
-
-  return true;
-
-}
-
 //manipulation procedures
+
 //Pre-Conditions: List Exists.
 //Post-Conditions: Removes all nodes from the list.
 void clear(List L){
@@ -507,31 +491,4 @@ void printList(FILE* out, List L){
   }
 
 }
-
-List copyList(List L){
-  if(L == NULL){
-    fprintf(stderr, "List Error: List parameter is not valid for copyList().\n");
-    exit(EXIT_FAILURE);
-  }
-
-  List cloneList = newList();
-
-  int indexMark = listIndex(L);
-  moveFront(L);
-
-  while(listIndex(L) != UNDEFINED){
-    append(cloneList, get(L));
-    moveNext(L);
-  }
-  cloneList->cursor = NULL;
-  cloneList->index = UNDEFINED;
-
-  moveFront(L);
-  while(listIndex(L) < indexMark){
-    moveNext(L);
-  }
-
-  return cloneList;
-}
-
 
