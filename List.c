@@ -14,7 +14,7 @@ typedef struct NodeObj{
 
 typedef NodeObj* Node;
 
-Node newNode(int data){
+Node newNode(void* data){
   Node infant = malloc(sizeof(NodeObj));
   if(infant == NULL){ 
     fprintf(stderr, "List Error: Memory allocation failed for newNode().\n"); 
@@ -113,7 +113,7 @@ int listIndex(List L){
 
 // front(List L)
 // Pre-condition: List Exists
-int front(List L){
+void* front(List L){
 
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL for front().\n");
@@ -125,7 +125,7 @@ int front(List L){
 
 //  back(List L)
 //  Pre-Condition: List Exists
-int back(List L){
+void* back(List L){
 
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL for back().\n");
@@ -172,7 +172,7 @@ void clear(List L){
 
 //Pre-Conditions: List Exists, List is not-empty, List Cursor is not pointing to NULL.
 //Post-Conditions: List node selected by the cursor has its data over-written.
-void set(List L, int x){
+void set(List L, void* x){
   
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL for set().\n");
@@ -266,7 +266,7 @@ void movePrev(List L){
 
 //Pre-Conditions: List Exists
 //Post-Conditions: New Node is created and inserted at the front. Size increments by one. If cursor is defined, index should be incremented.
-void prepend(List L, int x){
+void prepend(List L, void* x){
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL in prepend().\n");
     exit(EXIT_FAILURE);
@@ -292,7 +292,7 @@ void prepend(List L, int x){
 
 //Pre-Conditions: List Exists.
 //Post-Conditions: New Node is created and inserted at the end. Size increments by one. Index remains constant.
-void append(List L, int x){
+void append(List L, void* x){
 
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL for append().\n");
@@ -313,7 +313,7 @@ void append(List L, int x){
   L->size++;
 }
 
-void insertBefore(List L, int x){
+void insertBefore(List L, void* x){
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL for insertBefore().\n");
     exit(EXIT_FAILURE);
@@ -341,7 +341,7 @@ void insertBefore(List L, int x){
   
 }
 
-void insertAfter(List L, int x){
+void insertAfter(List L, void* x){
   if(L == NULL){
     fprintf(stderr, "List Error: List parameter is NULL for insertAfter().\n");
     exit(EXIT_FAILURE);
@@ -465,30 +465,4 @@ void delete(List L){
 }
 
 //Other Operations
-
-void printList(FILE* out, List L){
-  if(L == NULL){
-    fprintf(stderr, "List Error: The list parameter is not valid for printList().\n");
-    exit(EXIT_FAILURE);
-  }
-
-  if(out == NULL){
-    fprintf(stderr, "List Error: The file parameter is not valid for printList().\n");
-    exit(EXIT_FAILURE);
-  }
-
-  int placeHolder = listIndex(L);
-  moveFront(L);
-
-  while(listIndex(L) != UNDEFINED){
-    fprintf(out, "%d ", get(L));
-    moveNext(L);
-  }
-
-  moveFront(L);
-  while(listIndex(L) != placeHolder){
-    moveNext(L);
-  }
-
-}
 
