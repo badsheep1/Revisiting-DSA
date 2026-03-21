@@ -1,45 +1,31 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "List.h"
 
 
-typedef struct obj1{
+struct testObj{
   int data;
-}dataObj;
-
-typedef struct obj2{
-  char string[128];
-}stringObj;
-
-typedef struct nodeObj{
-  void* obj;
-  struct nodeObj* next;
-  struct nodeObj* prev;
-}nodeObj;
-
-typedef nodeObj* Node;
-
-typedef struct listObj{
-  Node front;
-  Node end;
-  Node cursor;
-}listObj;
-
-
-Node newNode(void* obj);
-
-Node newNode(void* obj){
-  Node child = malloc(sizeof(nodeObj));
-  child->next = NULL;
-  child->prev = NULL;
-  child->obj = obj;
-
-  return child;
-}
-
-
+  struct testObj* nodePointer;
+};
 
 int main(void){
+  List testList = newList();
 
+  int* integer = malloc(sizeof(int));
+  *integer = 1;
 
+  append(testList, integer);
+
+  append(testList, &"string1");
+
+  struct testObj testInstance;
+  testInstance.data = 5;
+  testInstance.nodePointer = NULL;
+
+  append(testList, &testInstance);
+
+  moveFront(testList);
+
+  freeList(&testList);
   return 0;
 }

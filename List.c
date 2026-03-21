@@ -27,7 +27,8 @@ Node newNode(void* data){
 
 void freeNode(Node* pN){ 
   if(pN != NULL && *pN != NULL){
-    free(*pN); *pN = NULL;
+    free(*pN); 
+    *pN = NULL;
   }
 }
 
