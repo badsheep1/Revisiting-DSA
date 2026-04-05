@@ -8,6 +8,13 @@ typedef struct matrixObj{
   int nnz;
 }matrixObj;
 
+typedef struct matrixEntry{
+  int column;
+  float value;
+}matrixEntry;
+
+typedef matrixEntry* Entry;
+
 Matrix newMatrix(int n){
   Matrix child = malloc(sizeof(matrixObj));
   child->size = n;
@@ -47,4 +54,19 @@ int NNZ(Matrix M){
   }
 
   return M->nnz;
+}
+
+// Manipulation Procedures
+void makeZero(Matrix M){
+ if(M == NULL) {
+    fprintf(stderr, "Matrix Error: makeZero is passed a null MatrixObj.\n");
+    exit(EXIT_FAILURE);
+  }
+ 
+  List Handle;
+  for(int i = 0; i < size(M); i++){
+    Handle = M->matrixArray[i];
+    clear(Handle);
+  }
+  M->nnz = 0;
 }
