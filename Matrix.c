@@ -34,6 +34,8 @@ void freeMatrix(Matrix *pM) {
     freeList(&((*pM)->matrixArray[i]));
   }
 
+  free((*pM)->matrixArray);
+
   free(*pM);
   *pM = NULL;
 }
