@@ -34,7 +34,7 @@ void freeMatrix(Matrix *pM) {
     freeList(&((*pM)->matrixArray[i]));
   }
 
-  free(pM);
+  free(*pM);
   *pM = NULL;
 }
 
@@ -103,6 +103,6 @@ void changeEntry(Matrix M, int i, int j, double x) {
     }
   } else {
 
-    Entry colHandle = (Entry *)get(rowHandle);
+    Entry colHandle = (Entry)get(rowHandle);
   }
 }
