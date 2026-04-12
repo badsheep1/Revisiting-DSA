@@ -15,6 +15,10 @@ typedef struct matrixEntry {
 
 typedef matrixEntry *Entry;
 
+// Entry helper function prototypes:
+Entry newEntry(int col, double val);
+void freeEntry(Entry *pE);
+
 Matrix newMatrix(int n) {
   Matrix child = malloc(sizeof(matrixObj));
   child->size = n;
@@ -106,5 +110,21 @@ void changeEntry(Matrix M, int i, int j, double x) {
   } else {
 
     Entry colHandle = (Entry)get(rowHandle);
+  }
+}
+
+// Helper Functions:
+Entry newEntry(int col, double val) {
+  Entry child = malloc(sizeof(matrixEntry));
+  child->column = col;
+  child->value = val;
+
+  return child;
+}
+
+void freeEntry(Entry *pE) {
+  if ((pE != NULL) && (*pE != NULL)) {
+    free(*pE);
+    *pE = NULL;
   }
 }
