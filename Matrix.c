@@ -98,18 +98,52 @@ void changeEntry(Matrix M, int i, int j, double x) {
   }
 
   List rowHandle = M->matrixArray[i];
-
   moveFront(rowHandle);
-  if (listIndex(rowHandle) == UNDEFINED) {
-    if (x != 0) {
-      Entry newEntry = malloc(sizeof(struct matrixEntry));
-      newEntry->column = j;
-      newEntry->value = x;
-      append(rowHandle, &newEntry);
+
+  if (x == 0) {
+
+    while (listIndex(rowHandle) != UNDEFINED) {
+      Entry cursor = (Entry)get(rowHandle);
+      if (cursor->column == j) {
+        delete(rowHandle);
+      } else if (cursor->column > j) {
+        break;
+      } else {
+        moveNext(rowHandle);
+      }
     }
+
   } else {
 
-    Entry colHandle = (Entry)get(rowHandle);
+    if (listIndex(rowHandle) == UNDEFINED) {
+      // No non-zero entries in this row:
+      if (x != 0) {
+        Entry E = newEntry(j, x);
+        append(rowHandle, E);
+      }
+    } else {
+
+      while (listIndex(rowHandle) != UNDEFINED) {
+
+        Entry cursor = (Entry)get(rowHandle);
+        if (j == cursor->column) {
+          cursor->value = x;
+          break;
+        } else if (j < cursor->column) {
+          Entry E = newEntry(j, x);
+          insertBefore(rowHandle, E);
+          break;
+        } else {
+          if (listIndex(rowHandle) == (length(rowHandle) - 1)) {
+            Entry E = newEntry(j, x);
+            insertAfter(rowHandle, E);
+            break;
+          } else {
+            moveNext(rowHandle);
+          }
+        }
+      }
+    }
   }
 }
 
