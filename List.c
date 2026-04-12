@@ -1,40 +1,41 @@
 #include "List.h"
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 // Defining Data Structures
 
-//Node Object
-typedef struct NodeObj{
-  void* data;
-  struct NodeObj* prev;
-  struct NodeObj* next;
+// Node Object
+typedef struct NodeObj {
+  void *data;
+  struct NodeObj *prev;
+  struct NodeObj *next;
 } NodeObj;
 
-typedef NodeObj* Node;
+typedef NodeObj *Node;
 
-Node newNode(void* data){
+Node newNode(void *data) {
   Node infant = malloc(sizeof(NodeObj));
-  if(infant == NULL){ 
-    fprintf(stderr, "List Error: Memory allocation failed for newNode().\n"); 
+  if (infant == NULL) {
+    fprintf(stderr, "List Error: Memory allocation failed for newNode().\n");
     exit(EXIT_FAILURE);
-  } 
+  }
 
   infant->data = data;
-  infant->prev = infant->next = NULL; return infant;
-} 
+  infant->prev = infant->next = NULL;
+  return infant;
+}
 
-void freeNode(Node* pN){ 
-  if(pN != NULL && *pN != NULL){
-    free(*pN); 
+void freeNode(Node *pN) {
+  if (pN != NULL && *pN != NULL) {
+    free(*pN);
     *pN = NULL;
   }
 }
 
-//List Object
+// List Object
 
-typedef struct ListObj{
+typedef struct ListObj {
   int size;
   int index;
   Node cursor;
@@ -42,32 +43,29 @@ typedef struct ListObj{
   Node back;
 } ListObj;
 
+// Helper Functions
 
-//Helper Functions
-
-void setCursor(List L, int index){
+void setCursor(List L, int index) {
 
   moveFront(L);
-  while(L->index != index){
+  while (L->index != index) {
     moveNext(L);
   }
-
 }
 
 // Constructors and Deconstructors:
-
 
 // newList(void)
 // Pre-conditions: N/A
 // Post-conditions: N/A
 
-List newList(void){
+List newList(void) {
   List infant = malloc(sizeof(struct ListObj));
-  if(infant == NULL){
+  if (infant == NULL) {
     fprintf(stderr, "List Error: Memory Allocation failed in newList().\n");
     exit(EXIT_FAILURE);
   }
-  
+
   infant->size = 0;
   infant->index = UNDEFINED;
   infant->cursor = NULL;
@@ -75,24 +73,22 @@ List newList(void){
   return infant;
 }
 
-void freeList(List *pL){
+void freeList(List *pL) {
 
-  if(pL != NULL && *pL != NULL){
+  if (pL != NULL && *pL != NULL) {
     free(*pL);
     *pL = NULL;
   }
-
 }
-
 
 // Access Functions
 // There are no Post-Conditions for Access Functions.
 
 // length(List L)
 // Pre-Conditions: List Exists
-int length(List L){ 
-  
-  if(L == NULL){
+int length(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for length().\n");
     exit(EXIT_FAILURE);
   }
@@ -102,9 +98,9 @@ int length(List L){
 
 // listIndex(List L)
 // Pre-Condition: List Exists
-int listIndex(List L){
+int listIndex(List L) {
 
-  if(L == NULL){
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for listIndex().\n");
     exit(EXIT_FAILURE);
   }
@@ -114,346 +110,336 @@ int listIndex(List L){
 
 // front(List L)
 // Pre-condition: List Exists
-void* front(List L){
+void *front(List L) {
 
-  if(L == NULL){
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for front().\n");
-    exit(EXIT_FAILURE); 
+    exit(EXIT_FAILURE);
   }
-  
+
   return L->front->data;
 }
 
 //  back(List L)
 //  Pre-Condition: List Exists
-void* back(List L){
+void *back(List L) {
 
-  if(L == NULL){
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for back().\n");
-    exit(EXIT_FAILURE); 
+    exit(EXIT_FAILURE);
   }
 
   return L->back->data;
 }
 
 //  get(List L)
-//  Pre-Condition: List Exists, List is not empty, List cursor is pointing at something
-void* get(List L){
-  
-  if(L == NULL){
+//  Pre-Condition: List Exists, List is not empty, List cursor is pointing at
+//  something
+void *get(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for get().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(L->cursor == NULL){
+  if (L->cursor == NULL) {
     fprintf(stderr, "List Error: List cursor is undefined for get().\n");
     exit(EXIT_FAILURE);
   }
 
   return L->cursor->data;
-
 }
 
-//manipulation procedures
+// manipulation procedures
 
-//Pre-Conditions: List Exists.
-//Post-Conditions: Removes all nodes from the list.
-void clear(List L){
-    
-  if(L == NULL){
+// Pre-Conditions: List Exists.
+// Post-Conditions: Removes all nodes from the list.
+void clear(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for clear().\n");
     exit(EXIT_FAILURE);
   }
 
-  while(length(L)){
+  while (length(L)) {
     deleteFront(L);
   }
-
 }
 
-//Pre-Conditions: List Exists, List is not-empty, List Cursor is not pointing to NULL.
-//Post-Conditions: List node selected by the cursor has its data over-written.
-void set(List L, void* x){
-  
-  if(L == NULL){
+// Pre-Conditions: List Exists, List is not-empty, List Cursor is not pointing
+// to NULL. Post-Conditions: List node selected by the cursor has its data
+// over-written.
+void set(List L, void *x) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for set().\n");
     exit(EXIT_FAILURE);
   }
-  
-  if(L->cursor == NULL){
+
+  if (L->cursor == NULL) {
     fprintf(stderr, "List Error: List Cursor is undefined for set().\n");
     exit(EXIT_FAILURE);
   }
 
   L->cursor->data = x;
-  
 }
 
-//Pre-Conditions: List Exists, List is not empty.
-//Post-Conditions: List cursor points at the node at the front, the index is changed to 0.
-void moveFront(List L){
-  
-  if(L == NULL){
+// Pre-Conditions: List Exists, List is not empty.
+// Post-Conditions: List cursor points at the node at the front, the index is
+// changed to 0.
+void moveFront(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for moveFront().\n");
     exit(EXIT_FAILURE);
   }
- 
-  // If List is non-empty, it moves the cursor to the front. Otherwise it does nothing.
-  if(length(L) > 0){
+
+  // If List is non-empty, it moves the cursor to the front. Otherwise it does
+  // nothing.
+  if (length(L) > 0) {
     L->index = 0; // Sets the index to 0, the front of the list.
     L->cursor = L->front;
   }
-
 }
 
-//Pre-Conditions: List Exists, List is not empty.
-//Post-Conditions: List cursor points to the node at the end, the index is changed to (list's size - 1).
-void moveBack(List L){
+// Pre-Conditions: List Exists, List is not empty.
+// Post-Conditions: List cursor points to the node at the end, the index is
+// changed to (list's size - 1).
+void moveBack(List L) {
 
-  if(L == NULL){
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for moveBack().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(length(L) > 0){ 
+  if (length(L) > 0) {
     L->index = L->size - 1; // Sets the index to (n-1) back of the list.
-    L->cursor = L->back; 
+    L->cursor = L->back;
   }
-
 }
 
-//Pre-Conditions: List Exists, Cursor must exist and not defined at the back of the List.
-//Post-Conditions: Cursor traverses to the next node, index is incremented to reflect this. Otherwise cursor becomes undefined.
-void moveNext(List L){
-  
-  if(L == NULL){
+// Pre-Conditions: List Exists, Cursor must exist and not defined at the back of
+// the List. Post-Conditions: Cursor traverses to the next node, index is
+// incremented to reflect this. Otherwise cursor becomes undefined.
+void moveNext(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for moveNext().\n");
     exit(EXIT_FAILURE);
   }
-  
-  if(L->cursor != NULL){
-    if(L->index != length(L) - 1){
+
+  if (L->cursor != NULL) {
+    if (L->index != length(L) - 1) {
       L->cursor = L->cursor->next;
       L->index++;
-    }
-    else{
+    } else {
       L->cursor = NULL;
       L->index = UNDEFINED;
     }
   }
-
 }
 
-//Pre-Conditions: List Exists, Cursor should exist and not defined at the front of the List.
-//Post-Conditions: Cursor tranverses to the previous node, index is decremented to reflect this. Otherwise cursor becomes undefined.
-void movePrev(List L){
-  
-  if(L == NULL){
+// Pre-Conditions: List Exists, Cursor should exist and not defined at the front
+// of the List. Post-Conditions: Cursor tranverses to the previous node, index
+// is decremented to reflect this. Otherwise cursor becomes undefined.
+void movePrev(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for movePrev().\n");
     exit(EXIT_FAILURE);
   }
-  if(L->cursor != NULL){
-    if(L->index != 0){
+  if (L->cursor != NULL) {
+    if (L->index != 0) {
       L->cursor = L->cursor->prev;
       L->index--;
-    }
-    else{
+    } else {
       L->cursor = NULL;
       L->index = UNDEFINED;
     }
   }
-  
 }
 
-//Pre-Conditions: List Exists
-//Post-Conditions: New Node is created and inserted at the front. Size increments by one. If cursor is defined, index should be incremented.
-void prepend(List L, void* x){
-  if(L == NULL){
+// Pre-Conditions: List Exists
+// Post-Conditions: New Node is created and inserted at the front. Size
+// increments by one. If cursor is defined, index should be incremented.
+void prepend(List L, void *x) {
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL in prepend().\n");
     exit(EXIT_FAILURE);
   }
 
   Node preNode = newNode(x);
 
-  if(L->size == 0){
+  if (L->size == 0) {
     L->front = L->back = preNode;
-  }
-  else{
+  } else {
     preNode->next = L->front;
     L->front->prev = preNode;
     L->front = preNode;
   }
-  
-  if(L->index != UNDEFINED){
+
+  if (L->index != UNDEFINED) {
     L->index++;
   }
 
   L->size++;
 }
 
-//Pre-Conditions: List Exists.
-//Post-Conditions: New Node is created and inserted at the end. Size increments by one. Index remains constant.
-void append(List L, void* x){
+// Pre-Conditions: List Exists.
+// Post-Conditions: New Node is created and inserted at the end. Size increments
+// by one. Index remains constant.
+void append(List L, void *x) {
 
-  if(L == NULL){
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for append().\n");
     exit(EXIT_FAILURE);
   }
 
   Node appNode = newNode(x);
-  
-  if(L->size == 0){
+
+  if (L->size == 0) {
     L->front = L->back = appNode;
-  }
-  else{
+  } else {
     appNode->prev = L->back;
     L->back->next = appNode;
     L->back = appNode;
   }
- 
+
   L->size++;
 }
 
-void insertBefore(List L, void* x){
-  if(L == NULL){
+void insertBefore(List L, void *x) {
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for insertBefore().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(length(L) == 0){
+  if (length(L) == 0) {
     fprintf(stderr, "List Error: Cursor is undefined for insertBefore().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(L->index == 0){
+  if (L->index == 0) {
     prepend(L, x);
-  }
-  else{
+  } else {
     Node nodeLink = newNode(x);
     nodeLink->prev = L->cursor->prev;
     nodeLink->next = L->cursor;
     L->cursor->prev->next = nodeLink;
     L->cursor->prev = nodeLink;
- 
+
     L->size++;
     L->index++;
   }
-
-  
 }
 
-void insertAfter(List L, void* x){
-  if(L == NULL){
+void insertAfter(List L, void *x) {
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for insertAfter().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(length(L) == 0){
+  if (length(L) == 0) {
     fprintf(stderr, "List Error: Cursor is undefined for insertAfter().\n");
     exit(EXIT_FAILURE);
   }
 
-  
-  if(L->index == L->size - 1){
+  if (L->index == L->size - 1) {
     append(L, x);
-  }
-  else{
+  } else {
     Node nodeLink = newNode(x);
     nodeLink->prev = L->cursor;
     nodeLink->next = L->cursor->next;
     L->cursor->next->prev = nodeLink;
     L->cursor->next = nodeLink;
-   
+
     L->size++;
   }
 }
 
-void deleteFront(List L){
-  
-  if(L == NULL){
+void deleteFront(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for deleteFront().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(length(L) == 0){
+  if (length(L) == 0) {
     fprintf(stderr, "List Error: List is empty for deleteFront().\n");
     exit(EXIT_FAILURE);
   }
-  
-  Node tempCursor = L->front; // Creates a temporary pointer to point at the front node.
 
-  if(L->size > 1){
+  Node tempCursor =
+      L->front; // Creates a temporary pointer to point at the front node.
+
+  if (L->size > 1) {
     L->front = L->front->next;
-  }
-  else{
+  } else {
     L->front = NULL;
-  } 
-  
+  }
+
   L->size--;
   freeNode(&tempCursor);
 
-  if(listIndex(L) != UNDEFINED){ // If the cursor is undefined, do nothing, otherwise:
+  if (listIndex(L) !=
+      UNDEFINED) { // If the cursor is undefined, do nothing, otherwise:
 
-    if(listIndex(L) == 0){ // Check if the cursor is pointed to the front of the list.
+    if (listIndex(L) ==
+        0) { // Check if the cursor is pointed to the front of the list.
       L->cursor = NULL; // Set the cursor to NULl and undefine it.
       L->index = UNDEFINED;
-    }
-    else{
+    } else {
       L->index--;
     }
-
   }
-
 }
 
-void deleteBack(List L){
-  
-  if(L == NULL){
+void deleteBack(List L) {
+
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for deleteBack().\n");
-    exit(EXIT_FAILURE); 
+    exit(EXIT_FAILURE);
   }
 
-  if(length(L) == 0){
+  if (length(L) == 0) {
     fprintf(stderr, "List Error: Empty List for deleteBack().\n");
-    exit(EXIT_FAILURE); 
+    exit(EXIT_FAILURE);
   }
-  
-  Node tempCursor = L->back; // Creates a temporary pointer to point at the front node.
+
+  Node tempCursor =
+      L->back; // Creates a temporary pointer to point at the front node.
   L->back = L->back->prev;
   L->size--;
   freeNode(&tempCursor);
 
-  if( listIndex(L) != UNDEFINED && listIndex(L) == (length(L) - 1)){
+  if (listIndex(L) != UNDEFINED && listIndex(L) == (length(L) - 1)) {
     L->cursor = NULL; // Set the cursor to NULl and undefine it.
     L->index = UNDEFINED;
   }
-
 }
 
-void delete(List L){
+void delete(List L) {
 
-  if(L == NULL){
+  if (L == NULL) {
     fprintf(stderr, "List Error: List parameter is NULL for delete().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(length(L) == 0){
+  if (length(L) == 0) {
     fprintf(stderr, "List Error: Empty List for delete().\n");
     exit(EXIT_FAILURE);
   }
 
-  if(listIndex(L) == UNDEFINED){
+  if (listIndex(L) == UNDEFINED) {
     fprintf(stderr, "List Error: The cursor is undefined for delete().\n");
     exit(EXIT_FAILURE);
   }
-  
-  if(listIndex(L) == 0){
+
+  if (listIndex(L) == 0) {
     deleteFront(L);
-  }
-  else if(listIndex(L) == length(L) - 1){
+  } else if (listIndex(L) == length(L) - 1) {
     deleteBack(L);
-  }
-  else{
+  } else {
     L->cursor->prev->next = L->cursor->next;
     L->cursor->next->prev = L->cursor->prev;
 
@@ -462,8 +448,6 @@ void delete(List L){
     L->index = UNDEFINED;
     L->size--;
   }
-
 }
 
-//Other Operations
-
+// Other Operations
