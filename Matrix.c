@@ -53,7 +53,7 @@ int size(Matrix M) {
   return M->size;
 }
 
-int NNZ(Matrix M) {
+int NZZ(Matrix M) {
   if (M == NULL) {
     fprintf(stderr, "Matrix Error: NZZ() is passed a Null MatrixObj.\n");
     exit(EXIT_FAILURE);
@@ -106,6 +106,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
       Entry cursor = (Entry)get(rowHandle);
       if (cursor->column == j) {
         delete(rowHandle);
+        M->nnz--;
       } else if (cursor->column > j) {
         break;
       } else {
@@ -120,6 +121,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
       if (x != 0) {
         Entry E = newEntry(j, x);
         append(rowHandle, E);
+        M->nnz++;
       }
     } else {
 
@@ -132,11 +134,13 @@ void changeEntry(Matrix M, int i, int j, double x) {
         } else if (j < cursor->column) {
           Entry E = newEntry(j, x);
           insertBefore(rowHandle, E);
+          M->nnz++;
           break;
         } else {
           if (listIndex(rowHandle) == (length(rowHandle) - 1)) {
             Entry E = newEntry(j, x);
             insertAfter(rowHandle, E);
+            M->nnz++;
             break;
           } else {
             moveNext(rowHandle);
@@ -144,6 +148,29 @@ void changeEntry(Matrix M, int i, int j, double x) {
         }
       }
     }
+  }
+}
+
+void printMatrix(FILE *out, Matrix A) {
+  if (A == NULL) {
+    fprintf(stderr,
+            "Matrix Error: printMatrix is passed an invalid matrixObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  for (int i = 0; i < size(A); i++) {
+    List rowHandle = A->matrixArray[i];
+    if (length(rowHandle) > 0) {
+      fprintf(out, "%d: ", i);
+
+      moveFront(rowHandle);
+      while (listIndex(rowHandle) != UNDEFINED) {
+        Entry cursor = (Entry)get(rowHandle);
+        fprintf(out, "(%d, %f) ", cursor->column, cursor->value);
+        moveNext(rowHandle);
+      }
+    }
+    fprintf(out, "\n");
   }
 }
 
