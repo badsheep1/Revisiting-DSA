@@ -13,6 +13,7 @@ Matrix.o: Matrix.c Matrix.h
 List.o: List.c List.h
 	$(CC) $(CFLAGS) List.c -c
 
-.PHONY: clean
+clean:
 	rm -f *.o matrixTest
 
+.PHONY: clean
