@@ -97,7 +97,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
     exit(EXIT_FAILURE);
   }
 
-  List rowHandle = M->matrixArray[i];
+  List rowHandle = M->matrixArray[i - 1];
   moveFront(rowHandle);
 
   if (x == 0) {
@@ -111,7 +111,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
       } else if (cursor->column < j) {
         moveNext(rowHandle);
       } else {
-        break;
+        break; // Column is not in this sparse matrix, do nothing.
       }
     }
 

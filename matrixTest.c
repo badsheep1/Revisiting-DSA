@@ -37,6 +37,24 @@ int main(void) {
 
   assert(NZZ(testMatrix) == 3);
 
+  printMatrix(stdout, testMatrix);
+
+  changeEntry(testMatrix, 1, 3, 7.33);
+
+  changeEntry(testMatrix, 1, 2, 9.0392);
+
+  changeEntry(testMatrix, 2, 2, 1131.3);
+
+  changeEntry(testMatrix, 3, 3, 3);
+
+  changeEntry(testMatrix, 3, 2, 3);
+
+  changeEntry(testMatrix, 3, 1, 3);
+
+  printMatrix(stdout, testMatrix);
+
+  assert(NZZ(testMatrix) == 9);
+
   freeMatrix(&testMatrix);
 
   return 0;
