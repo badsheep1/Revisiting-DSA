@@ -107,6 +107,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
       if (cursor->column == j) {
         delete(rowHandle);
         M->nnz--;
+        break;
       } else if (cursor->column > j) {
         break;
       } else {
