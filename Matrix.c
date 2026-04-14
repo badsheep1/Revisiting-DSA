@@ -152,6 +152,37 @@ void changeEntry(Matrix M, int i, int j, double x) {
   }
 }
 
+// Matrix Arithmetic Operations
+Matrix copy(Matrix A) {
+
+  Matrix clone = newMatrix(size(A));
+
+  for (int i = 0; i < size(A); i++) {
+    List rowHandle = A->matrixArray[i];
+    if (length(rowHandle) > 0) {
+      moveFront(rowHandle);
+      while (listIndex(rowHandle) != UNDEFINED) {
+        Entry currentEntry = (Entry)get(rowHandle);
+        changeEntry(clone, (i + 1), currentEntry->column, currentEntry->value);
+        moveNext(rowHandle);
+      }
+    }
+  }
+
+  return clone;
+}
+
+Matrix transpose(Matrix A);
+
+Matrix scalarMult(double x, Matrix A);
+
+Matrix sum(Matrix A, Matrix B);
+
+Matrix diff(Matrix A, Matrix B);
+
+Matrix product(Matrix A, Matrix B);
+
+// Other Matrix Operations
 void printMatrix(FILE *out, Matrix A) {
   if (A == NULL) {
     fprintf(stderr,
