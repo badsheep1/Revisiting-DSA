@@ -24,9 +24,9 @@ Matrix newMatrix(int n) {
   child->size = n;
   child->nnz = 0;
 
-  child->matrixArray = malloc(n * sizeof(List));
+  child->matrixArray = calloc(n + 1, sizeof(List));
 
-  for (int i = 0; i < n; i++) {
+  for (int i = 1; i <= n; i++) {
     child->matrixArray[i] = newList();
   }
 
@@ -34,7 +34,7 @@ Matrix newMatrix(int n) {
 }
 
 void freeMatrix(Matrix *pM) {
-  for (int i = 0; i < size(*pM); i++) {
+  for (int i = 1; i <= size(*pM); i++) {
     freeList(&((*pM)->matrixArray[i]));
   }
 
@@ -70,7 +70,7 @@ void makeZero(Matrix M) {
   }
 
   List Handle;
-  for (int i = 0; i < size(M); i++) {
+  for (int i = 1; i <= size(M); i++) {
     Handle = M->matrixArray[i];
     clear(Handle);
   }
@@ -97,7 +97,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
     exit(EXIT_FAILURE);
   }
 
-  List rowHandle = M->matrixArray[i - 1];
+  List rowHandle = M->matrixArray[i];
   moveFront(rowHandle);
 
   if (x == 0) {
@@ -138,7 +138,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
           M->nnz++;
           break;
         } else {
-          if (listIndex(rowHandle) == (length(rowHandle) - 1)) {
+          if (listIndex(rowHandle) == (length(rowHandle) - 1)) { // Questionable
             Entry E = newEntry(j, x);
             insertAfter(rowHandle, E);
             M->nnz++;
@@ -157,7 +157,7 @@ Matrix copy(Matrix A) {
 
   Matrix clone = newMatrix(size(A));
 
-  for (int i = 0; i < size(A); i++) {
+  for (int i = 1; i <= size(A); i++) {
     List rowHandle = A->matrixArray[i];
     if (length(rowHandle) > 0) {
       moveFront(rowHandle);
@@ -190,7 +190,7 @@ void printMatrix(FILE *out, Matrix A) {
     exit(EXIT_FAILURE);
   }
 
-  for (int i = 0; i < size(A); i++) {
+  for (int i = 1; i <= size(A); i++) {
     List rowHandle = A->matrixArray[i];
     if (length(rowHandle) > 0) {
       fprintf(out, "%d: ", i);
