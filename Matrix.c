@@ -193,7 +193,7 @@ Matrix scalarMult(double x, Matrix A) {
   for (int i = 1; i <= size(A); i++) {
     List currentRow = A->matrixArray[i];
     moveFront(currentRow);
-    while (listIndex(currentRow)) {
+    while (listIndex(currentRow) != UNDEFINED) {
       Entry currentEntry = (Entry)get(currentRow);
       changeEntry(scale, i, currentEntry->column, x * currentEntry->value);
       moveNext(currentRow);

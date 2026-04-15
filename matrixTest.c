@@ -93,5 +93,27 @@ int main(void) {
 
   freeMatrix(&testMatrix);
 
+  freeMatrix(&clone);
+
+  freeMatrix(&trans);
+
+  Matrix baseMatrix = newMatrix(5);
+
+  for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= 5; j++) {
+      changeEntry(baseMatrix, i, j, i + j);
+    }
+  }
+
+  Matrix scaled = scalarMult(2, baseMatrix);
+
+  printf("Scalar Multiplication Test: \nBase Matrix:\n");
+
+  printMatrix(stdout, baseMatrix);
+
+  printf("\nScaled Matrix\n");
+
+  printMatrix(stdout, scaled);
+
   return 0;
 }
