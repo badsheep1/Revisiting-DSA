@@ -83,6 +83,14 @@ int main(void) {
 
   assert(NZZ(testMatrix) == NZZ(clone));
 
+  Matrix trans = transpose(testMatrix);
+
+  assert(NZZ(testMatrix) == NZZ(trans));
+
+  printf("\nTransposed Matrix: \n");
+
+  printMatrix(stdout, trans);
+
   freeMatrix(&testMatrix);
 
   return 0;
