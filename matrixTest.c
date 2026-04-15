@@ -55,6 +55,34 @@ int main(void) {
 
   assert(NZZ(testMatrix) == 9);
 
+  makeZero(testMatrix);
+
+  assert(NZZ(testMatrix) == 0);
+
+  printMatrix(stdout, testMatrix);
+
+  changeEntry(testMatrix, 1, 1, 1);
+  changeEntry(testMatrix, 1, 2, 1);
+  changeEntry(testMatrix, 1, 3, 1);
+
+  changeEntry(testMatrix, 2, 1, 77);
+
+  changeEntry(testMatrix, 2, 3, 1223);
+
+  changeEntry(testMatrix, 3, 2, 83.2);
+
+  Matrix clone = copy(testMatrix);
+
+  printf("testMatrix: \n");
+
+  printMatrix(stdout, testMatrix);
+
+  printf("\nCopy:\n");
+
+  printMatrix(stdout, clone);
+
+  assert(NZZ(testMatrix) == NZZ(clone));
+
   freeMatrix(&testMatrix);
 
   return 0;

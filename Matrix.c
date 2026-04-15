@@ -100,6 +100,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
   List rowHandle = M->matrixArray[i];
   moveFront(rowHandle);
 
+  /* Setting x = 0, deletes NZZ entries, or does nothing to zero entries */
   if (x == 0) {
 
     while (listIndex(rowHandle) != UNDEFINED) {
@@ -115,21 +116,21 @@ void changeEntry(Matrix M, int i, int j, double x) {
       }
     }
 
-  } else {
-
+  }
+  /* Non-zero entry either edits existing entries, or creates new ones */
+  else {
+    // Empty NNZ list, add new entry anywhere
     if (listIndex(rowHandle) == UNDEFINED) {
-      // No non-zero entries in this row:
-      if (x != 0) {
-        Entry E = newEntry(j, x);
-        append(rowHandle, E);
-        M->nnz++;
-      }
+      Entry E = newEntry(j, x);
+      append(rowHandle, E);
+      M->nnz++;
     } else {
 
       while (listIndex(rowHandle) != UNDEFINED) {
-
         Entry cursor = (Entry)get(rowHandle);
-        if (j == cursor->column) {
+        if (j ==
+            cursor
+                ->column) { // NNZ at this column already exists, edit the entry
           cursor->value = x;
           break;
         } else if (j < cursor->column) {
@@ -163,7 +164,7 @@ Matrix copy(Matrix A) {
       moveFront(rowHandle);
       while (listIndex(rowHandle) != UNDEFINED) {
         Entry currentEntry = (Entry)get(rowHandle);
-        changeEntry(clone, (i + 1), currentEntry->column, currentEntry->value);
+        changeEntry(clone, i, currentEntry->column, currentEntry->value);
         moveNext(rowHandle);
       }
     }
@@ -172,11 +173,40 @@ Matrix copy(Matrix A) {
   return clone;
 }
 
-Matrix transpose(Matrix A);
+Matrix transpose(Matrix A) {
+  Matrix trans = newMatrix(size(A));
 
-Matrix scalarMult(double x, Matrix A);
+  for (int i = 1; i <= size(A); i++) {
+    List currentRow = A->matrixArray[i];
+    moveFront(currentRow);
+    while (listIndex(currentRow) != UNDEFINED) {
+      Entry currentEntry = (Entry)get(currentRow);
+      changeEntry(trans, currentEntry->column, i, currentEntry->value);
+      moveNext(currentRow);
+    }
+  }
+  return trans;
+}
 
-Matrix sum(Matrix A, Matrix B);
+Matrix scalarMult(double x, Matrix A) {
+  Matrix scale = newMatrix(size(A));
+  for (int i = 1; i <= size(A); i++) {
+    List currentRow = A->matrixArray[i];
+    moveFront(currentRow);
+    while (listIndex(currentRow)) {
+      Entry currentEntry = (Entry)get(currentRow);
+      changeEntry(scale, i, currentEntry->column, x * currentEntry->value);
+      moveNext(currentRow);
+    }
+  }
+  return scale;
+}
+
+Matrix sum(Matrix A, Matrix B) {
+  Matrix sum = newMatrix(size(A));
+  for (int i = 1; i <= size(A); i++) {
+  }
+}
 
 Matrix diff(Matrix A, Matrix B);
 
