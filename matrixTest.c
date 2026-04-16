@@ -115,5 +115,34 @@ int main(void) {
 
   printMatrix(stdout, scaled);
 
+  Matrix A = newMatrix(3);
+  Matrix B = newMatrix(3);
+
+  printf("\nMatrix Summation: \n");
+
+  changeEntry(A, 1, 1, 1);
+  changeEntry(A, 1, 2, 2.51);
+  changeEntry(A, 2, 2, 1231);
+  changeEntry(A, 3, 1, 184.3);
+  changeEntry(A, 3, 3, 67);
+
+  printf("Matrix A:\n");
+
+  printMatrix(stdout, A);
+
+  changeEntry(B, 1, 1, 2);
+  changeEntry(B, 1, 2, 0.32);
+  changeEntry(B, 3, 1, 2);
+  changeEntry(B, 2, 1, 1);
+
+  printf("Matrix B:\n");
+
+  printMatrix(stdout, B);
+
+  printf("Summed Matrix:\n");
+
+  Matrix summed = sum(A, B);
+
+  printMatrix(stdout, summed);
   return 0;
 }

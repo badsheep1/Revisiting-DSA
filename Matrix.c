@@ -235,12 +235,38 @@ Matrix sum(Matrix A, Matrix B) {
           } else {
             if (listIndex(rowB) == length(rowB) - 1) {
               changeEntry(sum, i, currentEntryA->column, currentEntryA->value);
+              break;
             } else {
               moveNext(rowB);
             }
           }
         }
         moveNext(rowA);
+      }
+      moveFront(rowB);
+      while (listIndex(rowB) != UNDEFINED) {
+        Entry currentEntryB = (Entry)get(rowB);
+        moveFront(rowA);
+        while (listIndex(rowA) != UNDEFINED) {
+          Entry currentEntryA = (Entry)get(rowA);
+          if (currentEntryA->column != currentEntryB->column) {
+            if (currentEntryB->column < currentEntryA->column) {
+              changeEntry(sum, i, currentEntryB->column, currentEntryB->value);
+              break;
+            } else {
+              if (listIndex(rowA) == length(rowA) - 1) {
+                changeEntry(sum, i, currentEntryB->column,
+                            currentEntryB->value);
+                break;
+              } else {
+                moveNext(rowA);
+              }
+            }
+          } else {
+            break;
+          }
+        }
+        moveNext(rowB);
       }
     }
   }
