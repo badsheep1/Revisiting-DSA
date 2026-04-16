@@ -19,6 +19,8 @@ typedef matrixEntry *Entry;
 Entry newEntry(int col, double val);
 void freeEntry(Entry *pE);
 
+void rowClone(Matrix M, int rowIndex, List row);
+
 Matrix newMatrix(int n) {
   Matrix child = malloc(sizeof(matrixObj));
   child->size = n;
@@ -205,7 +207,45 @@ Matrix scalarMult(double x, Matrix A) {
 Matrix sum(Matrix A, Matrix B) {
   Matrix sum = newMatrix(size(A));
   for (int i = 1; i <= size(A); i++) {
+    List rowA = A->matrixArray[i];
+    List rowB = B->matrixArray[i];
+
+    if (length(rowA) != 0 && length(rowB) == 0) {
+      rowClone(sum, i, rowA);
+      break;
+    } else if (length(rowA) == 0 && length(rowB) != 0) {
+      rowClone(sum, i, rowB);
+      break;
+    } else if (length(rowA) == 0 && length(rowB) == 0) {
+      break;
+    } else {
+      moveFront(rowA);
+      while (listIndex(rowA) != UNDEFINED) {
+        moveFront(rowB);
+        Entry currentEntryA = (Entry)get(rowA);
+        while (listIndex(rowB) != UNDEFINED) {
+          Entry currentEntryB = (Entry)get(rowB);
+          if (currentEntryA->column == currentEntryB->column) {
+            changeEntry(sum, i, currentEntryA->column,
+                        currentEntryA->value + currentEntryB->value);
+            break;
+          } else if (currentEntryA->column < currentEntryB->column) {
+            changeEntry(sum, i, currentEntryA->column, currentEntryA->value);
+            break;
+          } else {
+            if (listIndex(rowB) == length(rowB) - 1) {
+              changeEntry(sum, i, currentEntryA->column, currentEntryA->value);
+            } else {
+              moveNext(rowB);
+            }
+          }
+        }
+        moveNext(rowA);
+      }
+    }
   }
+
+  return sum;
 }
 
 Matrix diff(Matrix A, Matrix B);
@@ -249,5 +289,25 @@ void freeEntry(Entry *pE) {
   if ((pE != NULL) && (*pE != NULL)) {
     free(*pE);
     *pE = NULL;
+  }
+}
+
+void rowClone(Matrix M, int rowIndex, List row) {
+  if (M == NULL) {
+    fprintf(stderr,
+            "Matrix Error: listClone is passed an invalid M matrixObj,\n");
+    exit(EXIT_FAILURE);
+  }
+  if (row == NULL) {
+    fprintf(stderr,
+            "Matrix Error: listClone is passed an invalid row ListObj,\n");
+    exit(EXIT_FAILURE);
+  }
+
+  moveFront(row);
+  while (listIndex(row) != UNDEFINED) {
+    Entry currentEntry = (Entry)get(row);
+    changeEntry(M, rowIndex, currentEntry->column, currentEntry->value);
+    moveNext(row);
   }
 }
