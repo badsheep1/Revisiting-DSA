@@ -253,10 +253,46 @@ Matrix diff(Matrix A, Matrix B) {
 
   Matrix difference = sum(A, subtrahend);
 
+  freeMatrix(&subtrahend);
+
   return difference;
 }
 
-Matrix product(Matrix A, Matrix B);
+Matrix product(Matrix A, Matrix B) {
+  if (A == NULL) {
+    fprintf(stderr, "Matrix Error: product() is passed a null A matrixObj.\n");
+    exit(EXIT_FAILURE);
+  }
+  if (B == NULL) {
+    fprintf(stderr, "Matrix Error: product() is passed a null B matrixObj.\n");
+    exit(EXIT_FAILURE);
+  }
+  if (size(A) != size(B)) {
+    fprintf(stderr, "Matrix Error: product() is passed matrices with "
+                    "incompatiable sizes.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  Matrix product = newMatrix(size(A));
+  for (int i = 1; i <= size(A); i++) {
+    for (int j = 1; j <= size(A); j++) {
+      List rowA = A->matrixArray[i];
+      moveFront(rowA);
+      double entryVal = 0;
+      for (int k = 1; k <= size(A); k++) {
+        List rowB = B->matrixArray[k];
+        moveFront(rowB);
+        Entry entryA = (Entry)get(rowA);
+        Entry entryB = (Entry)get(rowB);
+
+        if (j == entryA->column) {
+          entryVal += (entryA->value * entryB->value);
+        }
+        moveNext(rowA);
+      }
+    }
+  }
+}
 
 // Other Matrix Operations
 void printMatrix(FILE *out, Matrix A) {
