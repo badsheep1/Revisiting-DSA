@@ -144,5 +144,35 @@ int main(void) {
   Matrix summed = sum(A, B);
 
   printMatrix(stdout, summed);
+
+  Matrix minuend = newMatrix(3);
+  Matrix subtrahend = newMatrix(3);
+
+  changeEntry(minuend, 1, 1, 231);
+  changeEntry(minuend, 1, 2, 974);
+  changeEntry(minuend, 3, 2, 32.53);
+
+  changeEntry(minuend, 1, 3, 104.342);
+  changeEntry(minuend, 2, 1, 88765);
+  changeEntry(minuend, 3, 3, 213);
+
+  changeEntry(subtrahend, 1, 1, 102);
+  changeEntry(subtrahend, 1, 2, 111.2);
+  changeEntry(subtrahend, 1, 3, 32.53);
+
+  changeEntry(subtrahend, 1, 3, -104.342);
+  changeEntry(subtrahend, 3, 1, 6.43);
+  changeEntry(subtrahend, 3, 3, 213);
+
+  printf("\nMinuend:\n");
+  printMatrix(stdout, minuend);
+
+  printf("\nSubtrahend\n");
+  printMatrix(stdout, subtrahend);
+
+  Matrix dif = diff(minuend, subtrahend);
+  printf("\nDifference\n");
+  printMatrix(stdout, dif);
+
   return 0;
 }
