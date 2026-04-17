@@ -212,61 +212,41 @@ Matrix sum(Matrix A, Matrix B) {
 
     if (length(rowA) != 0 && length(rowB) == 0) {
       rowClone(sum, i, rowA);
-      break;
+      continue;
     } else if (length(rowA) == 0 && length(rowB) != 0) {
       rowClone(sum, i, rowB);
-      break;
+      continue;
     } else if (length(rowA) == 0 && length(rowB) == 0) {
-      break;
+      continue;
     } else {
       moveFront(rowA);
-      while (listIndex(rowA) != UNDEFINED) {
-        moveFront(rowB);
-        Entry currentEntryA = (Entry)get(rowA);
-        while (listIndex(rowB) != UNDEFINED) {
-          Entry currentEntryB = (Entry)get(rowB);
-          if (currentEntryA->column == currentEntryB->column) {
-            changeEntry(sum, i, currentEntryA->column,
-                        currentEntryA->value + currentEntryB->value);
-            break;
-          } else if (currentEntryA->column < currentEntryB->column) {
-            changeEntry(sum, i, currentEntryA->column, currentEntryA->value);
-            break;
-          } else {
-            if (listIndex(rowB) == length(rowB) - 1) {
-              changeEntry(sum, i, currentEntryA->column, currentEntryA->value);
-              break;
-            } else {
-              moveNext(rowB);
-            }
-          }
-        }
-        moveNext(rowA);
-      }
       moveFront(rowB);
-      while (listIndex(rowB) != UNDEFINED) {
-        Entry currentEntryB = (Entry)get(rowB);
-        moveFront(rowA);
-        while (listIndex(rowA) != UNDEFINED) {
-          Entry currentEntryA = (Entry)get(rowA);
-          if (currentEntryA->column != currentEntryB->column) {
-            if (currentEntryB->column < currentEntryA->column) {
-              changeEntry(sum, i, currentEntryB->column, currentEntryB->value);
-              break;
-            } else {
-              if (listIndex(rowA) == length(rowA) - 1) {
-                changeEntry(sum, i, currentEntryB->column,
-                            currentEntryB->value);
-                break;
-              } else {
-                moveNext(rowA);
-              }
-            }
-          } else {
-            break;
+      while (listIndex(rowA) != UNDEFINED || listIndex(rowB) != UNDEFINED) {
+        if (listIndex(rowA) != UNDEFINED && listIndex(rowB) == UNDEFINED) {
+          Entry entryA = (Entry)get(rowA);
+          changeEntry(sum, i, entryA->column, entryA->value);
+          moveNext(rowA);
+        } else if (listIndex(rowA) == UNDEFINED &&
+                   listIndex(rowB) != UNDEFINED) {
+          Entry entryB = (Entry)get(rowB);
+          changeEntry(sum, i, entryB->column, entryB->value);
+          moveNext(rowB);
+        } else {
+          Entry entryA = (Entry)get(rowA);
+          Entry entryB = (Entry)get(rowB);
+          if (entryA->column == entryB->column) {
+            changeEntry(sum, i, entryA->column,
+                        (entryA->value + entryB->value));
+            moveNext(rowA);
+            moveNext(rowB);
+          } else if (entryA->column < entryB->column) {
+            changeEntry(sum, i, entryA->column, entryA->value);
+            moveNext(rowA);
+          } else if (entryA->column > entryB->column) {
+            changeEntry(sum, i, entryB->column, entryB->value);
+            moveNext(rowB);
           }
         }
-        moveNext(rowB);
       }
     }
   }
