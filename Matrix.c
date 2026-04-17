@@ -210,47 +210,34 @@ Matrix sum(Matrix A, Matrix B) {
     List rowA = A->matrixArray[i];
     List rowB = B->matrixArray[i];
 
-    if (length(rowA) != 0 && length(rowB) == 0) {
-      rowClone(sum, i, rowA);
-      continue;
-    } else if (length(rowA) == 0 && length(rowB) != 0) {
-      rowClone(sum, i, rowB);
-      continue;
-    } else if (length(rowA) == 0 && length(rowB) == 0) {
-      continue;
-    } else {
-      moveFront(rowA);
-      moveFront(rowB);
-      while (listIndex(rowA) != UNDEFINED || listIndex(rowB) != UNDEFINED) {
-        if (listIndex(rowA) != UNDEFINED && listIndex(rowB) == UNDEFINED) {
-          Entry entryA = (Entry)get(rowA);
+    moveFront(rowA);
+    moveFront(rowB);
+    while (listIndex(rowA) != UNDEFINED || listIndex(rowB) != UNDEFINED) {
+      if (listIndex(rowA) != UNDEFINED && listIndex(rowB) == UNDEFINED) {
+        Entry entryA = (Entry)get(rowA);
+        changeEntry(sum, i, entryA->column, entryA->value);
+        moveNext(rowA);
+      } else if (listIndex(rowA) == UNDEFINED && listIndex(rowB) != UNDEFINED) {
+        Entry entryB = (Entry)get(rowB);
+        changeEntry(sum, i, entryB->column, entryB->value);
+        moveNext(rowB);
+      } else {
+        Entry entryA = (Entry)get(rowA);
+        Entry entryB = (Entry)get(rowB);
+        if (entryA->column == entryB->column) {
+          changeEntry(sum, i, entryA->column, (entryA->value + entryB->value));
+          moveNext(rowA);
+          moveNext(rowB);
+        } else if (entryA->column < entryB->column) {
           changeEntry(sum, i, entryA->column, entryA->value);
           moveNext(rowA);
-        } else if (listIndex(rowA) == UNDEFINED &&
-                   listIndex(rowB) != UNDEFINED) {
-          Entry entryB = (Entry)get(rowB);
+        } else if (entryA->column > entryB->column) {
           changeEntry(sum, i, entryB->column, entryB->value);
           moveNext(rowB);
-        } else {
-          Entry entryA = (Entry)get(rowA);
-          Entry entryB = (Entry)get(rowB);
-          if (entryA->column == entryB->column) {
-            changeEntry(sum, i, entryA->column,
-                        (entryA->value + entryB->value));
-            moveNext(rowA);
-            moveNext(rowB);
-          } else if (entryA->column < entryB->column) {
-            changeEntry(sum, i, entryA->column, entryA->value);
-            moveNext(rowA);
-          } else if (entryA->column > entryB->column) {
-            changeEntry(sum, i, entryB->column, entryB->value);
-            moveNext(rowB);
-          }
         }
       }
     }
   }
-
   return sum;
 }
 
