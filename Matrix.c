@@ -19,8 +19,6 @@ typedef matrixEntry *Entry;
 Entry newEntry(int col, double val);
 void freeEntry(Entry *pE);
 
-void rowClone(Matrix M, int rowIndex, List row);
-
 Matrix newMatrix(int n) {
   Matrix child = malloc(sizeof(matrixObj));
   child->size = n;
@@ -241,7 +239,22 @@ Matrix sum(Matrix A, Matrix B) {
   return sum;
 }
 
-Matrix diff(Matrix A, Matrix B);
+Matrix diff(Matrix A, Matrix B) {
+  if (A == NULL) {
+    fprintf(stderr, "Matrix Error: diff() is passed a null A matrixObj.\n");
+    exit(EXIT_FAILURE);
+  }
+  if (B == NULL) {
+    fprintf(stderr, "Matrix Error: diff() is passed a null B matrixObj.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  Matrix subtrahend = scalarMult(-1, B);
+
+  Matrix difference = sum(A, subtrahend);
+
+  return difference;
+}
 
 Matrix product(Matrix A, Matrix B);
 
@@ -282,25 +295,5 @@ void freeEntry(Entry *pE) {
   if ((pE != NULL) && (*pE != NULL)) {
     free(*pE);
     *pE = NULL;
-  }
-}
-
-void rowClone(Matrix M, int rowIndex, List row) {
-  if (M == NULL) {
-    fprintf(stderr,
-            "Matrix Error: listClone is passed an invalid M matrixObj,\n");
-    exit(EXIT_FAILURE);
-  }
-  if (row == NULL) {
-    fprintf(stderr,
-            "Matrix Error: listClone is passed an invalid row ListObj,\n");
-    exit(EXIT_FAILURE);
-  }
-
-  moveFront(row);
-  while (listIndex(row) != UNDEFINED) {
-    Entry currentEntry = (Entry)get(row);
-    changeEntry(M, rowIndex, currentEntry->column, currentEntry->value);
-    moveNext(row);
   }
 }
