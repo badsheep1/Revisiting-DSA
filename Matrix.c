@@ -274,28 +274,39 @@ Matrix product(Matrix A, Matrix B) {
   }
 
   Matrix product = newMatrix(size(A));
+
+  Matrix transB = transpose(B);
+
   for (int i = 1; i <= size(A); i++) {
     for (int j = 1; j <= size(A); j++) {
-      List rowA = A->matrixArray[i];
-      moveFront(rowA);
-      double entryVal = 0;
-      for (int k = 1; k <= size(A); k++) {
-        List rowB = B->matrixArray[k];
-        moveFront(rowB);
-        Entry entryA = (Entry)get(rowA);
-        Entry entryB = (Entry)get(rowB);
+      double dotProduct = 0;
 
-        if (j == entryA->column) {
-          entryVal += (entryA->value * entryB->value);
-        } else if (j > entryA->column) {
+      List rowA = A->matrixArray[i];
+      List colB = transB->matrixArray[j];
+
+      moveFront(rowA);
+      moveFront(colB);
+
+      while (listIndex(rowA) != UNDEFINED && listIndex(colB) != UNDEFINED) {
+        Entry entryA = (Entry)get(rowA);
+        Entry entryB = (Entry)get(colB);
+
+        if (entryA->column == entryB->column) {
+          dotProduct += (entryA->value * entryB->value);
           moveNext(rowA);
-        } else if (j < entryA->column) {
-          continue;
+          moveNext(colB);
+        } else if (entryA->column > entryB->column) {
+          moveNext(colB);
+        } else if (entryA->column < entryB->column) {
+          moveNext(rowA);
         }
       }
-      changeEntry(product, i, j, entryVal);
+      if (dotProduct != 0) {
+        changeEntry(product, i, j, dotProduct);
+      }
     }
   }
+  freeMatrix(&transB);
   return product;
 }
 
