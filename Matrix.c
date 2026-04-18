@@ -287,11 +287,16 @@ Matrix product(Matrix A, Matrix B) {
 
         if (j == entryA->column) {
           entryVal += (entryA->value * entryB->value);
+        } else if (j > entryA->column) {
+          moveNext(rowA);
+        } else if (j < entryA->column) {
+          continue;
         }
-        moveNext(rowA);
       }
+      changeEntry(product, i, j, entryVal);
     }
   }
+  return product;
 }
 
 // Other Matrix Operations
